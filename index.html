@@ -3,34 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kalkulator Mega Ultra Pro + Konverter & AI Voice</title>
+    <title>Kalkulator Ultimate OS - Premium Edition</title>
     <style>
         :root {
-            --bg-body: #f4f7f6;
+            --bg-body: #f0f4f8;
             --bg-calc: #ffffff;
-            --txt-main: #333333;
-            --btn-num: #e9ecef;
-            --btn-op: #fd7e14;
-            --btn-sci: #6c757d;
-            --btn-mem: #4a5568;
-            --screen-bg: #f8f9fa;
-            --tab-active: #fd7e14;
+            --txt-main: #1e293b;
+            --txt-muted: #64748b;
+            --btn-num: #f1f5f9;
+            --btn-num-hover: #e2e8f0;
+            --btn-op: #f59e0b;
+            --btn-op-hover: #d97706;
+            --btn-sci: #6366f1;
+            --btn-sci-hover: #4f46e5;
+            --btn-mem: #475569;
+            --screen-bg: #f8fafc;
+            --accent: #10b981;
+            --border: #e2e8f0;
         }
 
         [data-theme="dark"] {
-            --bg-body: #121212;
-            --bg-calc: #1e1e1e;
-            --txt-main: #ffffff;
-            --btn-num: #2d2d2d;
-            --btn-op: #f77f00;
-            --btn-sci: #4a4a4a;
-            --btn-mem: #2c3e50;
-            --screen-bg: #0f0f0f;
-            --tab-active: #f77f00;
+            --bg-body: #0f172a;
+            --bg-calc: #1e293b;
+            --txt-main: #f8fafc;
+            --txt-muted: #94a3b8;
+            --btn-num: #334155;
+            --btn-num-hover: #475569;
+            --btn-op: #f59e0b;
+            --btn-op-hover: #d97706;
+            --btn-sci: #818cf8;
+            --btn-sci-hover: #6366f1;
+            --btn-mem: #1e293b;
+            --screen-bg: #0f172a;
+            --accent: #34d399;
+            --border: #334155;
+        }
+
+        * {
+            box-sizing: border-box;
+            transition: background-color 0.2s, color 0.2s;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
             background-color: var(--bg-body);
             color: var(--txt-main);
             display: flex;
@@ -38,229 +53,223 @@
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            transition: all 0.3s ease;
+            padding: 20px;
         }
 
         .container {
             display: flex;
-            gap: 20px;
-            max-width: 1000px;
+            flex-direction: row;
+            gap: 25px;
+            max-width: 1200px;
             width: 100%;
-            padding: 20px;
-            box-sizing: border-box;
-            flex-wrap: wrap;
+            align-items: stretch;
         }
 
         .main-panel {
             background-color: var(--bg-calc);
-            padding: 25px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            flex: 1.4;
-            min-width: 320px;
+            padding: 30px;
+            border-radius: 24px;
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.05), 0 10px 10px -5px rgba(0,0,0,0.04);
+            flex: 1.6;
+            width: 100%;
+            border: 1px solid var(--border);
         }
 
-        /* FITUR BARU: TAB SYSTEM */
+        /* NAVIGATION TABS */
         .tabs {
             display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            border-bottom: 2px solid var(--screen-bg);
-            padding-bottom: 10px;
+            gap: 5px;
+            margin-bottom: 25px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 8px;
+            overflow-x: auto;
+            white-space: nowrap;
         }
+
+        .tabs::-webkit-scrollbar { display: none; }
 
         .tab-btn {
             background: none;
             border: none;
-            color: var(--txt-main);
-            padding: 8px 16px;
-            font-weight: bold;
+            color: var(--txt-muted);
+            padding: 10px 16px;
+            font-weight: 600;
             cursor: pointer;
-            font-size: 1rem;
-            opacity: 0.6;
-            transition: all 0.2s;
+            font-size: 0.95rem;
+            border-radius: 8px;
+        }
+
+        .tab-btn:hover {
+            color: var(--txt-main);
+            background-color: var(--screen-bg);
         }
 
         .tab-btn.active {
-            opacity: 1;
-            color: var(--tab-active);
-            border-bottom: 3px solid var(--tab-active);
+            color: var(--btn-sci);
+            background-color: var(--screen-bg);
         }
 
-        .tab-content {
-            display: none;
-        }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
 
-        .tab-content.active {
-            display: block;
-        }
-
+        /* HEADER & BUTTON PANEL UI */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
-        .header-buttons {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
+        .header h3 { margin: 0; font-size: 1.4rem; font-weight: 700; }
 
-        .theme-toggle, .paste-btn, .ai-btn, .action-btn {
-            background: none;
-            border: 2px solid var(--txt-main);
+        .header-buttons { display: flex; gap: 8px; }
+
+        .pill-btn {
+            background-color: var(--screen-bg);
+            border: 1px solid var(--border);
             color: var(--txt-main);
-            padding: 6px 12px;
-            border-radius: 15px;
+            padding: 8px 14px;
+            border-radius: 20px;
             cursor: pointer;
-            font-weight: bold;
-            font-size: 0.85rem;
-            transition: all 0.2s ease;
+            font-weight: 600;
+            font-size: 0.8rem;
         }
+        .pill-btn:hover { background-color: var(--btn-num-hover); }
 
         .ai-btn.active {
-            background-color: #28a745;
-            color: white;
-            border-color: #28a745;
+            background-color: var(--accent);
+            color: #000;
+            border-color: var(--accent);
         }
 
+        /* DISPLAY SCREEN */
         .screen {
             background-color: var(--screen-bg);
-            padding: 20px;
-            border-radius: 10px;
+            padding: 25px;
+            border-radius: 16px;
             text-align: right;
-            margin-bottom: 20px;
-            box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+            border: 1px solid var(--border);
             position: relative;
         }
 
         .screen .memory-indicator {
             position: absolute;
-            left: 15px;
-            top: 10px;
+            left: 20px;
+            top: 15px;
             font-size: 0.75rem;
-            font-weight: bold;
+            font-weight: 800;
             color: var(--btn-op);
+            background: rgba(245, 158, 11, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
             display: none;
         }
 
         .screen .history {
-            font-size: 0.9rem;
-            color: #888;
-            min-height: 20px;
-            overflow: hidden;
+            font-size: 1rem;
+            color: var(--txt-muted);
+            min-height: 24px;
+            font-family: monospace;
         }
 
         .screen .result {
-            font-size: 2.2rem;
-            font-weight: bold;
+            font-size: 2.6rem;
+            font-weight: 700;
             overflow-x: auto;
             white-space: nowrap;
+            margin-top: 5px;
         }
 
+        /* GRID BUTTONS */
         .buttons {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            gap: 10px;
+            gap: 12px;
         }
 
-        button {
-            padding: 15px 10px;
-            font-size: 1rem;
+        button.calc-key {
+            padding: 18px 10px;
+            font-size: 1.1rem;
             border: none;
-            border-radius: 10px;
+            border-radius: 14px;
             cursor: pointer;
             font-weight: 600;
-            transition: transform 0.1s, filter 0.2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform: scale(1);
+            transition: transform 0.1s;
         }
-
-        button:active {
-            transform: scale(0.95);
-        }
+        button.calc-key:active { transform: scale(0.95); }
 
         .num { background-color: var(--btn-num); color: var(--txt-main); }
+        .num:hover { background-color: var(--btn-num-hover); }
         .op { background-color: var(--btn-op); color: white; }
+        .op:hover { background-color: var(--btn-op-hover); }
         .sci { background-color: var(--btn-sci); color: white; }
-        .mem { background-color: var(--btn-mem); color: white; }
-        .clear { background-color: #dc3545; color: white; }
+        .sci:hover { background-color: var(--btn-sci-hover); }
+        .mem { background-color: var(--btn-mem); color: white; opacity: 0.8; }
+        .mem:hover { opacity: 1; }
+        .clear { background-color: #ef4444; color: white; }
+        .clear:hover { background-color: #dc2626; }
 
-        /* FITUR BARU: LAYOUT KONVERTER */
-        .converter-group {
+        /* FORM FORMAT UNTUK FITUR LAIN */
+        .form-box {
             display: flex;
             flex-direction: column;
             gap: 15px;
-            padding: 10px 0;
-        }
-
-        .converter-field {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-
-        .converter-field label {
-            font-weight: bold;
-            font-size: 0.9rem;
-        }
-
-        .converter-field input, .converter-field select {
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid var(--btn-sci);
             background-color: var(--screen-bg);
+            padding: 20px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            margin-bottom: 15px;
+        }
+
+        .field-group { display: flex; flex-direction: column; gap: 6px; }
+        .field-group label { font-weight: 600; font-size: 0.85rem; color: var(--txt-muted); }
+        .field-group input, .field-group select {
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background-color: var(--bg-calc);
             color: var(--txt-main);
             font-size: 1rem;
+            outline: none;
+        }
+        .field-group input:focus { border-color: var(--btn-sci); }
+
+        .split-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+
+        .big-result {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-top: 10px;
+            text-align: center;
         }
 
-        .converter-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
+        /* RIWAYAT PANEL */
         .history-panel {
             background-color: var(--bg-calc);
-            padding: 20px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 25px;
+            border-radius: 24px;
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.05);
             flex: 0.9;
-            min-width: 250px;
-            max-height: 580px;
+            width: 100%;
+            max-height: 650px;
             display: flex;
             flex-direction: column;
+            border: 1px solid var(--border);
         }
 
         .history-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
-
-        .history-actions {
-            display: flex;
-            gap: 5px;
-        }
-
-        .clear-hist-btn, .download-hist-btn {
-            background: none;
-            border: 1px solid #dc3545;
-            color: #dc3545;
-            padding: 3px 8px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 0.8rem;
-        }
-
-        .download-hist-btn {
-            border-color: #007bff;
-            color: #007bff;
-        }
-
-        .clear-hist-btn:hover { background-color: #dc3545; color: white; }
-        .download-hist-btn:hover { background-color: #007bff; color: white; }
+        .history-header h4 { margin: 0; font-size: 1.1rem; font-weight: 700; }
 
         .history-list {
             list-style: none;
@@ -271,33 +280,49 @@
         }
 
         .history-item {
-            padding: 10px;
-            border-bottom: 1px solid #eee;
+            padding: 12px;
+            border-bottom: 1px solid var(--border);
             cursor: pointer;
             text-align: right;
+            border-radius: 8px;
         }
+        .history-item:hover { background-color: var(--screen-bg); }
 
-        .history-item:hover {
-            background-color: var(--screen-bg);
+        /* MINI GAME MATH STYLE */
+        .game-container { text-align: center; padding: 20px 0; }
+        .game-question { font-size: 2.2rem; font-weight: 700; margin-bottom: 20px; }
+        .score-board { font-size: 1.1rem; font-weight: 600; color: var(--btn-sci); margin-top: 15px; }
+
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 850px) {
+            .container { flex-direction: column; padding: 10px; }
+            .main-panel, .history-panel { padding: 20px; border-radius: 16px; }
+            .history-panel { max-height: 300px; }
+            button.calc-key { padding: 14px 5px; font-size: 1rem; border-radius: 10px; }
+            .screen .result { font-size: 2rem; }
         }
     </style>
 </head>
 <body>
 
 <div class="container">
+    <!-- PANEL UTAMA -->
     <div class="main-panel">
         <div class="tabs">
             <button class="tab-btn active" onclick="switchTab('calc-tab')">🧮 Kalkulator</button>
             <button class="tab-btn" onclick="switchTab('conv-tab')">🔄 Konverter Satuan</button>
+            <button class="tab-btn" onclick="switchTab('finance-tab')">💵 Finansial</button>
+            <button class="tab-btn" onclick="switchTab('game-tab')">🎮 Game Hitung</button>
         </div>
 
+        <!-- TAB 1: KALKULATOR -->
         <div id="calc-tab" class="tab-content active">
             <div class="header">
-                <h3>Kalkulator AI</h3>
+                <h3>Standard & Science</h3>
                 <div class="header-buttons">
-                    <button class="ai-btn" id="ai-voice-btn" onclick="toggleVoice()">🔇 Suara AI: Off</button>
-                    <button class="paste-btn" onclick="pasteFromClipboard()">📋 Paste</button>
-                    <button class="theme-toggle" onclick="toggleTheme()">🌓 Tema</button>
+                    <button class="pill-btn ai-btn" id="ai-voice-btn" onclick="toggleVoice()">🔇 AI Voice: Off</button>
+                    <button class="pill-btn" onclick="pasteFromClipboard()">📋 Paste</button>
+                    <button class="pill-btn" onclick="toggleTheme()">🌓 Tema</button>
                 </div>
             </div>
             <div class="screen">
@@ -307,98 +332,121 @@
             </div>
             
             <div class="buttons">
-                <button class="mem" onclick="handleMemory('MC')">MC</button>
-                <button class="mem" onclick="handleMemory('MR')">MR</button>
-                <button class="mem" onclick="handleMemory('M+')">M+</button>
-                <button class="sci" onclick="pressSci('log')">log</button>
-                <button class="sci" onclick="pressSci('ln')">ln</button>
+                <button class="calc-key mem" onclick="handleMemory('MC')">MC</button>
+                <button class="calc-key mem" onclick="handleMemory('MR')">MR</button>
+                <button class="calc-key mem" onclick="handleMemory('M+')">M+</button>
+                <button class="calc-key sci" onclick="pressSci('log')">log</button>
+                <button class="calc-key sci" onclick="pressSci('ln')">ln</button>
 
-                <button class="sci" onclick="pressSci('sin')">sin</button>
-                <button class="sci" onclick="pressSci('cos')">cos</button>
-                <button class="sci" onclick="pressSci('tan')">tan</button>
-                <button class="sci" onclick="pressSci('sqrt')">√</button>
-                <button class="sci" onclick="pressSci('fact')">n!</button>
+                <button class="calc-key sci" onclick="pressSci('sin')">sin</button>
+                <button class="calc-key sci" onclick="pressSci('cos')">cos</button>
+                <button class="calc-key sci" onclick="pressSci('tan')">tan</button>
+                <button class="calc-key sci" onclick="pressSci('sqrt')">√</button>
+                <button class="calc-key sci" onclick="pressSci('fact')">n!</button>
                 
-                <button class="sci" onclick="pressSci('pow')">xʸ</button>
-                <button class="sci" onclick="pressSci('pi')">π</button>
-                <button class="sci" onclick="press('(')">(</button>
-                <button class="sci" onclick="press(')')">)</button>
-                <button class="op" onclick="press('%')">%</button>
+                <button class="calc-key sci" onclick="pressSci('pow')">xʸ</button>
+                <button class="calc-key sci" onclick="pressSci('pi')">π</button>
+                <button class="calc-key sci" onclick="press('(')">(</button>
+                <button class="calc-key sci" onclick="press(')')">)</button>
+                <button class="calc-key op" onclick="press('%')">%</button>
 
-                <button class="clear" onclick="clearScreen()">C</button>
-                <button class="sci" onclick="backspace()">⌫</button>
-                <button class="num" onclick="press('7')">7</button>
-                <button class="num" onclick="press('8')">8</button>
-                <button class="op" onclick="press('/')">÷</button>
+                <button class="calc-key clear" onclick="clearScreen()">C</button>
+                <button class="calc-key sci" onclick="backspace()">⌫</button>
+                <button class="calc-key num" onclick="press('7')">7</button>
+                <button class="calc-key num" onclick="press('8')">8</button>
+                <button class="calc-key op" onclick="press('/')">÷</button>
 
-                <button class="num" onclick="press('9')">9</button>
-                <button class="num" onclick="press('4')">4</button>
-                <button class="num" onclick="press('5')">5</button>
-                <button class="num" onclick="press('6')">6</button>
-                <button class="op" onclick="press('*')">×</button>
+                <button class="calc-key num" onclick="press('9')">9</button>
+                <button class="calc-key num" onclick="press('4')">4</button>
+                <button class="calc-key num" onclick="press('5')">5</button>
+                <button class="calc-key num" onclick="press('6')">6</button>
+                <button class="calc-key op" onclick="press('*')">×</button>
 
-                <button class="num" onclick="press('1')">1</button>
-                <button class="num" onclick="press('2')">2</button>
-                <button class="num" onclick="press('3')">3</button>
-                <button class="num" onclick="press('0')">0</button>
-                <button class="op" onclick="press('-')">-</button>
+                <button class="calc-key num" onclick="press('1')">1</button>
+                <button class="calc-key num" onclick="press('2')">2</button>
+                <button class="calc-key num" onclick="press('3')">3</button>
+                <button class="calc-key num" onclick="press('0')">0</button>
+                <button class="calc-key op" onclick="press('-')">-</button>
 
-                <button class="num" style="grid-column: span 2;" onclick="press('.')">.</button>
-                <button class="op" style="grid-column: span 3; font-size: 1.5rem;" onclick="calculate()">=</button>
+                <button class="calc-key num" style="grid-column: span 2;" onclick="press('.')">.</button>
+                <button class="calc-key op" style="grid-column: span 3; font-size: 1.5rem;" onclick="calculate()">=</button>
             </div>
         </div>
 
+        <!-- TAB 2: KONVERTER SATUAN -->
         <div id="conv-tab" class="tab-content">
-            <div class="header">
-                <h3>Konverter Pro</h3>
-                <button class="theme-toggle" onclick="toggleTheme()">🌓 Tema</button>
-            </div>
-            
-            <div class="converter-group">
-                <div class="converter-field">
-                    <label>Kategori Satuan</label>
+            <div class="header"><h3>Konverter Satuan</h3></div>
+            <div class="form-box">
+                <div class="field-group">
+                    <label>Kategori</label>
                     <select id="conv-category" onchange="updateConverterUnits()">
                         <option value="panjang">📏 Panjang (m, km, cm, mm, dll)</option>
                         <option value="berat">⚖️ Berat (kg, g, mg, pon, ons)</option>
                         <option value="suhu">🌡️ Suhu (Celsius, Fahrenheit, Kelvin)</option>
                     </select>
                 </div>
-
-                <div class="converter-field">
-                    <label>Nilai yang Ingin Dikonversi</label>
+                <div class="field-group">
+                    <label>Nilai Angka</label>
                     <input type="number" id="conv-input" value="1" oninput="runConversion()">
                 </div>
-
-                <div class="converter-row">
-                    <div class="converter-field">
-                        <label>Dari</label>
-                        <select id="conv-from" onchange="runConversion()"></select>
-                    </div>
-                    <div class="converter-field">
-                        <label>Ke</label>
-                        <select id="conv-to" onchange="runConversion()"></select>
-                    </div>
+                <div class="split-row">
+                    <div class="field-group"><label>Dari</label><select id="conv-from" onchange="runConversion()"></select></div>
+                    <div class="field-group"><label>Ke</label><select id="conv-to" onchange="runConversion()"></select></div>
                 </div>
+                <div class="big-result" id="conv-result">0</div>
+            </div>
+        </div>
 
-                <div class="converter-field" style="margin-top: 15px;">
-                    <label>Hasil Konversi</label>
-                    <div id="conv-result" style="font-size: 1.8rem; font-weight: bold; background-color: var(--screen-bg); padding: 15px; border-radius: 8px; border: 1px dashed var(--btn-sci);">0</div>
+        <!-- TAB 3: FINANSIAL (NEW!) -->
+        <div id="finance-tab" class="tab-content">
+            <div class="header"><h3>Kalkulator Finansial</h3></div>
+            <div class="split-row" style="grid-template-columns: 1fr; gap: 20px;">
+                <!-- Hitung Diskon -->
+                <div class="form-box">
+                    <h4 style="margin:0 0 10px 0;">🏷️ Hitung Diskon Belanja</h4>
+                    <div class="split-row">
+                        <div class="field-group"><label>Harga Awal (Rp)</label><input type="number" id="fin-price" value="100000" oninput="calcDiscount()"></div>
+                        <div class="field-group"><label>Diskon (%)</label><input type="number" id="fin-disc" value="10" oninput="calcDiscount()"></div>
+                    </div>
+                    <div class="big-result" id="discount-result" style="font-size:1.3rem;">Harga Akhir: Rp 90.000</div>
                 </div>
+                <!-- Hitung Bunga -->
+                <div class="form-box">
+                    <h4 style="margin:0 0 10px 0;">🏦 Hitung Bunga Simpanan/Pinjaman</h4>
+                    <div class="split-row">
+                        <div class="field-group"><label>Pokok Dana (Rp)</label><input type="number" id="fin-capital" value="1000000" oninput="calcInterest()"></div>
+                        <div class="field-group"><label>Bunga Suku (% / Tahun)</label><input type="number" id="fin-rate" value="5" oninput="calcInterest()"></div>
+                    </div>
+                    <div class="field-group"><label>Durasi (Bulan)</label><input type="number" id="fin-months" value="12" oninput="calcInterest()"></div>
+                    <div class="big-result" id="interest-result" style="font-size:1.3rem;">Total Akhir: Rp 1.050.000</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4: MINI GAME MATH (NEW!) -->
+        <div id="game-tab" class="tab-content">
+            <div class="header"><h3>Game Asah Otak Matematika</h3></div>
+            <div class="form-box game-container">
+                <div class="game-question" id="game-q">Ready?</div>
+                <div class="field-group" style="max-width: 300px; margin: 0 auto 15px;">
+                    <input type="number" id="game-ans" placeholder="Ketik jawabanmu..." onkeydown="if(event.key==='Enter') checkGameAnswer()">
+                </div>
+                <button class="pill-btn" onclick="checkGameAnswer()" style="background: var(--btn-sci); color: white; padding: 10px 30px;">Kirim Jawaban</button>
+                <div class="score-board" id="game-score">Skor: 0 | Benar Berturut-turut: 0</div>
             </div>
         </div>
     </div>
 
+    <!-- PANEL RIWAYAT -->
     <div class="history-panel">
         <div class="history-header">
-            <h4>Riwayat</h4>
+            <h4>Daftar Riwayat</h4>
             <div class="history-actions">
-                <button class="download-hist-btn" onclick="downloadHistory()">💾 Simpan .txt</button>
-                <button class="clear-hist-btn" onclick="clearHistory()">Hapus</button>
+                <button class="pill-btn" onclick="downloadHistory()" style="padding:4px 10px; font-size:0.75rem;">💾 Simpan</button>
+                <button class="pill-btn" onclick="clearHistory()" style="padding:4px 10px; font-size:0.75rem; border-color:#ef4444; color:#ef4444;">Hapus</button>
             </div>
         </div>
-        <ul class="history-list" id="history-list">
-            <li id="no-hist" style="color: #888; text-align: center; padding-top: 20px;">Belum ada riwayat</li>
-        </ul>
+        <ul class="history-list" id="history-list"></ul>
     </div>
 </div>
 
@@ -407,6 +455,11 @@
     let memoryHistory = [];
     let calculatorMemory = 0;
     let isVoiceEnabled = false;
+
+    // State Game Matematika
+    let gameAnswer = 0;
+    let gameScore = 0;
+    let gameStreak = 0;
 
     // Fungsi matematika kustom
     const log = (x) => Math.log10(x);
@@ -423,14 +476,27 @@
         return result;
     };
 
+    // LOCAL STORAGE DAN LOAD INITIAL STATE
+    window.onload = function() {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') document.body.setAttribute('data-theme', 'dark');
+
+        const savedHistory = localStorage.getItem('calc-history');
+        if (savedHistory) {
+            memoryHistory = JSON.parse(savedHistory);
+            renderHistory();
+        } else {
+            renderHistory();
+        }
+        generateGameQuestion();
+    };
+
     // NAVIGASI TAB
     function switchTab(tabId) {
         document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
         document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-        
         document.getElementById(tabId).classList.add('active');
         event.currentTarget.classList.add('active');
-        
         if(tabId === 'conv-tab') updateConverterUnits();
     }
 
@@ -475,46 +541,20 @@
             
             if (result !== undefined) {
                 if(result % 1 !== 0) result = parseFloat(result.toFixed(8));
-
                 document.getElementById('display-history').innerText = expression;
                 document.getElementById('display-result').innerText = result;
-                
                 addHistory(expression, result);
                 currentInput = result.toString();
-
                 if (isVoiceEnabled) speakAI(`Jumlahnya adalah ${result}`);
             }
         } catch (error) {
             document.getElementById('display-result').innerText = 'Error';
             currentInput = '';
-            if (isVoiceEnabled) speakAI("Maaf, format perhitungan salah.");
+            if (isVoiceEnabled) speakAI("Format salah.");
         }
     }
 
-    function toggleVoice() {
-        isVoiceEnabled = !isVoiceEnabled;
-        const btn = document.getElementById('ai-voice-btn');
-        if (isVoiceEnabled) {
-            btn.innerText = '🔊 Suara AI: On';
-            btn.classList.add('active');
-            speakAI("Suara AI diaktifkan.");
-        } else {
-            btn.innerText = '🔇 Suara AI: Off';
-            btn.classList.remove('active');
-            if ('speechSynthesis' in window) window.speechSynthesis.cancel();
-        }
-    }
-
-    function speakAI(text) {
-        if ('speechSynthesis' in window) {
-            window.speechSynthesis.cancel();
-            let utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'id-ID';
-            utterance.pitch = 1.1;
-            window.speechSynthesis.speak(utterance);
-        }
-    }
-
+    // MEMORI (MC, MR, M+)
     function handleMemory(action) {
         let currentVal = parseFloat(document.getElementById('display-result').innerText) || 0;
         if (action === 'M+') {
@@ -531,45 +571,30 @@
         }
     }
 
-    // RIWAYAT & DOWNLOAD TXT
+    // PERSISTENSI RIWAYAT HITUNGAN
     function addHistory(expr, res) {
         memoryHistory.unshift({ expr, res });
+        localStorage.setItem('calc-history', JSON.stringify(memoryHistory));
         renderHistory();
     }
 
     function clearHistory() {
         memoryHistory = [];
+        localStorage.removeItem('calc-history');
         renderHistory();
-    }
-
-    function downloadHistory() {
-        if(memoryHistory.length === 0) {
-            alert("Belum ada riwayat untuk diunduh!");
-            return;
-        }
-        let txtContent = "RIWAYAT HITUNGAN KALKULATOR AI\n=============================\n";
-        memoryHistory.forEach((item, index) => {
-            txtContent += `${index + 1}. ${item.expr} = ${item.res}\n`;
-        });
-        
-        let blob = new Blob([txtContent], { type: "text/plain;charset=utf-8" });
-        let a = document.createElement("a");
-        a.href = URL.createObjectURL(blob);
-        a.download = "riwayat_kalkulator.txt";
-        a.click();
     }
 
     function renderHistory() {
         const list = document.getElementById('history-list');
         list.innerHTML = '';
         if(memoryHistory.length === 0) {
-            list.innerHTML = `<li id="no-hist" style="color: #888; text-align: center; padding-top: 20px;">Belum ada riwayat</li>`;
+            list.innerHTML = `<li id="no-hist" style="color: var(--txt-muted); text-align: center; padding-top: 20px; font-size:0.9rem;">Belum ada riwayat</li>`;
             return;
         }
         memoryHistory.forEach(item => {
             let li = document.createElement('li');
             li.className = 'history-item';
-            li.innerHTML = `<div>${item.expr}</div><strong>= ${item.res}</strong>`;
+            li.innerHTML = `<div style="font-family:monospace; font-size:0.85rem; color:var(--txt-muted);">${item.expr}</div><strong>= ${item.res}</strong>`;
             li.onclick = () => {
                 currentInput = item.res.toString();
                 updateScreen();
@@ -579,7 +604,18 @@
         });
     }
 
-    // DATA DAN LOGIK KONVERTER SATUAN
+    function downloadHistory() {
+        if(memoryHistory.length === 0) return alert("Riwayat kosong!");
+        let text = "LOG KALKULATOR ULTIMATE\n=======================\n";
+        memoryHistory.forEach((item, i) => { text += `${i+1}. ${item.expr} = ${item.res}\n`; });
+        let blob = new Blob([text], {type: "text/plain;charset=utf-8"});
+        let a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "riwayat_kalkulator.txt";
+        a.click();
+    }
+
+    // DATA DAN LOGIK KONVERTER
     const unitsData = {
         panjang: { km: 1000, m: 1, cm: 0.01, mm: 0.001, mil: 1609.34, inci: 0.0254 },
         berat: { kg: 1, g: 0.001, mg: 0.000001, pon: 0.453592, ons: 0.0283495 },
@@ -590,20 +626,13 @@
         const cat = document.getElementById('conv-category').value;
         const fromSelect = document.getElementById('conv-from');
         const toSelect = document.getElementById('conv-to');
-        
-        fromSelect.innerHTML = '';
-        toSelect.innerHTML = '';
-
+        fromSelect.innerHTML = ''; toSelect.innerHTML = '';
         let options = cat === 'suhu' ? unitsData.suhu : Object.keys(unitsData[cat]);
-        
-        options.forEach(unit => {
-            fromSelect.options[fromSelect.options.length] = new Option(unit, unit);
-            toSelect.options[toSelect.options.length] = new Option(unit, unit);
+        options.forEach(u => {
+            fromSelect.options[fromSelect.options.length] = new Option(u, u);
+            toSelect.options[toSelect.options.length] = new Option(u, u);
         });
-
-        // Set default pilihan berbeda agar menarik
         if(toSelect.options.length > 1) toSelect.selectedIndex = 1;
-
         runConversion();
     }
 
@@ -623,26 +652,103 @@
             else if (fromUnit === 'Kelvin' && toUnit === 'Celsius') result = inputVal - 273.15;
             else if (fromUnit === 'Kelvin' && toUnit === 'Fahrenheit') result = ((inputVal - 273.15) * 9/5) + 32;
         } else {
-            // Konversi berbasis meter (panjang) atau kilogram (berat)
             let baseValue = inputVal * unitsData[cat][fromUnit];
             result = baseValue / unitsData[cat][toUnit];
         }
-
         result = parseFloat(result.toFixed(6));
         document.getElementById('conv-result').innerText = `${result} ${toUnit}`;
+        if (isVoiceEnabled && inputVal !== 0) speakAI(`Hasilnya ${result} ${toUnit}`);
+    }
+
+    // LOGIK FINANSIAL
+    function calcDiscount() {
+        let price = parseFloat(document.getElementById('fin-price').value) || 0;
+        let disc = parseFloat(document.getElementById('fin-disc').value) || 0;
+        let savings = price * (disc / 100);
+        let finalPrice = price - savings;
+        document.getElementById('discount-result').innerText = `Harga Akhir: Rp ${finalPrice.toLocaleString('id-ID')} (Hemat Rp ${savings.toLocaleString('id-ID')})`;
+    }
+
+    function calcInterest() {
+        let capital = parseFloat(document.getElementById('fin-capital').value) || 0;
+        let rate = parseFloat(document.getElementById('fin-rate').value) || 0;
+        let months = parseFloat(document.getElementById('fin-months').value) || 0;
+        let interest = capital * (rate / 100) * (months / 12);
+        let total = capital + interest;
+        document.getElementById('interest-result').innerText = `Total Akhir: Rp ${total.toLocaleString('id-ID')} (Bunga: Rp ${interest.toLocaleString('id-ID')})`;
+    }
+
+    // LOGIK MINI GAME HITUNG
+    function generateGameQuestion() {
+        const operators = ['+', '-', '*'];
+        let num1 = Math.floor(Math.random() * 20) + 1;
+        let num2 = Math.floor(Math.random() * 20) + 1;
+        let op = operators[Math.floor(Math.random() * operators.length)];
         
-        if (isVoiceEnabled && inputVal !== 0) {
-            speakAI(`Hasil konversi adalah ${result} ${toUnit}`);
+        // Atur visual tanda kali agar ramah anak-anak
+        let opDisplay = op === '*' ? '×' : op;
+        
+        document.getElementById('game-q').innerText = `${num1} ${opDisplay} ${num2} = ?`;
+        gameAnswer = eval(`${num1} ${op} ${num2}`);
+        document.getElementById('game-ans').value = '';
+    }
+
+    function checkGameAnswer() {
+        let userAns = parseInt(document.getElementById('game-ans').value);
+        if(isNaN(userAns)) return;
+
+        if (userAns === gameAnswer) {
+            gameScore += 10;
+            gameStreak += 1;
+            if(isVoiceEnabled) speakAI("Luar biasa! Jawabanmu benar.");
+            else alert("🎉 Benar!");
+        } else {
+            gameStreak = 0;
+            if(isVoiceEnabled) speakAI("Aduh, kurang tepat. Coba lagi.");
+            else alert(`❌ Salah! Jawaban yang benar adalah ${gameAnswer}`);
+        }
+        document.getElementById('game-score').innerText = `Skor: ${gameScore} | Benar Berturut-turut: ${gameStreak}`;
+        generateGameQuestion();
+    }
+
+    // ASISTEN SUARA AI
+    function toggleVoice() {
+        isVoiceEnabled = !isVoiceEnabled;
+        const btn = document.getElementById('ai-voice-btn');
+        if (isVoiceEnabled) {
+            btn.innerText = '🔊 AI Voice: On';
+            btn.classList.add('active');
+            speakAI("Asisten pintar diaktifkan.");
+        } else {
+            btn.innerText = '🔇 AI Voice: Off';
+            btn.classList.remove('active');
+            if ('speechSynthesis' in window) window.speechSynthesis.cancel();
         }
     }
 
-    function toggleTheme() {
-        const body = document.body;
-        if (body.getAttribute('data-theme') === 'dark') body.removeAttribute('data-theme');
-        else body.setAttribute('data-theme', 'dark');
+    function speakAI(text) {
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+            let utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'id-ID';
+            utterance.pitch = 1.1;
+            window.speechSynthesis.speak(utterance);
+        }
     }
 
-    // SHORTCUT KEYBOARD & PASTE
+    // PREFERENSI TEMA (PERSISTEN)
+    function toggleTheme() {
+        const body = document.body;
+        if (body.getAttribute('data-theme') === 'dark') {
+            body.removeAttribute('data-theme');
+            localStorage.setItem('theme', 'light');
+        } else {
+            body.setAttribute('data-theme', 'dark');
+            localStorage.setItem('theme', 'dark');
+        }
+    }
+
+    // KEYBOARD SHORTCUT & CLIPBOARD
     function handlePastedText(text) {
         let cleanText = text.replace(/×/g, '*').replace(/÷/g, '/').replace(/,/g, '.');
         if (currentInput === '0') currentInput = cleanText;
@@ -666,7 +772,9 @@
     });
 
     window.addEventListener('keydown', (e) => {
-        if(document.activeElement.id === 'conv-input') return; // ketik biasa kalau sedang di form konverter
+        // Jangan jalankan shortcut kalkulator jika sedang mengetik di input form tab lain
+        if(['conv-input', 'fin-price', 'fin-disc', 'fin-capital', 'fin-rate', 'fin-months', 'game-ans'].includes(document.activeElement.id)) return;
+        
         const allowedKeys = '0123456789+-*/.()%';
         if (allowedKeys.includes(e.key)) { e.preventDefault(); press(e.key); }
         else if (e.key === 'Enter') { e.preventDefault(); calculate(); }
