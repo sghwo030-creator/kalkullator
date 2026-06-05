@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IPAS Zone - Hewan & Lingkungan</title>
+    <title>IPAS Zone - Hewan & Lingkungan Vibe Gaul</title>
     <style>
         :root {
-            --bg-body: #f0fdf4; /* Nuansa hijau alam untuk IPAS */
-            --bg-card: #ffffff;
-            --txt-main: #14532d;
-            --txt-muted: #166534;
-            --accent-primary: #22c55e;
-            --accent-hover: #16a34a;
-            --border: #dcfce7;
+            --bg-body: #0f172a;
+            --bg-card: #1e293b;
+            --txt-main: #f8fafc;
+            --txt-muted: #94a3b8;
+            --accent-green: #4ade80;
+            --accent-blue: #38bdf8;
+            --accent-orange: #fb923c;
+            --border: #334155;
         }
 
         body {
@@ -28,216 +29,272 @@
         }
 
         .container {
-            max-width: 800px;
+            max-width: 900px;
             width: 100%;
             background: var(--bg-card);
-            padding: 30px;
+            padding: 35px;
             border-radius: 24px;
-            box-shadow: 0 20px 25px -5px rgba(22,101,52,0.05);
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
             border: 1px solid var(--border);
         }
 
+        /* HEADER NAVIGASI */
         .nav-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-bottom: 2px solid var(--border);
-            padding-bottom: 15px;
-            margin-bottom: 25px;
-        }
-
-        .back-btn {
-            background-color: #f3f4f6;
-            border: none;
-            color: #4b5563;
-            padding: 8px 16px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: 600;
-        }
-
-        .next-page-btn {
-            background-color: #3b82f6;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .content-section {
+            padding-bottom: 20px;
             margin-bottom: 30px;
         }
 
-        .material-card {
-            background: #f9fafb;
-            border-left: 5px solid var(--accent-primary);
-            padding: 20px;
-            border-radius: 0 16px 16px 0;
-            margin-bottom: 20px;
+        .btn-nav {
+            background-color: #334155;
+            border: 1px solid var(--border);
+            color: var(--txt-main);
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.2s;
         }
+        .btn-nav:hover { background-color: #475569; transform: translateY(-2px); }
+        .btn-next { background-color: var(--accent-blue); color: #000; }
+        .btn-next:hover { background-color: #7dd3fc; }
 
-        .quiz-box {
-            background-color: #f0fdf4;
-            border: 2px dashed var(--accent-primary);
+        /* MATERI STYLING */
+        .intro-box {
+            background: linear-gradient(135deg, #1e1b4b, #311042);
             padding: 25px;
             border-radius: 16px;
-            margin-top: 25px;
+            margin-bottom: 30px;
+            border: 1px solid #4c1d95;
         }
 
-        .quiz-option {
-            background: white;
-            border: 1px solid #cbd5e1;
-            padding: 12px 20px;
-            border-radius: 10px;
-            margin-top: 10px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.2s;
-            display: block;
-            width: 100%;
-            text-align: left;
+        h2.section-title {
+            color: var(--accent-green);
+            font-size: 1.8rem;
+            border-left: 5px solid var(--accent-green);
+            padding-left: 15px;
+            margin-top: 40px;
         }
 
-        .quiz-option:hover {
-            background: #e2e8f0;
+        .materi-panjang {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #cbd5e1;
+            text-align: justify;
         }
 
-        .score-board {
-            text-align: center;
-            font-size: 1.2rem;
+        .highlight-gaul {
+            background-color: rgba(251, 146, 60, 0.15);
+            color: var(--accent-orange);
+            padding: 2px 6px;
+            border-radius: 4px;
             font-weight: bold;
+        }
+
+        .card-info {
+            background-color: #0f172a;
+            border: 1px solid var(--border);
+            padding: 20px;
+            border-radius: 14px;
+            margin: 20px 0;
+        }
+        .card-info h4 { margin-top: 0; color: var(--accent-blue); font-size: 1.2rem; }
+
+        /* MINI GAME AREA */
+        .game-box {
+            background: linear-gradient(135deg, #064e3b, #022c22);
+            border: 2px solid var(--accent-green);
+            padding: 25px;
+            border-radius: 18px;
+            margin-top: 40px;
+        }
+
+        .btn-game {
+            background-color: var(--accent-green);
+            color: #052e16;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-weight: 800;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 1rem;
+        }
+        .btn-game:hover { background-color: #86efac; transform: scale(1.05); }
+
+        .status-ekosistem {
+            background-color: rgba(0,0,0,0.4);
+            padding: 15px;
+            border-radius: 10px;
             margin-top: 15px;
-            color: #16a34a;
+            font-family: monospace;
+            font-size: 1.1rem;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
+    <!-- NAVIGASI ATAS -->
     <div class="nav-header">
-        <button class="back-btn" onclick="window.location.href='index.html'">⬅️ Kembali ke Kalkulator</button>
-        <h2 style="margin: 0; font-size: 1.5rem;">🌍 Modul Belajar IPAS</h2>
-        <button class="next-page-btn" onclick="window.location.href='page3.html'">Ke Page 3 ➡️</button>
+        <button class="btn-nav" onclick="window.location.href='index.html'">⬅️ Back ke Kalkulator</button>
+        <h1 style="margin: 0; font-size: 1.6rem; font-weight: 800; color: var(--accent-blue);">⚡ IPAS HUB v2.0 ⚡</h1>
+        <!-- Link otomatis mengarah ke tengah.html seperti permintaanmu -->
+        <button class="btn-nav btn-next" onclick="window.location.href='tengah.html'">Ke tengah.html ➡️</button>
     </div>
 
-    <div class="content-section">
-        <h3 style="font-size: 1.4rem; color: #15803d; margin-bottom: 5px;">Materi 1: Hewan dan Lingkungannya</h3>
-        <p style="color: #475569; margin-top: 0;">Yuk pelajari bagaimana makhluk hidup beradaptasi dengan tempat tinggalnya!</p>
+    <!-- INTRO PENGANTAR -->
+    <div class="intro-box">
+        <h3 style="margin-top:0; color: var(--accent-orange);">Yo! Selamat Datang di Area Belajar IPAS Ter-Gokil! 🚀</h3>
+        <p style="margin-bottom:0; line-height: 1.6;">
+            Siapa bilang materi IPAS itu ngebosenin? Di sini kita bakal bedah tuntas materi <span class="highlight-gaul">Hewan dan Lingkungannya</span> secara super mendalam, akurat 100% sesuai kurikulum, tapi dibawain pakai gaya santai biar otak lu gak nge-lag. Baca pelan-pelan sampai bawah, pahami polanya, terus cobain mini-simulasi ekosistemnya di akhir halaman. <span class="highlight-gaul">Gaskan, cuy!</span>
+        </p>
+    </div>
 
-        <div class="material-card">
-            <h4>1. Bagian Tubuh Hewan & Fungsinya (IPA)</h4>
-            <p>Setiap hewan memiliki struktur tubuh khusus untuk bertahan hidup. Contohnya burung elang memiliki paruh tajam untuk mencabik daging, sedangkan bebek memiliki kaki berselaput untuk berenang di air lumpur.</p>
+    <!-- MATERI BERAT BAGIAN 1: BIOTIK & ABIOTIK -->
+    <h2 class="section-title">1. Lingkungan Hidup: Tempat Nongkrong Makhluk Hidup</h2>
+    <div class="materi-panjang">
+        <p>
+            Oke pertama-tama, kita harus tahu dulu apa itu lingkungan hidup. Secara ilmiah dan akurat, lingkungan adalah kesatuan ruang dengan semua benda, daya, keadaan, dan makhluk hidup di dalamnya. Lingkungan ini dibagi jadi dua komponen utama yang wajib lu tahu, yaitu <strong>Komponen Biotik</strong> (segala hal yang bernyawa/hidup) dan <strong>Komponen Abiotik</strong> (benda mati tapi krusial banget buat kehidupan). Jangan sampai ketuker, ini basic banget, cuy!
+        </p>
+        <div class="card-info">
+            <h4>🍀 Komponen Biotik vs Abiotik (Valid No Debat)</h4>
+            <ul>
+                <li><strong>Biotik:</strong> Manusia, hewan, tumbuhan, mikroorganisme (bakteri jamur). Mereka ini saling makan-memakan dan berinteraksi membentuk jaring-jaring makanan.</li>
+                <li><strong>Abiotik:</strong> Cahaya matahari (buat tumbuhan fotosintesis), air (biar gak dehidrasi), udara/oksigen (buat napas), tanah, dan suhu udara. Kalau abiotik ini kacau, komponen biotik bisa langsung <em>out</em> alias punah!</li>
+            </ul>
+        </div>
+        <p>
+            Hubungan antara biotik dan abiotik ini memicu terbentuknya <span class="highlight-gaul">Ekosistem</span>. Di dalam ekosistem, hewan nggak bisa egois hidup sendirian. Mereka sangat bergantung sama kondisi geografis tempat tinggal mereka, yang nanti bakal kita bahas di bawah. Tetep fokus, jangan hilang konsentrasi dulu!
+        </p>
+    </div>
+
+    <!-- MATERI BERAT BAGIAN 2: ADAPTASI HEWAN -->
+    <h2 class="section-title">2. Ragam Adaptasi Hewan (Cara Bertahan Hidup Biar Gak Modar)</h2>
+    <div class="materi-panjang">
+        <p>
+            Nah, materi inti IPA-nya ada di sini: <strong>Adaptasi</strong>. Adaptasi itu adalah kemampuan makhluk hidup buat menyesuaikan diri sama lingkungan sekitarnya biar bisa bertahan hidup, dapet makanan, dan aman dari predator. Secara struktur kurikulum IPAS, adaptasi hewan dipotong jadi 3 jenis utama. Ini materi panjang, dengerin baik-baik:
+        </p>
+
+        <div class="card-info">
+            <h4>📐 A. Adaptasi Morfologi (Bentuk Tubuh Kelihatan Nyata)</h4>
+            <p>Adaptasi ini bentuknya fisik, bisa langsung lu lihat pakai mata telanjang. Contoh paling akurat:</p>
+            <ul>
+                <li><strong>Bentuk Paruh Burung:</strong> Burung Elang punya paruh melengkung tajam buat mencabik daging mangsa. Burung Kolibri paruhnya panjang runcing buat nyedot nektar di pedalaman bunga. Bebek paruhnya berbentuk sudu/lebar buat nyari cacing di lumpur.</li>
+                <li><strong>Bentuk Kaki:</strong> Kaki bebek punya selaput biar jago berenang. Kaki ayam punya cakar tajam buat mengais tanah nyari biji-bijian. Kaki burung pelatuk punya jari kokoh buat mencengkeram batang pohon saat mematuk kayu.</li>
+                <li><strong>Gigi Hewan:</strong> Karnivora (singa, harimau) dibekali gigi taring yang tajam gila buat merobek daging. Herbivora (sapi, kambing) giginya dominan geraham lebar buat mengunyah rumput yang seratnya tebal.</li>
+            </ul>
         </div>
 
-        <div class="material-card">
-            <h4>2. Hubungan Lingkungan & Geografis (IPS)</h4>
-            <p>Kondisi alam memengaruhi jenis hewan yang hidup di sana dan bagaimana manusia memanfaatkannya. Di daerah dataran tinggi/pegunungan, peternak sering memelihara sapi perah, sedangkan di daerah pesisir pantai banyak ditemukan ekosistem bakau tempat kepiting bakau tinggal.</p>
+        <div class="card-info">
+            <h4>🧪 B. Adaptasi Fisiologi (Fungsi Organ Dalam / Kimiawi tubuh)</h4>
+            <p>Kalau morfologi kelihatan dari luar, adaptasi fisiologi ini mainnya di dalam tubuh, organ, atau zat kimia tubuh. Jadi gak kelihatan langsung kalau gak dibedah. Contohnya:</p>
+            <ul>
+                <li><strong>Unta di Gurun:</strong> Punya punuk yang isinya cadangan lemak khusus. Ketika di gurun gak ada air, lemak ini dipecah jadi energi dan air lewat proses kimia internal tubuh unta. Plus, ginjal unta kuat banget bikin urinnya pekat biar gak buang-buang air.</li>
+                <li><strong>Burung Hantu:</strong> Punya penglihatan super tajam di malam hari karena pupil matanya bisa melebar ekstrem buat menangkap cahaya sekecil apa pun di kegelapan malam.</li>
+                <li><strong>Sapi (Ruminansia):</strong> Punya enzim selulase di dalam lambungnya yang fungsinya khusus banget buat mencerna serat rumput yang keras. Manusia gak punya enzim ini, jadi jangan coba-coba makan rumput, cuy!</li>
+            </ul>
+        </div>
+
+        <div class="card-info">
+            <h4>🏃 C. Adaptasi Tingkah Laku (Aksi Nyata Saat Kepepet)</h4>
+            <p>Ini adalah respon berupa tindakan atau perilaku hewan saat merespon kondisi alam sekitar atau ancaman musuh:</p>
+            <ul>
+                <li><strong>Bunglon (Mimikri):</strong> Mengubah warna kulitnya sesuai tempat dia nempel biar musuh bingung. Nempel di daun jadi hijau, nempel di batang pohon jadi cokelat. Bunglon mah pro banget urusan menyamar!</li>
+                <li><strong>Cecak (Autotomi):</strong> Kalau ekornya dipegang musuh, cecak bakal langsung memutus ekornya sendiri. Ekornya goyang-goyang buat nipu musuh, sementara cecaknya kabur selamet.</li>
+                <li><strong>Paus & Lumba-lumba:</strong> Sesekali bakal muncul ke permukaan air buat membuang karbon dioksida dan menghirup oksigen segar lewat lubang pernapasannya, karena mereka bernapas pakai paru-paru meskipun tinggal di air.</li>
+            </ul>
         </div>
     </div>
 
-    <div class="quiz-box">
-        <h3 style="margin-top: 0; color: #166534;">📝 Kuis Latihan IPAS</h3>
-        <div id="quiz-container">
-            <p id="quiz-question" style="font-weight: 600; font-size: 1.1rem;"></p>
-            <div id="quiz-options"></div>
+    <!-- MATERI BERAT BAGIAN 3: IPS GEOGRAFIS INDONESIA -->
+    <h2 class="section-title">3. Sudut Pandang IPS: Geografis Lingkungan vs Kehidupan Hewan</h2>
+    <div class="materi-panjang">
+        <p>
+            Sekarang kita geser ke bagian ilmu sosialnya (IPS). Kondisi alam wilayah Indonesia itu beda-beda banget karena faktor letak astronomis dan geografis. Perbedaan bentang alam ini bikin persebaran jenis hewan dan pemanfaatan oleh manusia jadi ikutan beda. <span class="highlight-gaul">Yuk kita bedah 3 zona utama:</span>
+        </p>
+        
+        <p>
+            <strong>1. Daerah Dataran Tinggi & Pegunungan:</strong> Daerah ini hawanya dingin, tanahnya subur akibat abu vulkanik. Karena suhu dingin, hewan yang cocok di sini adalah hewan berbulu tebal atau hewan ternak produktif seperti Sapi Perah (diambil susunya), Kambing Etawa, dan Kuda. Manusia di sini rata-rata kerja jadi petani kebun teh/sayur dan peternak.
+        </p>
+        <p>
+            <strong>2. Daerah Dataran Rendah:</strong> Suhunya normal cenderung hangat, wilayahnya rata dan luas. Biasanya jadi pusat pemukiman manusia. Hewan yang mendominasi di sini adalah hewan ternak konsumsi massal seperti ayam potong, bebek, sapi potong, dan kerbau (buat bajak sawah). Lingkungan ini dimanfaatkan manusia buat bertani padi, membangun industri, dan kota-kota besar.
+        </p>
+        <p>
+            <strong>3. Daerah Pesisir Pantai & Lautan:</strong> Berbatasan langsung sama laut lepas. Ekosistemnya unik banget, ada hutan bakau (mangrove). Hewan yang hidup di sini mulai dari kepiting bakau, ikan bandeng, udang, hingga beraneka macam kerang. Manusia yang tinggal di sini otomatis beradaptasi menjadi nelayan, petani garam, atau budidaya tambak udang.
+        </p>
+    </div>
+
+    <!-- MAIN-MAIN SEDIKIT: INTERAKTIF SIMULASI EKOSISTEM -->
+    <div class="game-box">
+        <h3 style="margin-top:0; color: var(--accent-green); font-size:1.4rem;">🎮 Pojok Main-Main: Simulasi Keseimbangan Ekosistem</h3>
+        <p style="color: #a7f3d0; margin-top:0;">
+            Coba lu bayangkan lu jadi "Tuhan" di sebuah ekosistem hutan. Klik tombol di bawah buat nambah jumlah hewan, dan lihat apa yang terjadi sama status lingkungan hutan lu! Jangan sampai ekosistemnya runtuh, cuy!
+        </p>
+        
+        <div style="text-align: center; margin: 20px 0;">
+            <button class="btn-game" onclick="tambahHewan('rusa')">🦌 Tambah Rusa (Herbivora)</button>
+            <button class="btn-game" onclick="tambahHewan('serigala')">🐺 Tambah Serigala (Karnivora)</button>
+            <button class="btn-game" onclick="resetEkosistem()">🔄 Reset Hutan</button>
         </div>
-        <div class="score-board" id="quiz-score">Skor: 0</div>
+
+        <div class="status-ekosistem">
+            <div>Jumlah Rusa: <span id="count-rusa" style="color:var(--accent-blue);">5</span></div>
+            <div>Jumlah Serigala: <span id="count-serigala" style="color:var(--accent-orange);">2</span></div>
+            <div>Kondisi Rumput/Hutan: <span id="status-rumput" style="color:var(--accent-green);">Subur & Seimbang</span></div>
+            <div id="analisis-game" style="margin-top: 15px; font-weight: bold; color: #facc15;">Analisis: Ekosistem stabil, rantai makanan berjalan mulus!</div>
+        </div>
     </div>
 </div>
 
 <script>
-    // Bank Soal Integrasi IPA dan IPS (IPAS)
-    const ipasListSoal = [
-        {
-            q: "Burung kolibri memiliki paruh panjang dan runcing (IPA). Paruh ini membantunya mengambil nektar di lingkungan hutan hujan tropis yang lebat seperti di Sumatra (IPS). Apa fungsi paruh tersebut?",
-            options: [
-                "Mencabik mangsa yang besar",
-                "Menghisap madu/nektar di dalam bunga",
-                "Menyaring makanan dari dalam lumpur",
-                "Mematuk kayu pohon yang keras"
-            ],
-            correct: 1
-        },
-        {
-            q: "Masyarakat di daerah lereng Gunung Bromo memanfaatkan hewan kuda untuk transportasi wisata (IPS). Adaptasi apa yang dimiliki kuda agar kuat berjalan di lingkungan pegunungan yang terjal? (IPA)",
-            options: [
-                "Memiliki kuku kaki yang keras (teracak)",
-                "Memiliki punuk penyimpan air",
-                "Memiliki bulu yang sangat tipis",
-                "Memiliki kemampuan mengubah warna kulit"
-            ],
-            correct: 0
-        },
-        {
-            q: "Unta hidup di lingkungan gurun pasir yang gersang. Struktur tubuh unta yang berfungsi menyimpan cadangan lemak sebagai sumber energi di lingkungan miskin air adalah...",
-            options: [
-                "Bulu matanya yang panjang",
-                "Punuk di punggungnya",
-                "Bantalan kaki yang tebal",
-                "Ususnya yang sangat pendek"
-            ],
-            correct: 1
+    let rusa = 5;
+    let serigala = 2;
+
+    function tambahHewan(jenis) {
+        if(jenis === 'rusa') {
+            rusa += 3;
+        } else if(jenis === 'serigala') {
+            serigala += 1;
         }
-    ];
-
-    let currentQuizIndex = 0;
-    let ipasScore = 0;
-
-    function loadQuestion() {
-        if(currentQuizIndex >= ipasListSoal.length) {
-            document.getElementById('quiz-container').innerHTML = `
-                <h4 style="text-align:center; color:#16a34a; font-size:1.4rem;">🎉 Selamat! Kamu Sudah Selesai.</h4>
-                <p style="text-align:center;">Kamu telah menyelesaikan seluruh kuis materi Hewan dan Lingkungan.</p>
-                <button onclick="resetQuiz()" style="display:block; margin: 20px auto; background:var(--accent-primary); color:white; border:none; padding:10px 20px; border-radius:8px; cursor:pointer; font-weight:bold;">Ulangi Kuis</button>
-            `;
-            return;
-        }
-
-        let currentData = ipasListSoal[currentQuizIndex];
-        document.getElementById('quiz-question').innerText = `Soal ${currentQuizIndex + 1}: ${currentData.q}`;
-        
-        let optionsDiv = document.getElementById('quiz-options');
-        optionsDiv.innerHTML = '';
-        
-        currentData.options.forEach((opt, idx) => {
-            let btn = document.createElement('button');
-            btn.className = 'quiz-option';
-            btn.innerText = opt;
-            btn.onclick = () => checkAnswer(idx);
-            optionsDiv.appendChild(btn);
-        });
+        updateSimulasi();
     }
 
-    function checkAnswer(userChoice) {
-        let currentData = ipasListSoal[currentQuizIndex];
-        if (userChoice === currentData.correct) {
-            ipasScore += 10;
-            alert("✨ Hebat! Jawaban kamu benar.");
+    function resetEkosistem() {
+        rusa = 5;
+        serigala = 2;
+        updateSimulasi();
+    }
+
+    function updateSimulasi() {
+        document.getElementById('count-rusa').innerText = rusa;
+        document.getElementById('count-serigala').innerText = serigala;
+
+        let statusRumput = document.getElementById('status-rumput');
+        let analisis = document.getElementById('analisis-game');
+
+        // Logika sederhana penentuan kondisi ekosistem
+        if (rusa > (serigala * 4)) {
+            statusRumput.innerText = "Gundul & Rusak Parah! 🍂";
+            statusRumput.style.color = "#ef4444";
+            analisis.innerText = "Peringatan! Rusa terlalu banyak karena kekurangan predator Serigala. Rumput habis dimakan, ekosistem terancam hancur, cuy!";
+        } else if (serigala >= rusa) {
+            statusRumput.innerText = "Liar Semak Belukar 🌿";
+            statusRumput.style.color = "#fbbf24";
+            analisis.innerText = "Waduh gawat! Serigala terlalu dominan dan memangsa habis semua Rusa. Serigala bakal mati kelaparan habis ini. Ngeri!";
+        } else if (rusa === 0 && serigala === 0) {
+            statusRumput.innerText = "Kosong Melompong 💀";
+            statusRumput.style.color = "#94a3b8";
+            analisis.innerText = "Hutan mati total. Gak ada tanda-tanda kehidupan.";
         } else {
-            alert(`❌ Kurang tepat! Jawaban yang benar adalah: ${currentData.options[currentData.correct]}`);
+            statusRumput.innerText = "Subur, Hijau & Seimbang ✨";
+            statusRumput.style.color = "#4ade80";
+            analisis.innerText = "Mantap! Komposisi predator dan mangsa seimbang banget. Siklus rantai makanan aman terkendali!";
         }
-        currentQuizIndex++;
-        document.getElementById('quiz-score').innerText = `Skor: ${ipasScore}`;
-        loadQuestion();
     }
-
-    function resetQuiz() {
-        currentQuizIndex = 0;
-        ipasScore = 0;
-        document.getElementById('quiz-score').innerText = `Skor: ${ipasScore}`;
-        document.getElementById('quiz-container').innerHTML = `
-            <p id="quiz-question" style="font-weight: 600; font-size: 1.1rem;"></p>
-            <div id="quiz-options"></div>
-        `;
-        loadQuestion();
-    }
-
-    // Jalankan kuis pertama kali saat halaman dibuka
-    window.onload = function() {
-        loadQuestion();
-    };
 </script>
 </body>
 </html>
