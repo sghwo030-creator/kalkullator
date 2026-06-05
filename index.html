@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kalkulator Super Multi-Fitur Ultra Pro</title>
+    <title>Kalkulator Super Multi-Fitur Ultra Pro + AI Voice</title>
     <style>
         :root {
             --bg-body: #f4f7f6;
@@ -42,7 +42,7 @@
         .container {
             display: flex;
             gap: 20px;
-            max-width: 900px;
+            max-width: 950px;
             width: 100%;
             padding: 20px;
             box-sizing: border-box;
@@ -68,9 +68,10 @@
         .header-buttons {
             display: flex;
             gap: 8px;
+            flex-wrap: wrap;
         }
 
-        .theme-toggle, .paste-btn {
+        .theme-toggle, .paste-btn, .ai-btn {
             background: none;
             border: 2px solid var(--txt-main);
             color: var(--txt-main);
@@ -79,6 +80,13 @@
             cursor: pointer;
             font-weight: bold;
             font-size: 0.85rem;
+            transition: all 0.2s ease;
+        }
+
+        .ai-btn.active {
+            background-color: #28a745;
+            color: white;
+            border-color: #28a745;
         }
 
         .screen {
@@ -198,11 +206,11 @@
 <body>
 
 <div class="container">
-    <!-- Kalkulator -->
     <div class="calculator">
         <div class="header">
-            <h3>Kalkulator Ultra Pro</h3>
+            <h3>Kalkulator AI</h3>
             <div class="header-buttons">
+                <button class="ai-btn" id="ai-voice-btn" onclick="toggleVoice()">🔇 Suara AI: Off</button>
                 <button class="paste-btn" onclick="pasteFromClipboard()">📋 Paste</button>
                 <button class="theme-toggle" onclick="toggleTheme()">🌓 Tema</button>
             </div>
@@ -214,14 +222,12 @@
         </div>
         
         <div class="buttons">
-            <!-- Baris Fitur Memori & Fitur Baru -->
             <button class="mem" onclick="handleMemory('MC')">MC</button>
             <button class="mem" onclick="handleMemory('MR')">MR</button>
             <button class="mem" onclick="handleMemory('M+')">M+</button>
             <button class="sci" onclick="pressSci('log')">log</button>
             <button class="sci" onclick="pressSci('ln')">ln</button>
 
-            <!-- Baris Sains Tambahan -->
             <button class="sci" onclick="pressSci('sin')">sin</button>
             <button class="sci" onclick="pressSci('cos')">cos</button>
             <button class="sci" onclick="pressSci('tan')">tan</button>
@@ -234,7 +240,6 @@
             <button class="sci" onclick="press(')')">)</button>
             <button class="op" onclick="press('%')">%</button>
 
-            <!-- Baris Standar Berubah Jadi 5 Kolom -->
             <button class="clear" onclick="clearScreen()">C</button>
             <button class="sci" onclick="backspace()">⌫</button>
             <button class="num" onclick="press('7')">7</button>
@@ -258,7 +263,6 @@
         </div>
     </div>
 
-    <!-- Panel Riwayat -->
     <div class="history-panel">
         <div class="history-header">
             <h4>Riwayat Hitungan</h4>
@@ -273,12 +277,13 @@
 <script>
     let currentInput = '';
     let memoryHistory = [];
-    let calculatorMemory = 0; // Tempat menyimpan nilai M+
+    let calculatorMemory = 0;
+    let isVoiceEnabled = false; // Status suara AI
 
-    // Fungsi matematika custom agar eval() mengenali perintah sains
+    // Fungsi matematika custom
     const log = (x) => Math.log10(x);
     const ln = (x) => Math.log(x);
-    const sin = (x) => Math.sin(x * Math.PI / 180); // Menggunakan derajat/degree
+    const sin = (x) => Math.sin(x * Math.PI / 180);
     const cos = (x) => Math.cos(x * Math.PI / 180);
     const tan = (x) => Math.tan(x * Math.PI / 180);
     const sqrt = (x) => Math.sqrt(x);
@@ -330,11 +335,9 @@
     function calculate() {
         try {
             let expression = currentInput;
-            // Menghitung hasil dengan aman lewat fungsi kustom
             let result = eval(expression);
             
             if (result !== undefined) {
-                // Pembulatan agar tidak muncul angka desimal kepanjangan (ex: 0.30000000004)
                 if(result % 1 !== 0) result = parseFloat(result.toFixed(8));
 
                 document.getElementById('display-history').innerText = expression;
@@ -342,26 +345,70 @@
                 
                 addHistory(expression, result);
                 currentInput = result.toString();
+
+                // JIKA SUARA AKTIF: AI akan membacakan jumlahnya
+                if (isVoiceEnabled) {
+                    speakAI(`Jumlahnya adalah ${result}`);
+                }
             }
         } catch (error) {
             document.getElementById('display-result').innerText = 'Error';
             currentInput = '';
+            if (isVoiceEnabled) {
+                speakAI("Maaf, format perhitungan salah.");
+            }
         }
     }
 
-    // MANAJEMEN FITUR MEMORI (MC, MR, M+)
+    // --- FITUR BARU: ASISTEN SUARA AI ---
+    function toggleVoice() {
+        isVoiceEnabled = !isVoiceEnabled;
+        const btn = document.getElementById('ai-voice-btn');
+        
+        if (isVoiceEnabled) {
+            btn.innerText = '🔊 Suara AI: On';
+            btn.classList.add('active');
+            speakAI("Suara kecerdasan buatan diaktifkan. Siap menghitung jumlahnya.");
+        } else {
+            btn.innerText = '🔇 Suara AI: Off';
+            btn.classList.remove('active');
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel(); // Matikan suara jika tombol di-off-kan tengah jalan
+            }
+        }
+    }
+
+    function speakAI(text) {
+        if ('speechSynthesis' in window) {
+            // Hentikan suara sebelumnya agar tidak bertumpuk
+            window.speechSynthesis.cancel();
+            
+            let utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'id-ID'; // Mengatur suara ke Bahasa Indonesia
+            utterance.pitch = 1.1;    // Nada suara sedikit robotik khas AI
+            utterance.rate = 1.0;     // Kecepatan berbicara normal
+            
+            window.speechSynthesis.speak(utterance);
+        } else {
+            alert("Browser kamu tidak mendukung fitur Text-to-Speech.");
+        }
+    }
+
+    // MANAJEMEN FITUR MEMORI
     function handleMemory(action) {
         let currentVal = parseFloat(document.getElementById('display-result').innerText) || 0;
         
         if (action === 'M+') {
             calculatorMemory += currentVal;
             document.getElementById('mem-indicator').style.display = 'block';
+            if (isVoiceEnabled) speakAI("Disimpan ke memori");
         } else if (action === 'MR') {
             currentInput = calculatorMemory.toString();
             updateScreen();
         } else if (action === 'MC') {
             calculatorMemory = 0;
             document.getElementById('mem-indicator').style.display = 'none';
+            if (isVoiceEnabled) speakAI("Memori dibersihkan");
         }
     }
 
