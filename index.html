@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kalkulator Super Multi-Fitur</title>
+    <title>Kalkulator Super Multi-Fitur Ultra Pro</title>
     <style>
         :root {
             --bg-body: #f4f7f6;
@@ -12,6 +12,7 @@
             --btn-num: #e9ecef;
             --btn-op: #fd7e14;
             --btn-sci: #6c757d;
+            --btn-mem: #4a5568;
             --screen-bg: #f8f9fa;
         }
 
@@ -22,6 +23,7 @@
             --btn-num: #2d2d2d;
             --btn-op: #f77f00;
             --btn-sci: #4a4a4a;
+            --btn-mem: #2c3e50;
             --screen-bg: #0f0f0f;
         }
 
@@ -40,7 +42,7 @@
         .container {
             display: flex;
             gap: 20px;
-            max-width: 800px;
+            max-width: 900px;
             width: 100%;
             padding: 20px;
             box-sizing: border-box;
@@ -52,8 +54,8 @@
             padding: 25px;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            flex: 1;
-            min-width: 300px;
+            flex: 1.3;
+            min-width: 320px;
         }
 
         .header {
@@ -86,6 +88,17 @@
             text-align: right;
             margin-bottom: 20px;
             box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        .screen .memory-indicator {
+            position: absolute;
+            left: 15px;
+            top: 10px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            color: var(--btn-op);
+            display: none;
         }
 
         .screen .history {
@@ -96,7 +109,7 @@
         }
 
         .screen .result {
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: bold;
             overflow-x: auto;
             white-space: nowrap;
@@ -104,13 +117,13 @@
 
         .buttons {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
         }
 
         button {
-            padding: 18px;
-            font-size: 1.1rem;
+            padding: 15px 10px;
+            font-size: 1rem;
             border: none;
             border-radius: 10px;
             cursor: pointer;
@@ -125,6 +138,7 @@
         .num { background-color: var(--btn-num); color: var(--txt-main); }
         .op { background-color: var(--btn-op); color: white; }
         .sci { background-color: var(--btn-sci); color: white; }
+        .mem { background-color: var(--btn-mem); color: white; }
         .clear { background-color: #dc3545; color: white; }
 
         .history-panel {
@@ -132,16 +146,41 @@
             padding: 20px;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            flex: 1;
+            flex: 0.9;
             min-width: 250px;
-            max-height: 450px;
-            overflow-y: auto;
+            max-height: 520px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .clear-hist-btn {
+            background: none;
+            border: 1px solid #dc3545;
+            color: #dc3545;
+            padding: 3px 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .clear-hist-btn:hover {
+            background-color: #dc3545;
+            color: white;
         }
 
         .history-list {
             list-style: none;
             padding: 0;
             margin: 0;
+            overflow-y: auto;
+            flex: 1;
         }
 
         .history-item {
@@ -159,58 +198,74 @@
 <body>
 
 <div class="container">
+    <!-- Kalkulator -->
     <div class="calculator">
         <div class="header">
-            <h3>Kalkulator Pro</h3>
+            <h3>Kalkulator Ultra Pro</h3>
             <div class="header-buttons">
                 <button class="paste-btn" onclick="pasteFromClipboard()">📋 Paste</button>
                 <button class="theme-toggle" onclick="toggleTheme()">🌓 Tema</button>
             </div>
         </div>
         <div class="screen">
+            <div class="memory-indicator" id="mem-indicator">M</div>
             <div class="history" id="display-history"></div>
             <div class="result" id="display-result">0</div>
         </div>
+        
         <div class="buttons">
+            <!-- Baris Fitur Memori & Fitur Baru -->
+            <button class="mem" onclick="handleMemory('MC')">MC</button>
+            <button class="mem" onclick="handleMemory('MR')">MR</button>
+            <button class="mem" onclick="handleMemory('M+')">M+</button>
+            <button class="sci" onclick="pressSci('log')">log</button>
+            <button class="sci" onclick="pressSci('ln')">ln</button>
+
+            <!-- Baris Sains Tambahan -->
             <button class="sci" onclick="pressSci('sin')">sin</button>
             <button class="sci" onclick="pressSci('cos')">cos</button>
             <button class="sci" onclick="pressSci('tan')">tan</button>
             <button class="sci" onclick="pressSci('sqrt')">√</button>
+            <button class="sci" onclick="pressSci('fact')">n!</button>
             
             <button class="sci" onclick="pressSci('pow')">xʸ</button>
             <button class="sci" onclick="pressSci('pi')">π</button>
             <button class="sci" onclick="press('(')">(</button>
             <button class="sci" onclick="press(')')">)</button>
+            <button class="op" onclick="press('%')">%</button>
 
+            <!-- Baris Standar Berubah Jadi 5 Kolom -->
             <button class="clear" onclick="clearScreen()">C</button>
             <button class="sci" onclick="backspace()">⌫</button>
-            <button class="op" onclick="press('/')">÷</button>
-            <button class="op" onclick="press('*')">×</button>
-
             <button class="num" onclick="press('7')">7</button>
             <button class="num" onclick="press('8')">8</button>
-            <button class="num" onclick="press('9')">9</button>
-            <button class="op" onclick="press('-')">-</button>
+            <button class="op" onclick="press('/')">÷</button>
 
+            <button class="num" onclick="press('9')">9</button>
             <button class="num" onclick="press('4')">4</button>
             <button class="num" onclick="press('5')">5</button>
             <button class="num" onclick="press('6')">6</button>
-            <button class="op" onclick="press('+')">+</button>
+            <button class="op" onclick="press('*')">×</button>
 
             <button class="num" onclick="press('1')">1</button>
             <button class="num" onclick="press('2')">2</button>
             <button class="num" onclick="press('3')">3</button>
-            <button class="op" style="grid-row: span 2; height: 100%;" onclick="calculate()">=</button>
+            <button class="num" onclick="press('0')">0</button>
+            <button class="op" onclick="press('-')">-</button>
 
-            <button class="num" style="grid-column: span 2;" onclick="press('0')">0</button>
-            <button class="num" onclick="press('.')">.</button>
+            <button class="num" style="grid-column: span 2;" onclick="press('.')">.</button>
+            <button class="op" style="grid-column: span 3; font-size: 1.5rem;" onclick="calculate()">=</button>
         </div>
     </div>
 
+    <!-- Panel Riwayat -->
     <div class="history-panel">
-        <h4>Riwayat Hitungan</h4>
+        <div class="history-header">
+            <h4>Riwayat Hitungan</h4>
+            <button class="clear-hist-btn" onclick="clearHistory()">Hapus Semua</button>
+        </div>
         <ul class="history-list" id="history-list">
-            <li style="color: #888; text-align: center; padding-top: 20px;">Belum ada riwayat</li>
+            <li id="no-hist" style="color: #888; text-align: center; padding-top: 20px;">Belum ada riwayat</li>
         </ul>
     </div>
 </div>
@@ -218,6 +273,22 @@
 <script>
     let currentInput = '';
     let memoryHistory = [];
+    let calculatorMemory = 0; // Tempat menyimpan nilai M+
+
+    // Fungsi matematika custom agar eval() mengenali perintah sains
+    const log = (x) => Math.log10(x);
+    const ln = (x) => Math.log(x);
+    const sin = (x) => Math.sin(x * Math.PI / 180); // Menggunakan derajat/degree
+    const cos = (x) => Math.cos(x * Math.PI / 180);
+    const tan = (x) => Math.tan(x * Math.PI / 180);
+    const sqrt = (x) => Math.sqrt(x);
+    const fact = (n) => {
+        if (n < 0) return NaN;
+        if (n === 0 || n === 1) return 1;
+        let result = 1;
+        for (let i = 2; i <= n; i++) result *= i;
+        return result;
+    };
 
     function press(val) {
         if (currentInput === '0' && val !== '.') {
@@ -229,10 +300,13 @@
     }
 
     function pressSci(func) {
-        if (func === 'sin') currentInput += 'Math.sin(';
-        if (func === 'cos') currentInput += 'Math.cos(';
-        if (func === 'tan') currentInput += 'Math.tan(';
-        if (func === 'sqrt') currentInput += 'Math.sqrt(';
+        if (func === 'sin') currentInput += 'sin(';
+        if (func === 'cos') currentInput += 'cos(';
+        if (func === 'tan') currentInput += 'tan(';
+        if (func === 'sqrt') currentInput += 'sqrt(';
+        if (func === 'log') currentInput += 'log(';
+        if (func === 'ln') currentInput += 'ln(';
+        if (func === 'fact') currentInput += 'fact(';
         if (func === 'pow') currentInput += '**';
         if (func === 'pi') currentInput += 'Math.PI';
         updateScreen();
@@ -256,9 +330,13 @@
     function calculate() {
         try {
             let expression = currentInput;
+            // Menghitung hasil dengan aman lewat fungsi kustom
             let result = eval(expression);
             
             if (result !== undefined) {
+                // Pembulatan agar tidak muncul angka desimal kepanjangan (ex: 0.30000000004)
+                if(result % 1 !== 0) result = parseFloat(result.toFixed(8));
+
                 document.getElementById('display-history').innerText = expression;
                 document.getElementById('display-result').innerText = result;
                 
@@ -271,11 +349,42 @@
         }
     }
 
+    // MANAJEMEN FITUR MEMORI (MC, MR, M+)
+    function handleMemory(action) {
+        let currentVal = parseFloat(document.getElementById('display-result').innerText) || 0;
+        
+        if (action === 'M+') {
+            calculatorMemory += currentVal;
+            document.getElementById('mem-indicator').style.display = 'block';
+        } else if (action === 'MR') {
+            currentInput = calculatorMemory.toString();
+            updateScreen();
+        } else if (action === 'MC') {
+            calculatorMemory = 0;
+            document.getElementById('mem-indicator').style.display = 'none';
+        }
+    }
+
+    // MANAJEMEN RIWAYAT
     function addHistory(expr, res) {
         memoryHistory.unshift({ expr, res });
+        renderHistory();
+    }
+
+    function clearHistory() {
+        memoryHistory = [];
+        renderHistory();
+    }
+
+    function renderHistory() {
         const list = document.getElementById('history-list');
         list.innerHTML = '';
         
+        if(memoryHistory.length === 0) {
+            list.innerHTML = `<li id="no-hist" style="color: #888; text-align: center; padding-top: 20px;">Belum ada riwayat</li>`;
+            return;
+        }
+
         memoryHistory.forEach(item => {
             let li = document.createElement('li');
             li.className = 'history-item';
@@ -297,11 +406,8 @@
         }
     }
 
-    // --- FITUR BARU: PASTE & KEYBOARD ---
-
-    // Fungsi proses teks yang di-paste agar ramah mesin kalkulator
+    // FITUR PASTE & KEYBOARD
     function handlePastedText(text) {
-        // Mengubah simbol umum x menjadi * dan ÷ menjadi / agar bisa dihitung
         let cleanText = text.replace(/×/g, '*').replace(/÷/g, '/').replace(/,/g, '.');
         if (currentInput === '0') {
             currentInput = cleanText;
@@ -311,26 +417,23 @@
         updateScreen();
     }
 
-    // 1. Paste via Tombol UI (Cocok untuk HP)
     async function pasteFromClipboard() {
         try {
             const text = await navigator.clipboard.readText();
             handlePastedText(text);
         } catch (err) {
-            alert('Gagal membaca clipboard. Pastikan izin akses clipboard sudah aktif di browsermu.');
+            alert('Gagal membaca clipboard. Berikan izin akses clipboard pada browsermu.');
         }
     }
 
-    // 2. Paste via Shortcut Keyboard Biasa (Ctrl + V)
     window.addEventListener('paste', (e) => {
         e.preventDefault();
         const text = (e.clipboardData || window.clipboardData).getData('text');
         handlePastedText(text);
     });
 
-    // 3. Mengetik langsung via Keyboard laptop/PC
     window.addEventListener('keydown', (e) => {
-        const allowedKeys = '0123456789+-*/.()';
+        const allowedKeys = '0123456789+-*/.()%';
         if (allowedKeys.includes(e.key)) {
             e.preventDefault();
             press(e.key);
