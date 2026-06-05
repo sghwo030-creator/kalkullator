@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kalkulator Super Multi-Fitur Ultra Pro + AI Voice</title>
+    <title>Kalkulator Mega Ultra Pro + Konverter & AI Voice</title>
     <style>
         :root {
             --bg-body: #f4f7f6;
@@ -14,6 +14,7 @@
             --btn-sci: #6c757d;
             --btn-mem: #4a5568;
             --screen-bg: #f8f9fa;
+            --tab-active: #fd7e14;
         }
 
         [data-theme="dark"] {
@@ -25,6 +26,7 @@
             --btn-sci: #4a4a4a;
             --btn-mem: #2c3e50;
             --screen-bg: #0f0f0f;
+            --tab-active: #f77f00;
         }
 
         body {
@@ -42,20 +44,55 @@
         .container {
             display: flex;
             gap: 20px;
-            max-width: 950px;
+            max-width: 1000px;
             width: 100%;
             padding: 20px;
             box-sizing: border-box;
             flex-wrap: wrap;
         }
 
-        .calculator {
+        .main-panel {
             background-color: var(--bg-calc);
             padding: 25px;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            flex: 1.3;
+            flex: 1.4;
             min-width: 320px;
+        }
+
+        /* FITUR BARU: TAB SYSTEM */
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--screen-bg);
+            padding-bottom: 10px;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            color: var(--txt-main);
+            padding: 8px 16px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1rem;
+            opacity: 0.6;
+            transition: all 0.2s;
+        }
+
+        .tab-btn.active {
+            opacity: 1;
+            color: var(--tab-active);
+            border-bottom: 3px solid var(--tab-active);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
         }
 
         .header {
@@ -71,7 +108,7 @@
             flex-wrap: wrap;
         }
 
-        .theme-toggle, .paste-btn, .ai-btn {
+        .theme-toggle, .paste-btn, .ai-btn, .action-btn {
             background: none;
             border: 2px solid var(--txt-main);
             color: var(--txt-main);
@@ -149,6 +186,40 @@
         .mem { background-color: var(--btn-mem); color: white; }
         .clear { background-color: #dc3545; color: white; }
 
+        /* FITUR BARU: LAYOUT KONVERTER */
+        .converter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            padding: 10px 0;
+        }
+
+        .converter-field {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .converter-field label {
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .converter-field input, .converter-field select {
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid var(--btn-sci);
+            background-color: var(--screen-bg);
+            color: var(--txt-main);
+            font-size: 1rem;
+        }
+
+        .converter-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
         .history-panel {
             background-color: var(--bg-calc);
             padding: 20px;
@@ -156,7 +227,7 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             flex: 0.9;
             min-width: 250px;
-            max-height: 520px;
+            max-height: 580px;
             display: flex;
             flex-direction: column;
         }
@@ -168,7 +239,12 @@
             margin-bottom: 10px;
         }
 
-        .clear-hist-btn {
+        .history-actions {
+            display: flex;
+            gap: 5px;
+        }
+
+        .clear-hist-btn, .download-hist-btn {
             background: none;
             border: 1px solid #dc3545;
             color: #dc3545;
@@ -178,10 +254,13 @@
             font-size: 0.8rem;
         }
 
-        .clear-hist-btn:hover {
-            background-color: #dc3545;
-            color: white;
+        .download-hist-btn {
+            border-color: #007bff;
+            color: #007bff;
         }
+
+        .clear-hist-btn:hover { background-color: #dc3545; color: white; }
+        .download-hist-btn:hover { background-color: #007bff; color: white; }
 
         .history-list {
             list-style: none;
@@ -206,67 +285,116 @@
 <body>
 
 <div class="container">
-    <div class="calculator">
-        <div class="header">
-            <h3>Kalkulator AI</h3>
-            <div class="header-buttons">
-                <button class="ai-btn" id="ai-voice-btn" onclick="toggleVoice()">🔇 Suara AI: Off</button>
-                <button class="paste-btn" onclick="pasteFromClipboard()">📋 Paste</button>
-                <button class="theme-toggle" onclick="toggleTheme()">🌓 Tema</button>
+    <div class="main-panel">
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('calc-tab')">🧮 Kalkulator</button>
+            <button class="tab-btn" onclick="switchTab('conv-tab')">🔄 Konverter Satuan</button>
+        </div>
+
+        <div id="calc-tab" class="tab-content active">
+            <div class="header">
+                <h3>Kalkulator AI</h3>
+                <div class="header-buttons">
+                    <button class="ai-btn" id="ai-voice-btn" onclick="toggleVoice()">🔇 Suara AI: Off</button>
+                    <button class="paste-btn" onclick="pasteFromClipboard()">📋 Paste</button>
+                    <button class="theme-toggle" onclick="toggleTheme()">🌓 Tema</button>
+                </div>
+            </div>
+            <div class="screen">
+                <div class="memory-indicator" id="mem-indicator">M</div>
+                <div class="history" id="display-history"></div>
+                <div class="result" id="display-result">0</div>
+            </div>
+            
+            <div class="buttons">
+                <button class="mem" onclick="handleMemory('MC')">MC</button>
+                <button class="mem" onclick="handleMemory('MR')">MR</button>
+                <button class="mem" onclick="handleMemory('M+')">M+</button>
+                <button class="sci" onclick="pressSci('log')">log</button>
+                <button class="sci" onclick="pressSci('ln')">ln</button>
+
+                <button class="sci" onclick="pressSci('sin')">sin</button>
+                <button class="sci" onclick="pressSci('cos')">cos</button>
+                <button class="sci" onclick="pressSci('tan')">tan</button>
+                <button class="sci" onclick="pressSci('sqrt')">√</button>
+                <button class="sci" onclick="pressSci('fact')">n!</button>
+                
+                <button class="sci" onclick="pressSci('pow')">xʸ</button>
+                <button class="sci" onclick="pressSci('pi')">π</button>
+                <button class="sci" onclick="press('(')">(</button>
+                <button class="sci" onclick="press(')')">)</button>
+                <button class="op" onclick="press('%')">%</button>
+
+                <button class="clear" onclick="clearScreen()">C</button>
+                <button class="sci" onclick="backspace()">⌫</button>
+                <button class="num" onclick="press('7')">7</button>
+                <button class="num" onclick="press('8')">8</button>
+                <button class="op" onclick="press('/')">÷</button>
+
+                <button class="num" onclick="press('9')">9</button>
+                <button class="num" onclick="press('4')">4</button>
+                <button class="num" onclick="press('5')">5</button>
+                <button class="num" onclick="press('6')">6</button>
+                <button class="op" onclick="press('*')">×</button>
+
+                <button class="num" onclick="press('1')">1</button>
+                <button class="num" onclick="press('2')">2</button>
+                <button class="num" onclick="press('3')">3</button>
+                <button class="num" onclick="press('0')">0</button>
+                <button class="op" onclick="press('-')">-</button>
+
+                <button class="num" style="grid-column: span 2;" onclick="press('.')">.</button>
+                <button class="op" style="grid-column: span 3; font-size: 1.5rem;" onclick="calculate()">=</button>
             </div>
         </div>
-        <div class="screen">
-            <div class="memory-indicator" id="mem-indicator">M</div>
-            <div class="history" id="display-history"></div>
-            <div class="result" id="display-result">0</div>
-        </div>
-        
-        <div class="buttons">
-            <button class="mem" onclick="handleMemory('MC')">MC</button>
-            <button class="mem" onclick="handleMemory('MR')">MR</button>
-            <button class="mem" onclick="handleMemory('M+')">M+</button>
-            <button class="sci" onclick="pressSci('log')">log</button>
-            <button class="sci" onclick="pressSci('ln')">ln</button>
 
-            <button class="sci" onclick="pressSci('sin')">sin</button>
-            <button class="sci" onclick="pressSci('cos')">cos</button>
-            <button class="sci" onclick="pressSci('tan')">tan</button>
-            <button class="sci" onclick="pressSci('sqrt')">√</button>
-            <button class="sci" onclick="pressSci('fact')">n!</button>
+        <div id="conv-tab" class="tab-content">
+            <div class="header">
+                <h3>Konverter Pro</h3>
+                <button class="theme-toggle" onclick="toggleTheme()">🌓 Tema</button>
+            </div>
             
-            <button class="sci" onclick="pressSci('pow')">xʸ</button>
-            <button class="sci" onclick="pressSci('pi')">π</button>
-            <button class="sci" onclick="press('(')">(</button>
-            <button class="sci" onclick="press(')')">)</button>
-            <button class="op" onclick="press('%')">%</button>
+            <div class="converter-group">
+                <div class="converter-field">
+                    <label>Kategori Satuan</label>
+                    <select id="conv-category" onchange="updateConverterUnits()">
+                        <option value="panjang">📏 Panjang (m, km, cm, mm, dll)</option>
+                        <option value="berat">⚖️ Berat (kg, g, mg, pon, ons)</option>
+                        <option value="suhu">🌡️ Suhu (Celsius, Fahrenheit, Kelvin)</option>
+                    </select>
+                </div>
 
-            <button class="clear" onclick="clearScreen()">C</button>
-            <button class="sci" onclick="backspace()">⌫</button>
-            <button class="num" onclick="press('7')">7</button>
-            <button class="num" onclick="press('8')">8</button>
-            <button class="op" onclick="press('/')">÷</button>
+                <div class="converter-field">
+                    <label>Nilai yang Ingin Dikonversi</label>
+                    <input type="number" id="conv-input" value="1" oninput="runConversion()">
+                </div>
 
-            <button class="num" onclick="press('9')">9</button>
-            <button class="num" onclick="press('4')">4</button>
-            <button class="num" onclick="press('5')">5</button>
-            <button class="num" onclick="press('6')">6</button>
-            <button class="op" onclick="press('*')">×</button>
+                <div class="converter-row">
+                    <div class="converter-field">
+                        <label>Dari</label>
+                        <select id="conv-from" onchange="runConversion()"></select>
+                    </div>
+                    <div class="converter-field">
+                        <label>Ke</label>
+                        <select id="conv-to" onchange="runConversion()"></select>
+                    </div>
+                </div>
 
-            <button class="num" onclick="press('1')">1</button>
-            <button class="num" onclick="press('2')">2</button>
-            <button class="num" onclick="press('3')">3</button>
-            <button class="num" onclick="press('0')">0</button>
-            <button class="op" onclick="press('-')">-</button>
-
-            <button class="num" style="grid-column: span 2;" onclick="press('.')">.</button>
-            <button class="op" style="grid-column: span 3; font-size: 1.5rem;" onclick="calculate()">=</button>
+                <div class="converter-field" style="margin-top: 15px;">
+                    <label>Hasil Konversi</label>
+                    <div id="conv-result" style="font-size: 1.8rem; font-weight: bold; background-color: var(--screen-bg); padding: 15px; border-radius: 8px; border: 1px dashed var(--btn-sci);">0</div>
+                </div>
+            </div>
         </div>
     </div>
 
     <div class="history-panel">
         <div class="history-header">
-            <h4>Riwayat Hitungan</h4>
-            <button class="clear-hist-btn" onclick="clearHistory()">Hapus Semua</button>
+            <h4>Riwayat</h4>
+            <div class="history-actions">
+                <button class="download-hist-btn" onclick="downloadHistory()">💾 Simpan .txt</button>
+                <button class="clear-hist-btn" onclick="clearHistory()">Hapus</button>
+            </div>
         </div>
         <ul class="history-list" id="history-list">
             <li id="no-hist" style="color: #888; text-align: center; padding-top: 20px;">Belum ada riwayat</li>
@@ -278,9 +406,9 @@
     let currentInput = '';
     let memoryHistory = [];
     let calculatorMemory = 0;
-    let isVoiceEnabled = false; // Status suara AI
+    let isVoiceEnabled = false;
 
-    // Fungsi matematika custom
+    // Fungsi matematika kustom
     const log = (x) => Math.log10(x);
     const ln = (x) => Math.log(x);
     const sin = (x) => Math.sin(x * Math.PI / 180);
@@ -295,12 +423,20 @@
         return result;
     };
 
+    // NAVIGASI TAB
+    function switchTab(tabId) {
+        document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+        
+        document.getElementById(tabId).classList.add('active');
+        event.currentTarget.classList.add('active');
+        
+        if(tabId === 'conv-tab') updateConverterUnits();
+    }
+
     function press(val) {
-        if (currentInput === '0' && val !== '.') {
-            currentInput = val;
-        } else {
-            currentInput += val;
-        }
+        if (currentInput === '0' && val !== '.') currentInput = val;
+        else currentInput += val;
         updateScreen();
     }
 
@@ -346,73 +482,56 @@
                 addHistory(expression, result);
                 currentInput = result.toString();
 
-                // JIKA SUARA AKTIF: AI akan membacakan jumlahnya
-                if (isVoiceEnabled) {
-                    speakAI(`Jumlahnya adalah ${result}`);
-                }
+                if (isVoiceEnabled) speakAI(`Jumlahnya adalah ${result}`);
             }
         } catch (error) {
             document.getElementById('display-result').innerText = 'Error';
             currentInput = '';
-            if (isVoiceEnabled) {
-                speakAI("Maaf, format perhitungan salah.");
-            }
+            if (isVoiceEnabled) speakAI("Maaf, format perhitungan salah.");
         }
     }
 
-    // --- FITUR BARU: ASISTEN SUARA AI ---
     function toggleVoice() {
         isVoiceEnabled = !isVoiceEnabled;
         const btn = document.getElementById('ai-voice-btn');
-        
         if (isVoiceEnabled) {
             btn.innerText = '🔊 Suara AI: On';
             btn.classList.add('active');
-            speakAI("Suara kecerdasan buatan diaktifkan. Siap menghitung jumlahnya.");
+            speakAI("Suara AI diaktifkan.");
         } else {
             btn.innerText = '🔇 Suara AI: Off';
             btn.classList.remove('active');
-            if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel(); // Matikan suara jika tombol di-off-kan tengah jalan
-            }
+            if ('speechSynthesis' in window) window.speechSynthesis.cancel();
         }
     }
 
     function speakAI(text) {
         if ('speechSynthesis' in window) {
-            // Hentikan suara sebelumnya agar tidak bertumpuk
             window.speechSynthesis.cancel();
-            
             let utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'id-ID'; // Mengatur suara ke Bahasa Indonesia
-            utterance.pitch = 1.1;    // Nada suara sedikit robotik khas AI
-            utterance.rate = 1.0;     // Kecepatan berbicara normal
-            
+            utterance.lang = 'id-ID';
+            utterance.pitch = 1.1;
             window.speechSynthesis.speak(utterance);
-        } else {
-            alert("Browser kamu tidak mendukung fitur Text-to-Speech.");
         }
     }
 
-    // MANAJEMEN FITUR MEMORI
     function handleMemory(action) {
         let currentVal = parseFloat(document.getElementById('display-result').innerText) || 0;
-        
         if (action === 'M+') {
             calculatorMemory += currentVal;
             document.getElementById('mem-indicator').style.display = 'block';
-            if (isVoiceEnabled) speakAI("Disimpan ke memori");
+            if (isVoiceEnabled) speakAI("Disimpan");
         } else if (action === 'MR') {
             currentInput = calculatorMemory.toString();
             updateScreen();
         } else if (action === 'MC') {
             calculatorMemory = 0;
             document.getElementById('mem-indicator').style.display = 'none';
-            if (isVoiceEnabled) speakAI("Memori dibersihkan");
+            if (isVoiceEnabled) speakAI("Dibersihkan");
         }
     }
 
-    // MANAJEMEN RIWAYAT
+    // RIWAYAT & DOWNLOAD TXT
     function addHistory(expr, res) {
         memoryHistory.unshift({ expr, res });
         renderHistory();
@@ -423,15 +542,30 @@
         renderHistory();
     }
 
+    function downloadHistory() {
+        if(memoryHistory.length === 0) {
+            alert("Belum ada riwayat untuk diunduh!");
+            return;
+        }
+        let txtContent = "RIWAYAT HITUNGAN KALKULATOR AI\n=============================\n";
+        memoryHistory.forEach((item, index) => {
+            txtContent += `${index + 1}. ${item.expr} = ${item.res}\n`;
+        });
+        
+        let blob = new Blob([txtContent], { type: "text/plain;charset=utf-8" });
+        let a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "riwayat_kalkulator.txt";
+        a.click();
+    }
+
     function renderHistory() {
         const list = document.getElementById('history-list');
         list.innerHTML = '';
-        
         if(memoryHistory.length === 0) {
             list.innerHTML = `<li id="no-hist" style="color: #888; text-align: center; padding-top: 20px;">Belum ada riwayat</li>`;
             return;
         }
-
         memoryHistory.forEach(item => {
             let li = document.createElement('li');
             li.className = 'history-item';
@@ -439,28 +573,80 @@
             li.onclick = () => {
                 currentInput = item.res.toString();
                 updateScreen();
+                switchTab('calc-tab');
             };
             list.appendChild(li);
         });
     }
 
-    function toggleTheme() {
-        const body = document.body;
-        if (body.getAttribute('data-theme') === 'dark') {
-            body.removeAttribute('data-theme');
+    // DATA DAN LOGIK KONVERTER SATUAN
+    const unitsData = {
+        panjang: { km: 1000, m: 1, cm: 0.01, mm: 0.001, mil: 1609.34, inci: 0.0254 },
+        berat: { kg: 1, g: 0.001, mg: 0.000001, pon: 0.453592, ons: 0.0283495 },
+        suhu: ['Celsius', 'Fahrenheit', 'Kelvin']
+    };
+
+    function updateConverterUnits() {
+        const cat = document.getElementById('conv-category').value;
+        const fromSelect = document.getElementById('conv-from');
+        const toSelect = document.getElementById('conv-to');
+        
+        fromSelect.innerHTML = '';
+        toSelect.innerHTML = '';
+
+        let options = cat === 'suhu' ? unitsData.suhu : Object.keys(unitsData[cat]);
+        
+        options.forEach(unit => {
+            fromSelect.options[fromSelect.options.length] = new Option(unit, unit);
+            toSelect.options[toSelect.options.length] = new Option(unit, unit);
+        });
+
+        // Set default pilihan berbeda agar menarik
+        if(toSelect.options.length > 1) toSelect.selectedIndex = 1;
+
+        runConversion();
+    }
+
+    function runConversion() {
+        const cat = document.getElementById('conv-category').value;
+        const inputVal = parseFloat(document.getElementById('conv-input').value) || 0;
+        const fromUnit = document.getElementById('conv-from').value;
+        const toUnit = document.getElementById('conv-to').value;
+        let result = 0;
+
+        if (cat === 'suhu') {
+            if (fromUnit === toUnit) result = inputVal;
+            else if (fromUnit === 'Celsius' && toUnit === 'Fahrenheit') result = (inputVal * 9/5) + 32;
+            else if (fromUnit === 'Celsius' && toUnit === 'Kelvin') result = inputVal + 273.15;
+            else if (fromUnit === 'Fahrenheit' && toUnit === 'Celsius') result = (inputVal - 32) * 5/9;
+            else if (fromUnit === 'Fahrenheit' && toUnit === 'Kelvin') result = ((inputVal - 32) * 5/9) + 273.15;
+            else if (fromUnit === 'Kelvin' && toUnit === 'Celsius') result = inputVal - 273.15;
+            else if (fromUnit === 'Kelvin' && toUnit === 'Fahrenheit') result = ((inputVal - 273.15) * 9/5) + 32;
         } else {
-            body.setAttribute('data-theme', 'dark');
+            // Konversi berbasis meter (panjang) atau kilogram (berat)
+            let baseValue = inputVal * unitsData[cat][fromUnit];
+            result = baseValue / unitsData[cat][toUnit];
+        }
+
+        result = parseFloat(result.toFixed(6));
+        document.getElementById('conv-result').innerText = `${result} ${toUnit}`;
+        
+        if (isVoiceEnabled && inputVal !== 0) {
+            speakAI(`Hasil konversi adalah ${result} ${toUnit}`);
         }
     }
 
-    // FITUR PASTE & KEYBOARD
+    function toggleTheme() {
+        const body = document.body;
+        if (body.getAttribute('data-theme') === 'dark') body.removeAttribute('data-theme');
+        else body.setAttribute('data-theme', 'dark');
+    }
+
+    // SHORTCUT KEYBOARD & PASTE
     function handlePastedText(text) {
         let cleanText = text.replace(/×/g, '*').replace(/÷/g, '/').replace(/,/g, '.');
-        if (currentInput === '0') {
-            currentInput = cleanText;
-        } else {
-            currentInput += cleanText;
-        }
+        if (currentInput === '0') currentInput = cleanText;
+        else currentInput += cleanText;
         updateScreen();
     }
 
@@ -469,7 +655,7 @@
             const text = await navigator.clipboard.readText();
             handlePastedText(text);
         } catch (err) {
-            alert('Gagal membaca clipboard. Berikan izin akses clipboard pada browsermu.');
+            alert('Gagal membaca clipboard.');
         }
     }
 
@@ -480,20 +666,12 @@
     });
 
     window.addEventListener('keydown', (e) => {
+        if(document.activeElement.id === 'conv-input') return; // ketik biasa kalau sedang di form konverter
         const allowedKeys = '0123456789+-*/.()%';
-        if (allowedKeys.includes(e.key)) {
-            e.preventDefault();
-            press(e.key);
-        } else if (e.key === 'Enter') {
-            e.preventDefault();
-            calculate();
-        } else if (e.key === 'Backspace') {
-            e.preventDefault();
-            backspace();
-        } else if (e.key === 'Escape') {
-            e.preventDefault();
-            clearScreen();
-        }
+        if (allowedKeys.includes(e.key)) { e.preventDefault(); press(e.key); }
+        else if (e.key === 'Enter') { e.preventDefault(); calculate(); }
+        else if (e.key === 'Backspace') { e.preventDefault(); backspace(); }
+        else if (e.key === 'Escape') { e.preventDefault(); clearScreen(); }
     });
 </script>
 </body>
