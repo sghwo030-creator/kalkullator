@@ -3,22 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IPAS Hub Central v4.0 - Dasar Coding & Komputer</title>
+    <title> -belajar coding </title>
     <style>
         :root {
-            --bg-body: #060913;
-            --bg-card: rgba(11, 17, 34, 0.9);
-            --border-neon: #1e293b;
-            --txt-main: #f1f5f9;
-            --txt-muted: #94a3b8;
-            --neon-green: #00ffcc;
-            --neon-blue: #38bdf8;
-            --neon-amber: #f59e0b;
-            --neon-purple: #c084fc;
+            --bg-body: #020205;
+            --bg-card: rgba(5, 12, 22, 0.9);
+            --border-neon: #00ff66;
+            --txt-main: #33ff66;
+            --txt-muted: #00aa44;
+            --neon-green: #00ff66;
+            --neon-blue: #00ffff;
+            --neon-red: #ff0055;
+            --neon-amber: #ffcc00;
+        }
+
+        #matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            opacity: 0.2;
         }
 
         body {
-            font-family: 'Consolas', 'Segoe UI', monospace;
+            font-family: 'Courier New', Courier, monospace;
             background-color: var(--bg-body);
             color: var(--txt-main);
             margin: 0;
@@ -30,125 +40,120 @@
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 1100px;
             width: 100%;
             background: var(--bg-card);
-            backdrop-filter: blur(16px);
-            padding: 45px;
-            border-radius: 24px;
-            box-shadow: 0 0 50px rgba(0, 255, 204, 0.1);
-            border: 1px solid rgba(0, 255, 204, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 0 40px rgba(0, 255, 102, 0.25);
+            border: 2px solid var(--border-neon);
+            position: relative;
         }
 
-        /* HEADER NAVIGASI */
+        .container::before {
+            content: "⚡ DEFCON 1: ENHANCED MATERIAL ROOTED";
+            position: absolute;
+            top: 12px;
+            right: 20px;
+            font-size: 0.8rem;
+            color: var(--neon-red);
+            font-weight: bold;
+            letter-spacing: 2px;
+            animation: blink 1.2s infinite;
+        }
+
+        @keyframes blink { 50% { opacity: 0; } }
+
         .nav-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 2px dashed #334155;
+            border-bottom: 2px dashed var(--neon-green);
             padding-bottom: 25px;
             margin-bottom: 35px;
         }
 
         .btn-nav {
-            background: #0f172a;
-            border: 1px solid #334155;
-            color: #f8fafc;
-            padding: 12px 26px;
-            border-radius: 8px;
+            background: #001100;
+            border: 1px solid var(--neon-green);
+            color: var(--neon-green);
+            padding: 12px 24px;
+            border-radius: 4px;
             cursor: pointer;
             font-weight: 700;
+            font-family: inherit;
             transition: all 0.3s;
         }
         .btn-nav:hover { 
-            background: #1e293b; 
-            border-color: var(--neon-green);
-            box-shadow: 0 0 15px rgba(0, 255, 204, 0.4);
+            background: var(--neon-green); 
+            color: #000;
+            box-shadow: 0 0 15px var(--neon-green);
         }
 
-        /* TAB MANAGEMENT SYSTEM */
         .tab-box {
             display: flex;
-            gap: 15px;
+            gap: 10px;
             margin-bottom: 35px;
-            background: #020617;
+            background: #000;
             padding: 8px;
-            border-radius: 12px;
-            border: 1px solid var(--border-neon);
+            border-radius: 4px;
+            border: 1px solid var(--neon-green);
         }
 
         .tab-trigger {
             flex: 1;
-            padding: 16px;
-            font-size: 1.05rem;
+            padding: 14px;
+            font-size: 0.95rem;
             font-weight: 800;
             text-align: center;
             background: transparent;
             color: var(--txt-muted);
             border: none;
-            border-radius: 8px;
             cursor: pointer;
+            font-family: inherit;
             transition: all 0.3s ease;
         }
 
-        .tab-trigger.active-green {
-            background: linear-gradient(135deg, #059669, var(--neon-green));
-            color: #020617;
-            box-shadow: 0 4px 20px rgba(0, 255, 204, 0.3);
-        }
+        .tab-trigger.active-green { background: var(--neon-green); color: #000; box-shadow: 0 0 20px rgba(0, 255, 102, 0.5); }
+        .tab-trigger.active-blue { background: var(--neon-blue); color: #000; box-shadow: 0 0 20px rgba(0, 255, 255, 0.5); }
+        .tab-trigger.active-amber { background: var(--neon-amber); color: #000; box-shadow: 0 0 20px rgba(255, 204, 0, 0.5); }
 
-        .tab-trigger.active-blue {
-            background: linear-gradient(135deg, #0284c7, var(--neon-blue));
-            color: #020617;
-            box-shadow: 0 4px 20px rgba(56, 189, 248, 0.3);
-        }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
 
-        .tab-content {
-            display: none;
-            animation: fadeIn 0.4s ease-in-out forwards;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* MATERI FORMATTING */
         .materi-body {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             line-height: 1.8;
-            color: #cbd5e1;
+            color: #adffbc;
             text-align: justify;
         }
 
-        .accent-g { color: var(--neon-green); text-shadow: 0 0 10px rgba(0, 255, 204, 0.2); }
-        .accent-b { color: var(--neon-blue); text-shadow: 0 0 10px rgba(56, 189, 248, 0.2); }
-
         .concept-card {
-            background-color: #020617;
-            border: 1px solid #1e293b;
+            background-color: #000;
+            border: 1px solid var(--txt-muted);
             padding: 25px;
-            border-radius: 16px;
+            border-radius: 6px;
             margin: 25px 0;
-        }
-        .concept-card h4 {
-            margin-top: 0;
-            color: var(--neon-amber);
-            font-size: 1.25rem;
-            border-bottom: 1px solid #1e293b;
-            padding-bottom: 8px;
+            border-left: 5px solid var(--neon-green);
         }
 
-        /* SIMULATOR COMPILER */
+        .hacker-term {
+            color: var(--neon-blue);
+            font-weight: bold;
+            background: #041424;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        .highlight-red { color: var(--neon-red); font-weight: bold; }
+        .highlight-amber { color: var(--neon-amber); font-weight: bold; }
+
         .simulator-container {
-            background: #020617;
-            border: 2px solid var(--border-neon);
+            background: #000;
+            border: 2px solid var(--neon-green);
             padding: 30px;
-            border-radius: 16px;
+            border-radius: 6px;
             margin-top: 40px;
         }
 
@@ -164,239 +169,301 @@
         }
 
         .code-input-box {
-            background: #090d16;
-            border: 1px solid #334155;
-            padding: 15px;
-            border-radius: 10px;
-            color: #fff;
-            font-family: monospace;
-            min-height: 120px;
+            background: #051408;
+            border: 1px solid var(--neon-green);
+            padding: 20px;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            gap: 15px;
         }
 
         .btn-compile {
-            background: var(--neon-green);
-            color: #020617;
-            border: none;
-            padding: 10px;
-            border-radius: 6px;
+            background: transparent;
+            color: var(--neon-green);
+            border: 1px solid var(--neon-green);
+            padding: 12px;
             cursor: pointer;
             font-weight: bold;
-            font-size: 1rem;
+            font-family: inherit;
             transition: all 0.2s;
         }
         .btn-compile:hover {
-            background: #00cc99;
-            box-shadow: 0 0 12px var(--neon-green);
+            background: var(--neon-green);
+            color: #000;
+            box-shadow: 0 0 15px var(--neon-green);
         }
 
         .terminal-screen {
             background: #000;
-            border: 1px solid #1e293b;
+            border: 1px solid var(--neon-blue);
             padding: 20px;
-            border-radius: 10px;
-            font-family: 'Courier New', Courier, monospace;
         }
 
         .binary-stream {
             font-size: 0.85rem;
-            color: #10b981;
+            color: var(--neon-blue);
             word-break: break-all;
-            max-height: 80px;
+            max-height: 100px;
             overflow-y: auto;
-            background: #050b14;
-            padding: 8px;
-            border-radius: 6px;
+            background: #030d1a;
+            padding: 10px;
             margin: 10px 0;
         }
 
-        /* Q&A CARDS */
-        .qa-card {
-            background: #0f172a;
-            border-radius: 12px;
-            padding: 25px;
-            margin-top: 30px;
-            border-left: 6px solid var(--neon-green);
+        .hacker-footer {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 1.4rem;
+            font-weight: 900;
+            letter-spacing: 3px;
+            color: #000;
+            background: var(--neon-green);
+            padding: 15px;
+            box-shadow: 0 0 25px var(--neon-green);
+            animation: glitch 2.5s infinite;
         }
-        .btn-toggle-group { display: flex; gap: 8px; margin-bottom: 15px; }
-        .style-toggler {
-            padding: 8px 16px; border-radius: 6px; border: none; cursor: pointer;
-            font-weight: 700; font-size: 0.85rem; background: #334155; color: #fff;
+
+        @keyframes glitch {
+            0% { transform: skew(0deg); }
+            10% { transform: skew(-3deg); }
+            20% { transform: skew(3deg); }
+            30% { transform: skew(0deg); }
+            100% { transform: skew(0deg); }
         }
-        .style-toggler.active-g { background: var(--neon-green); color: #020617; }
-        .qa-answer { background: #020617; padding: 22px; border-radius: 8px; line-height: 1.8; }
     </style>
 </head>
 <body>
 
+<canvas id="matrix-bg"></canvas>
+
 <div class="container">
     <div class="nav-header">
-        <button class="btn-nav" onclick="window.location.href='tengah.html'">⬅️ Kembali ke Tengah (Fisika/Eko)</button>
-        <h1 style="margin:0; font-size:1.4rem; font-weight:900; color:var(--neon-green);">💻 CORE ENGINE: UNDERSTANDING CODE</h1>
-        <button class="btn-nav" style="border-color: var(--neon-blue);" onclick="window.location.href='index.html'">Menu Utama ➡️</button>
+        <button class="btn-nav" onclick="window.location.href='tengah.html'">⬅️ [ESC] Balik Ke Tengah</button>
+        <h2 style="margin:0; font-size:1.1rem; color:var(--neon-blue);">📡 PROTOCOL_MATRIX://MAIN_FRAME_V6.0</h2>
+        <button class="btn-nav" onclick="window.location.href='index.html'">Index // ➡️</button>
     </div>
 
     <div class="tab-box">
-        <button class="tab-trigger active-green" id="t-whatis" onclick="switchTab('whatis')">🧠 TAB 1: APA ITU CODING?</button>
-        <button class="tab-trigger" id="t-howwork" onclick="switchTab('howwork')">🔌 TAB 2: CARA KERJA DI KOMPUTER</button>
+        <button class="tab-trigger active-green" id="t-whatis" onclick="switchTab('whatis')">⚡ 0x01: CORE CODING LOGIC</button>
+        <button class="tab-trigger" id="t-howwork" onclick="switchTab('howwork')">💾 0x02: HARDWARE & BINARY STREAM</button>
+        <button class="tab-trigger" id="t-crypto" onclick="switchTab('crypto')">💀 0x03: CRYPTOGRAPHY & ALGORITHM</button>
     </div>
 
     <div id="content-whatis" class="tab-content active">
-        <h2 class="accent-g" style="font-size:1.8rem; margin-top:0;">📖 Menjembatani Otak Manusia & Logika Mesin</h2>
+        <h3 style="margin-top:0; color:var(--neon-green);"># TERMINAL_LOG: Menembus Batas Realitas Digital</h3>
         <div class="materi-body">
             <p>
-                Bayangkan lu punya asisten rumah tangga yang cerdas luar biasa, bisa ngerjain kalkulasi rumit secepat kilat, tapi dia **cuma paham bahasa kuno kuno banget**. Lu gak bisa bilang ke dia, *"Eh tolong bikinin gua game seru dong."* Dia bakal bengong. Lu harus kasih instruksi super detail langkah-demi-langkah pake bahasa yang dia mengerti.
+                Yo, dengerin dulu. Banyak orang ngira komputer itu makhluk magis yang punya otak sakti *literally* bisa mikir sendiri. <span class="highlight-red">BIG NO!</span> Komputer aslinya cuma tumpukan silikon, tembaga, sama plastik mati yang super bego. Dia gak bakal ngapa-ngapain kalau gak lu kasih <span class="hacker-term">Instruction Set</span> (rangkaian perintah).
             </p>
             <p>
-                Nah, asisten itu adalah **Komputer**, dan proses menulis instruksi detail itu disebut <strong class="accent-g">Coding (Pemrograman)</strong>.
+                Nah, <span class="highlight-amber">Coding</span> itu adalah seni sakral di mana lu, sebagai seorang <span class="hacker-term">Code Sorcerer</span>, mendikte dunia digital lewat baris-baris logika. Lu menerjemahkan ide-ide abstrak di kepala lu yang super rumit menjadi instruksi yang super detil, kaku, dan logis demi bisa dieksekusi sama mesin tanpa *error*.
             </p>
 
-            <div class="concept-card">
-                <h4>🎯 Definisi Sederhana Coding</h4>
-                <p>
-                    Coding adalah proses menulis instruksi menggunakan <strong>Bahasa Pemrograman</strong> (seperti Python, JavaScript, atau C++) agar komputer tahu apa yang harus dilakukan, kapan harus dilakukan, dan bagaimana cara menyelesaikannya. Kode yang kita tulis disebut sebagai <strong>Source Code</strong> (Kode Sumber).
+            <div class="concept-card" style="border-left-color: var(--neon-green);">
+                <span style="color:var(--neon-green)">[SYSTEM_LOG://ALUR_LOGIKA_NEO]</span>
+                <p style="margin: 10px 0 0 0;">
+                    Lu ngetik teks mentah (<span class="hacker-term">Source Code</span>) pakai bahasa tingkat tinggi yang masih manusiawi kayak Python, JavaScript, atau C++. Tapi ingat, kode lu gak bakal langsung jalan gitu aja sebelum melewati proses <span class="hacker-term">Compiling</span> atau <span class="hacker-term">Interpreting</span>—yaitu proses translasi brutal dari bahasa manusia ke bahasa gaulnya mesin.
                 </p>
             </div>
 
             <p>
-                Tanpa coding, komputer lu cuma bakal jadi tumpukan besi, plastik, dan aliran listrik mati yang gak guna. Semua aplikasi di HP lu, game yang lu mainin, sampai sistem AI paling pinter di dunia saat ini, semuanya lahir dari barisan baris kode (*lines of code*) yang diketik manual oleh manusia.
+                Kenapa logika lu harus *bulletproof* alias anti-tembus? Karena mesin gak kenal sama yang namanya "perasaan" atau "maksud gue tuh gini...". Begitu logika lu typo atau ada <span class="hacker-term">Syntax Error</span> walau cuma kurang titik koma (<code style="color:red;">;</code>), si sistem bakal langsung ngambek, *crash*, dan ngeluarin log serem berlatar merah. *So, keep your logic sharp like a katana!*
             </p>
         </div>
-
-        <div class="qa-card">
-            <div class="btn-toggle-group">
-                <button class="style-toggler active-g" id="f-btn-cod" onclick="toggleCodingStyle('formal')">📑 Modul Universitas</button>
-                <button class="style-toggler" id="g-btn-cod" onclick="toggleCodingStyle('gaul')">😎 Obrolan Hacker</button>
-            </div>
-            <div class="qa-question" id="q-coding" style="font-size:1.2rem; font-weight:800; margin:10px 0;">Mengapa kita butuh bahasa pemrograman? Kenapa tidak pakai bahasa manusia saja?</div>
-            <div class="qa-answer" id="a-coding">
-                <strong>Jawaban Formal:</strong><br>
-                Bahasa manusia (natural language) bersifat ambigu, memiliki banyak interpretasi (konteks ganda), dan sangat bergantung pada intonasi serta emosi. Komputer adalah mesin logika murni yang membutuhkan kepastian absolut (deterministik). Oleh karena itu, dibutuhkan bahasa pemrograman yang memiliki aturan sintaksis (syntax) yang ketat dan struktur formal yang tidak memiliki ruang untuk ambiguitas.
-            </div>
-        </div>
     </div>
-
 
     <div id="content-howwork" class="tab-content">
-        <h2 class="accent-b" style="font-size:1.8rem; margin-top:0;">⚡ Dari Teks Bahasa Inggris Menjadi Aliran Listrik (0 & 1)</h2>
+        <h3 style="margin-top:0; color:var(--neon-blue);"># HARDWARE_LOG: Berbisik Lewat Aliran Listrik (0 dan 1)</h3>
         <div class="materi-body">
             <p>
-                Ini plot twist-nya: **Komputer sebenarnya gak paham kata 'print', 'if', atau 'while' yang lu ketik.** Komputer itu mikroprosesor silikon. Yang dia tahu cuma dua kondisi: **Ada aliran listrik (ON)** atau **Gak ada aliran listrik (OFF)**. 
+                Sekarang kita *deep dive* lebih dalam lagi ke dalam jerohan mesin, bro. Komputer lu gak paham huruf 'A', 'B', atau teks `print("Hacked")`. Di level mikroskopi yang paling dalem, di dalem chip CPU lu, ada miliaran sakelar mini yang namanya <span class="hacker-term">Transistor</span>.
             </p>
             <p>
-                Kondisi ON ini dilambangkan dengan angka <strong class="accent-g">1</strong>, dan OFF dilambangkan dengan angka <strong class="accent-r" style="color:var(--neon-red);">0</strong>. Ini yang kita sebut sebagai <strong class="accent-b">Bahasa Biner (Binary Code)</strong>.
+                Sakelar ini cuma punya dua kondisi hidup:
+                <br>• ⚡ <span class="highlight-amber">ON (Ada tegangan listrik)</span> &rarr; Disimbolkan angka **1**
+                <br>• ❌ <span class="highlight-red">OFF (Gak ada aliran listrik)</span> &rarr; Disimbolkan angka **0**
+            </p>
+            <p>
+                Kombinasi 0 dan 1 inilah yang kita sebut sebagai <span class="hacker-term">Binary Code</span> (Bahasa Biner). Satu angka biner (0 atau 1) disebut <span class="highlight-amber">1 Bit</span> (Binary Digit). Kalau <span class="highlight-blue">8 Bit dikumpulin jadi satu</span>, terciptalah <span class="hacker-term">1 Byte</span>. Nah, 1 Byte inilah yang setara dengan satu karakter huruf di keyboard lu!
             </p>
 
-            <h3 class="accent-b" style="font-size:1.3rem; margin-top:25px;">🔄 Alur Penerjemahan Kode Lu:</h3>
-            <ol style="line-height: 2;">
-                <li><strong>Menulis Source Code:</strong> Lu ngetik kode yang gampang dibaca manusia, misal: <code style="color:var(--neon-amber)">print("Halo")</code>.</li>
-                <li><strong>Proses Kompilasi (Compiler/Interpreter):</strong> Ada software khusus yang bertindak sebagai penerjemah super cepat. Dia bakal nerjemahin kata-kata lu tadi menjadi barisan angka biner `01001000 01000001...`.</li>
-                <li><strong>Eksekusi CPU:</strong> Jutaan sakelar kecil (transistor) di dalam prosesor komputer lu bakal hidup-mati secepat miliaran kali per detik mengikuti pola urutan `0` dan `1` tersebut, lalu memunculkan tulisan "Halo" di layar lu!</li>
-            </ol>
+            <div class="concept-card" style="border-left-color: var(--neon-blue); background: #010a12;">
+                <span style="color:var(--neon-blue)">[ARCH_DATA://TABEL_ASCII_HACKER]</span>
+                <p style="margin: 10px 0 0 0;">
+                    Gimana mesin ngubah huruf jadi biner? Ada standarnya, namanya sistem <span class="hacker-term">ASCII</span> atau <span class="hacker-term">Unicode</span>. 
+                    <br>Contohnya, huruf kapital <strong>'A'</strong> itu di mata mesin adalah kode desimal 65. Kalau diubah ke aliran listrik biner, bentuknya jadi: <code style="color:var(--neon-blue)">01000001</code>. *Mind blown* kan? Lu ngetik pesan cinta, CPU bacanya aliran setrum putus-nyambung!
+                </p>
+            </div>
         </div>
 
-        <div class="simulator-container">
-            <h3 style="margin-top:0; color: var(--neon-blue); font-size:1.25rem;">🎮 Live Visualizer: Compiler & Binary Engine Simulator</h3>
-            <p style="color: #94a3b8; margin-top:-5px; font-size:0.9rem;">Pilih baris perintah kode manusia di bawah ini, lalu klik "Compile & Run" buat melihat bagaimana komputer memprosesnya!</p>
-            
+        <div class="simulator-container" style="border-color: var(--neon-blue);">
+            <span style="color:var(--neon-blue);">[⚡ LIVE_TRANSLATOR://TEXT_TO_BINARY_INJECTOR]</span>
+            <p style="font-size:0.9rem; color:var(--txt-muted); margin-top:5px;">Ketik kata apa aja bebas, lihat gimana mesin langsung ngetranslate itu jadi aliran setrum biner secara real-time!</p>
             <div class="sim-grid">
-                <div class="code-input-box">
-                    <div>
-                        <span style="color:#64748b;">// Pilih Kode Sumber (Source Code):</span><br>
-                        <select id="code-selector" style="background:#020617; color:var(--neon-amber); border:1px solid #334155; padding:8px; width:100%; margin-top:10px; font-family:monospace; font-size:1rem;">
-                            <option value="hello">print("Hello World!")</option>
-                            <option value="loop">for i in range(3): print("GO!")</option>
-                            <option value="shutdown">system.execute("SHUTDOWN_PC")</option>
-                        </select>
-                    </div>
-                    <button class="btn-compile" onclick="runSimulation()">⚡ Compile & Run Code</button>
+                <div class="code-input-box" style="border-color: var(--neon-blue);">
+                    <label style="font-size:0.85rem; color:var(--neon-amber);">Masukkan Teks Manusia:</label>
+                    <input type="text" id="user-text-input" value="HACKER" class="input-text-premium" style="border-color:var(--neon-blue);" oninput="convertTextToBinary()">
                 </div>
-                
                 <div class="terminal-screen">
-                    <span style="color:#64748b; font-size:0.8rem; font-weight:bold; display:block; margin-bottom:5px;">🤖 OUTPUT PROSESOR:</span>
-                    <div style="font-size:0.85rem; color:var(--txt-muted);">1. Penerjemahan ke Kode Biner (Mesin):</div>
-                    <div class="binary-stream" id="bin-output">00000000 00000000 00000000</div>
-                    
-                    <div style="font-size:0.85rem; color:var(--txt-muted); margin-top:10px;">2. Hasil Eksekusi Layar Monitor:</div>
-                    <div id="terminal-display" style="color:var(--neon-green); font-weight:bold; background:#111; padding:10px; border-radius:4px; margin-top:5px; min-height:40px;">
-                        [System Ready. Klik tombol Compile...]
-                    </div>
+                    <span style="color:var(--neon-red); font-size:0.75rem; font-weight:bold;">[STREAMING BINARY RAW]</span>
+                    <div class="binary-stream" id="binary-live-output">01001000 01000001 01000011 01001011 01000101 01010010</div>
+                    <span style="color:var(--neon-green); font-size:0.75rem; font-weight:bold;">[STATUS STATUS]</span>
+                    <div style="color: #fff; font-size:0.85rem; margin-top:5px;">Data successfully converted into CPU Pulses.</div>
                 </div>
             </div>
         </div>
     </div>
 
+    <div id="content-crypto" class="tab-content">
+        <h3 style="margin-top:0; color:var(--neon-amber);"># CRYPTO_ZONE: Algoritma & Seni Mengunci Data</h3>
+        <div class="materi-body">
+            <p>
+                Welcome to the dark side. Kalau lu udah bisa ngomong sama mesin pake logika dan biner, langkah pamungkasnya adalah menguasai <span class="hacker-term">Algorithm</span> (Algoritma) dan <span class="hacker-term">Cryptography</span> (Kriptografi).
+            </p>
+            <p>
+                **Algoritma** itu kasarnya adalah *step-by-step recipe* (resep langkah demi langkah) buat nyelesaiin suatu masalah secara efisien. Mau nyari rute tercepat di Google Maps? Pake algoritma. Mau nge-ranking konten di medsos? Pake algoritma. Kalau algoritma lu ampas dan gak optimal, aplikasi lu bakal lemot parah dan bikin baterai HP user bocor.
+            </p>
+            <p>
+                Sedangkan **Kriptografi** adalah ilmu gaib buat menyamarkan data biar gak bisa diintip sama musuh atau para <span class="highlight-red">Script Kiddies</span> (hacker amatir modal klak-klik tools orang). Di dunia siber, data lu diacak pake rumus matematika rumit pas dikirim, terus baru dikunci/dibuka pake kode rahasia yang namanya <span class="hacker-term">Key</span>.
+            </p>
+
+            <div class="concept-card" style="border-left-color: var(--neon-amber); background: #110d00;">
+                <span style="color:var(--neon-amber)">[CYBER_CORE://3_PILAR_KRIPTOGRAFI]</span>
+                <ol style="margin: 10px 0 0 0; padding-left: 20px;">
+                    <li><span class="highlight-amber">Plaintext:</span> Data asli lu yang masih bisa dibaca semua orang (contoh: "password123").</li>
+                    <li><span class="highlight-blue">Ciphertext:</span> Data hasil acakan algoritma rahasia yang bentuknya mirip muntahan karakter gak jelas (contoh: "x7&9$mK!").</li>
+                    <li><span class="highlight-green">Hashing:</span> Algoritma satu arah yang gak bisa dibalikkin lagi. Sekali data di-hash, dia bakal punya sidik jari digital yang unik selamanya. Cocok banget buat nyimpen password di database biar gak bocor!</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="simulator-container" style="border-color: var(--neon-amber);">
+            <span style="color:var(--neon-amber);">[🔓 CRYPTO_ENGINE://CAESAR_CIPHER_ENCRIPTOR]</span>
+            <p style="font-size:0.9rem; color:var(--txt-muted); margin-top:5px;">Uji coba Algoritma Caesar Cipher (Algoritma geser huruf zaman Romawi kuno). Masukkan teks bebas dan atur tingkat pergeseran kuncinya!</p>
+            <div class="sim-grid">
+                <div class="code-input-box" style="border-color: var(--neon-amber);">
+                    <div>
+                        <label style="font-size:0.85rem; color:#fff;">Teks Rahasia (Plaintext):</label>
+                        <input type="text" id="crypto-text-input" value="SERANG" class="input-text-premium" style="border-color:var(--neon-amber);" oninput="encryptCaesar()">
+                    </div>
+                    <div>
+                        <label style="font-size:0.85rem; color:#fff;">Kunci Geser (Key Shift):</label>
+                        <input type="number" id="crypto-key-input" value="3" min="1" max="25" class="input-text-premium" style="border-color:var(--neon-amber); width:50px;" oninput="encryptCaesar()">
+                    </div>
+                </div>
+                <div class="terminal-screen" style="border-color: var(--neon-amber);">
+                    <span style="color:var(--neon-amber); font-size:0.75rem; font-weight:bold;">[RESULT CIPHERTEXT]</span>
+                    <div style="font-size: 1.8rem; font-weight:900; color: var(--neon-amber); margin: 15px 0;" id="crypto-output">VHUDQJ</div>
+                    <span style="color:var(--neon-green); font-size:0.75rem; font-weight:bold;">[ALGORITHM LOG]</span>
+                    <div style="color: #adffbc; font-size:0.8rem; margin-top:5px;" id="crypto-log">Setiap huruf digeser sebanyak 3 langkah ke depan dalam susunan alfabet.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="hacker-footer" id="blink-footer">
+        [SYSTEM STATUS: BELAJAR CODING ULTRA VERSION ACTIVE]_
+    </div>
 </div>
 
 <script>
-    // TAB NAVIGATION SCRIPT
+    // MATRIX DIGITAL RAIN LOGIC
+    const canvas = document.getElementById('matrix-bg');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const alphabet = "0101010101ABCDEFGHIJKLMNOPQRSTUVWXYZ☠️⚠️☣️";
+    const fontSize = 16;
+    const columns = canvas.width / fontSize;
+    const rainDrops = Array(Math.floor(columns)).fill(1);
+
+    function drawMatrix() {
+        ctx.fillStyle = 'rgba(2, 2, 5, 0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#0F0';
+        ctx.font = fontSize + 'px monospace';
+
+        for (let i = 0; i < rainDrops.length; i++) {
+            const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+            ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
+            if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                rainDrops[i] = 0;
+            }
+            rainDrops[i]++;
+        }
+    }
+    setInterval(drawMatrix, 33);
+
+    window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    });
+
+    // DYNAMIC TAB NAVIGATION SYSTEM
     function switchTab(target) {
+        // Reset classes
         document.getElementById('t-whatis').classList.remove('active-green');
         document.getElementById('t-howwork').classList.remove('active-blue');
+        document.getElementById('t-crypto').classList.remove('active-amber');
+        
         document.getElementById('content-whatis').classList.remove('active');
         document.getElementById('content-howwork').classList.remove('active');
+        document.getElementById('content-crypto').classList.remove('active');
 
+        // Activate targets
         if(target === 'whatis') {
             document.getElementById('t-whatis').classList.add('active-green');
             document.getElementById('content-whatis').classList.add('active');
-        } else {
+        } else if(target === 'howwork') {
             document.getElementById('t-howwork').classList.add('active-blue');
             document.getElementById('content-howwork').classList.add('active');
+            convertTextToBinary();
+        } else if(target === 'crypto') {
+            document.getElementById('t-crypto').classList.add('active-amber');
+            document.getElementById('content-crypto').classList.add('active');
+            encryptCaesar();
         }
     }
 
-    // MULTI-STYLE Q&A DATABASE
-    const dbCoding = {
-        formal: {
-            q: "Mengapa kita butuh bahasa pemrograman? Kenapa tidak pakai bahasa manusia saja?",
-            a: "<strong>Jawaban Formal:</strong><br>Bahasa manusia (natural language) bersifat ambigu, memiliki banyak interpretasi (konteks ganda), dan sangat bergantung pada intonasi serta emosi. Komputer adalah mesin logika murni yang membutuhkan kepastian absolut (deterministik). Oleh karena itu, dibutuhkan bahasa pemrograman yang memiliki aturan sintaksis (syntax) yang ketat dan struktur formal yang tidak memiliki ruang untuk ambiguitas."
-        },
-        gaul: {
-            q: "Kenapa sih ngoding musti pake bahasa ribet kayak Python/JS? Gak bisa apa disuruh pake bahasa Indonesia biasa?",
-            a: "<strong>Jawaban Obrolan Hacker:</strong><br>Ya kagak nyambung lah, bro! Komputer itu otaknya kaku banget, isi kepalanya cuma sakelar listrik on/off doang. Kalau lu bilang 'Eh komputer, ambilin baju dong', dia bakal bingung karena kata 'ambilin' itu luas banget maknanya. Baju yang mana? Pake tangan kiri atau kanan? Makanya kita butuh bahasa pemrograman biar instruksinya saklek, gak plin-plan, dan langsung bisa di-translate jadi setruman biner!"
-        }
-    };
-
-    function toggleCodingStyle(style) {
-        document.getElementById('q-coding').innerHTML = dbCoding[style].q;
-        document.getElementById('a-coding').innerHTML = dbCoding[style].a;
+    // LIVE SIMULATOR ENGINE 1: TEXT TO BINARY
+    function convertTextToBinary() {
+        let input = document.getElementById('user-text-input').value;
+        let outputBox = document.getElementById('binary-live-output');
         
-        if (style === 'formal') {
-            document.getElementById('f-btn-cod').classList.add('active-g');
-            document.getElementById('g-btn-cod').classList.remove('active-g');
-        } else {
-            document.getElementById('g-btn-cod').classList.add('active-g');
-            document.getElementById('f-btn-cod').classList.remove('active-g');
+        if(input.length === 0) {
+            outputBox.innerText = "00000000";
+            return;
         }
+
+        let binaryResult = "";
+        for (let i = 0; i < input.length; i++) {
+            let bin = input[i].charCodeAt(0).toString(2);
+            // Padding biar pas 8 bit
+            binaryResult += "0".repeat(8 - bin.length) + bin + " ";
+        }
+        outputBox.innerText = binaryResult.trim();
     }
 
-    // SIMULATOR COMPILER LOGIC
-    function runSimulation() {
-        let selection = document.getElementById('code-selector').value;
-        let binOutput = document.getElementById('bin-output');
-        let termDisplay = document.getElementById('terminal-display');
-
-        // Reset display with animation feel
-        termDisplay.innerText = "Compiling...";
-        binOutput.innerText = "Translating text to ASCII binary chunks...";
-
-        setTimeout(() => {
-            if (selection === "hello") {
-                binOutput.innerText = "01001000 01100101 01101100 01101100 01101111 00100000 01010111 01101111 01110010 01101100 01100100 00100001";
-                termDisplay.innerHTML = "Hello World!";
-                termDisplay.style.color = "var(--neon-green)";
-            } else if (selection === "loop") {
-                binOutput.innerText = "01100110 01101111 01110010 01011111 01101100 01101111 01101111 01110000 01011111 01000111 01001111 00100001";
-                termDisplay.innerHTML = "GO!<br>GO!<br>GO!<br><span style='color:#64748b; font-size:0.8rem;'>[Loop Selesai 3x]</span>";
-                termDisplay.style.color = "var(--neon-blue)";
-            } else if (selection === "shutdown") {
-                binOutput.innerText = "11111111 00000000 11001100 10101010 01010101 00110011 11001100 00001111";
-                termDisplay.innerHTML = "⚠️ WARNING: CRITICAL SYSTEM HALT! PC dimatikan paksa (Simulasi).";
-                termDisplay.style.color = "var(--neon-red)";
+    // LIVE SIMULATOR ENGINE 2: CAESAR CIPHER ENCRYPTION
+    function encryptCaesar() {
+        let text = document.getElementById('crypto-text-input').value.toUpperCase();
+        let shift = parseInt(document.getElementById('crypto-key-input').value) || 0;
+        let outputBox = document.getElementById('crypto-output');
+        let logBox = document.getElementById('crypto-log');
+        
+        let result = "";
+        for (let i = 0; i < text.length; i++) {
+            let code = text.charCodeAt(i);
+            // Cek kalau huruf uppercase A-Z
+            if (code >= 65 && code <= 90) {
+                result += String.fromCharCode(((code - 65 + shift) % 26) + 65);
+            } else {
+                result += text[i]; // karakter non-huruf biarin aja
             }
-        }, 600);
+        }
+        outputBox.innerText = result || "???";
+        logBox.innerHTML = `Algoritma menggeser setiap karakter sebanyak <span style="color:var(--neon-amber); font-weight:bold;">${shift} langkah</span> ke depan. Plaintext otomatis bermutasi menjadi data rahasia rawan intip!`;
     }
 </script>
 </body>
