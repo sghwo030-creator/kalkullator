@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPAS Hub Central v9.0 - Cyber Typing Speed Test</title>
+    <style>
+        :root {
+            --bg-body: #05050a;
+            --bg-card: rgba(10, 15, 30, 0.9);
+            --border-neon: #ff0055;
+            --txt-main: #ff3366;
+            --txt-muted: #880022;
+            --neon-blue: #00ffff;
+            --neon-green: #00ff66;
+            --neon-amber: #ffcc00;
+        }
+
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: var(--bg-body);
+            color: var(--txt-main);
+            margin: 0;
+            padding: 30px 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            background: var(--bg-card);
+            backdrop-filter: blur(8px);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 0 40px rgba(255, 0, 85, 0.3);
+            border: 2px solid var(--border-neon);
+        }
+
+        /* HEADER NAVIGASI */
+        .nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px dashed var(--border-neon);
+            padding-bottom: 25px;
+            margin-bottom: 35px;
+        }
+
+        .btn-nav {
+            background: #20000a;
+            border: 1px solid var(--border-neon);
+            color: var(--border-neon);
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 700;
+            font-family: inherit;
+            transition: all 0.3s;
+        }
+        .btn-nav:hover { 
+            background: var(--border-neon); 
+            color: #000;
+            box-shadow: 0 0 15px var(--border-neon);
+        }
+
+        /* MATERI TEORI BRAIN-INJECT */
+        .materi-section {
+            line-height: 1.8;
+            color: #ffb3c6;
+            text-align: justify;
+            margin-bottom: 40px;
+            font-size: 1.05rem;
+        }
+
+        .hacker-term {
+            color: var(--neon-blue);
+            background: #021a24;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+
+        .grid-compare {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .card-compare {
+            background: #000;
+            padding: 20px;
+            border-radius: 6px;
+            border: 1px solid #440011;
+        }
+
+        /* SIMULATOR TYPING TEST CONTAINER */
+        .typing-box {
+            background: #000;
+            border: 2px solid var(--neon-blue);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.15);
+        }
+
+        .stats-wrapper {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 25px;
+            background: #02111a;
+            padding: 15px;
+            border: 1px dashed var(--neon-blue);
+        }
+
+        .stat-card {
+            text-align: center;
+        }
+
+        .stat-val {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--neon-blue);
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #88ccff;
+        }
+
+        .word-display {
+            background: #050505;
+            padding: 20px;
+            font-size: 1.4rem;
+            letter-spacing: 2px;
+            line-height: 2;
+            border-radius: 4px;
+            margin-bottom: 25px;
+            min-height: 60px;
+            word-wrap: break-word;
+            border: 1px solid #112233;
+            user-select: none;
+        }
+
+        .word {
+            display: inline-block;
+            margin-right: 15px;
+            color: #555;
+        }
+
+        .word.current {
+            color: var(--neon-amber);
+            text-decoration: underline;
+            text-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+        }
+
+        .word.correct { color: var(--neon-green); }
+        .word.incorrect { color: var(--border-neon); background: rgba(255,0,85,0.1); }
+
+        .typing-input {
+            width: 100%;
+            background: #050d14;
+            border: 1px solid var(--neon-blue);
+            color: #fff;
+            padding: 15px;
+            font-size: 1.3rem;
+            font-family: inherit;
+            box-sizing: border-box;
+            border-radius: 4px;
+        }
+
+        .typing-input:focus {
+            outline: none;
+            box-shadow: 0 0 15px var(--neon-blue);
+        }
+
+        .btn-restart {
+            margin-top: 20px;
+            width: 100%;
+            background: transparent;
+            border: 1px solid var(--neon-green);
+            color: var(--neon-green);
+            padding: 12px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+        .btn-restart:hover {
+            background: var(--neon-green);
+            color: #000;
+            box-shadow: 0 0 15px var(--neon-green);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="nav-header">
+        <button class="btn-nav" onclick="window.location.href='seperempat.html'">⬅️ [BACK] Ke File Hacker</button>
+        <h1 style="margin:0; font-size:1.3rem; color:var(--border-neon);">💀 STAGE_FINAL://HAMPIR_SELESAI_KEYBOARD_WARRIOR</h1>
+        <button class="btn-nav" onclick="window.location.href='index.html'">Index // ➡️</button>
+    </div>
+
+    <div class="materi-section">
+        <h3 style="color: var(--border-neon); margin-top:0;"># LOG_DOSEN: Tragedi Dua Jari vs Keagungan Sepuluh Jari</h3>
+        <p>
+            Lu perhatiin gak pas lu ngetik panik kek kesurupan setrum bunyinya cuma `jdsajdjdjdsad...`? Itu adalah batasan fisik mutlak kalau lu cuma mengandalkan <span class="hacker-term">Two-Finger Pecking Style</span> (Gaya ngetik andalan dua telunjuk). Kecepatan maksimal lu bakal *stuck* di situ-situ aja karena dua jari lu harus lompat-lompat keliling area keyboard seluas itu. Capek, lemot, dan rawan typo parah!
+        </p>
+        <p>
+            Di dunia pro coding dan hacking, lu wajib bermutasi ke <span class="hacker-term">10-Finger Touch Typing</span>. Konsep dasarnya adalah membagi rata beban kerja ke semua jari lu secara adil sosial tanpa perlu ngeliat keyboard sama sekali. Mata lu fokus ke layar monitor, jari lu otomatis gerak pake <span class="hacker-term">Muscle Memory</span> (memori otot).
+        </p>
+
+        <div class="grid-compare">
+            <div class="card-compare" style="border-left: 4px solid var(--border-neon);">
+                <strong style="color:var(--border-neon);">❌ METODE 2 JARI:</strong>
+                <p style="margin:5px 0 0 0; font-size:0.9rem;">Jari telunjuk kanan-kiri pontang-panting kerja rodi. Kecepatan mentok di 30 WPM. Output tulisan acak-acakan kayak kucing jalan di atas keyboard.</p>
+            </div>
+            <div class="card-compare" style="border-left: 4px solid var(--neon-green);">
+                <strong style="color:var(--neon-green);">⚡ METODE 10 JARI:</strong>
+                <p style="margin:5px 0 0 0; font-size:0.9rem;">Setiap jari punya wilayah jajahan tetap (Home Row: ASDF - JKL;). Kecepatan bisa tembus 100+ WPM! Ngetik kode sepanjang apa pun beres dalam hitungan detik.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="typing-box">
+        <div class="stats-wrapper">
+            <div class="stat-card">
+                <div class="stat-val" id="stat-wpm">0</div>
+                <div class="stat-label">SPEED (WPM)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-val" id="stat-accuracy">100%</div>
+                <div class="stat-label">ACCURACY</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-val" id="stat-timer">30</div>
+                <div class="stat-label">TIME LEFT (SEC)</div>
+            </div>
+        </div>
+
+        <span style="font-size:0.8rem; color:var(--neon-blue); font-weight:bold;">[🎯 MONITOR_TARGET_TEXT]</span>
+        <div class="word-display" id="target-words-box"></div>
+
+        <span style="font-size:0.8rem; color:var(--neon-amber); font-weight:bold;">[⌨️ INJECT_YOUR_TYPING_HERE]</span>
+        <input type="text" id="typing-input-field" class="typing-input" placeholder="Klik disini lalu mulai ketik kata di atas..." autocomplete="off">
+        
+        <button class="btn-restart" onclick="resetTest()">🔄 SYSTEM REBOOT (ULANGI TES)</button>
+    </div>
+</div>
+
+<script>
+    // LIST KATA GABUNGAN HACKER + BAHASA ACAK LU BUAT TESTING ACCURACY
+    const wordBank = [
+        "hacker", "binary", "system", "logic", "cyber", "terminal", "matrix", "network", 
+        "jdsajd", "jdsadjn", "fdscjf", "fdsjf", "jscjks", "jndcsjn", "csncsd", "sdhcsc", 
+        "mjkfnh", "utyuh", "iumftg", "jmjkj", "khunjn", "cmjhfn", "jhjvnm", "jhfmnj", 
+        "jhufmj", "jhvnfj", "hmjhmj", "huvnjh", "fvhjnv", "jhfdnj", "hujnhy", "fhnujc",
+        "compile", "database", "script", "coding", "override", "protocol", "security", "server"
+    ];
+
+    let maxWords = 40;
+    let currentWords = [];
+    let wordIndex = 0;
+    let correctKeystrokes = 0;
+    let totalKeystrokes = 0;
+    let timer = 30;
+    let interval = null;
+    let isPlaying = false;
+
+    const wordsBox = document.getElementById('target-words-box');
+    const inputField = document.getElementById('typing-input-field');
+    const wpmDisplay = document.getElementById('stat-wpm');
+    const accDisplay = document.getElementById('stat-accuracy');
+    const timerDisplay = document.getElementById('stat-timer');
+
+    // GENERATE KATA ACAK KE LAYAR TERMINAL
+    function initWords() {
+        currentWords = [];
+        wordsBox.innerHTML = "";
+        for (let i = 0; i < maxWords; i++) {
+            let randWord = wordBank[Math.floor(Math.random() * wordBank.length)];
+            currentWords.push(randWord);
+            
+            let span = document.createElement('span');
+            span.innerText = randWord;
+            span.classList.add('word');
+            if (i === 0) span.classList.add('current');
+            wordsBox.appendChild(span);
+        }
+        wordIndex = 0;
+    }
+
+    // MEMULAI TIMER JIKA USER START MENGETIK
+    function startTimer() {
+        if (isPlaying) return;
+        isPlaying = true;
+        interval = setInterval(() => {
+            timer--;
+            timerDisplay.innerText = timer;
+            
+            // Hitung real-time WPM
+            let minutesPassed = (30 - timer) / 60;
+            if (minutesPassed > 0) {
+                let wpm = Math.round((correctKeystrokes / 5) / minutesPassed);
+                wpmDisplay.innerText = wpm;
+            }
+
+            if (timer <= 0) {
+                clearInterval(interval);
+                inputField.disabled = true;
+                inputField.value = "TES SELESAI! SANGAR!";
+                alert(`🔥 Hasil Akhir Kecepatan Lu: ${wpmDisplay.innerText} WPM dengan Akurasi ${accDisplay.innerText}!`);
+            }
+        }, 1000);
+    }
+
+    // CORE LOGIK ENGINE: DETEKSI KETIKAN PER KARAKTER DAN SPASI
+    inputField.addEventListener('input', (e) => {
+        startTimer();
+        let spans = wordsBox.querySelectorAll('.word');
+        let currentWordText = currentWords[wordIndex];
+        let userValue = inputField.value;
+
+        totalKeystrokes++;
+
+        // Jika user tekan Space, artinya pindah kata berikutnya
+        if (userValue.endsWith(' ')) {
+            let trimmedValue = userValue.trim();
+            
+            if (trimmedValue === currentWordText) {
+                spans[wordIndex].className = 'word correct';
+                correctKeystrokes += currentWordText.length + 1; // plus spasi
+            } else {
+                spans[wordIndex].className = 'word incorrect';
+            }
+
+            wordIndex++;
+            if (wordIndex < spans.length) {
+                spans[wordIndex].classList.add('current');
+            }
+            inputField.value = "";
+        } else {
+            // Validasi warna karakter real-time pas lagi ngetik berjalan
+            if (currentWordText.startsWith(userValue)) {
+                spans[wordIndex].className = 'word current';
+            } else {
+                spans[wordIndex].className = 'word current incorrect';
+            }
+        }
+
+        // Hitung Akurasi Persentase
+        let accuracy = totalKeystrokes > 0 ? Math.round((correctKeystrokes / totalKeystrokes) * 100) : 100;
+        accDisplay.innerText = Math.min(accuracy, 100) + "%";
+    });
+
+    // REBOOT ENGINE GAME
+    function resetTest() {
+        clearInterval(interval);
+        isPlaying = false;
+        timer = 30;
+        correctKeystrokes = 0;
+        totalKeystrokes = 0;
+        wordIndex = 0;
+        
+        timerDisplay.innerText = timer;
+        wpmDisplay.innerText = "0";
+        accDisplay.innerText = "100%";
+        
+        inputField.disabled = false;
+        inputField.value = "";
+        initWords();
+        inputField.focus();
+    }
+
+    // BOOT UP AWAL
+    initWords();
+</script>
+</body>
+</html>
