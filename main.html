@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPAS Zone - Hewan & Lingkungan</title>
+    <style>
+        :root {
+            --bg-body: #f0fdf4; /* Nuansa hijau alam untuk IPAS */
+            --bg-card: #ffffff;
+            --txt-main: #14532d;
+            --txt-muted: #166534;
+            --accent-primary: #22c55e;
+            --accent-hover: #16a34a;
+            --border: #dcfce7;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--txt-main);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: var(--bg-card);
+            padding: 30px;
+            border-radius: 24px;
+            box-shadow: 0 20px 25px -5px rgba(22,101,52,0.05);
+            border: 1px solid var(--border);
+        }
+
+        .nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+
+        .back-btn {
+            background-color: #f3f4f6;
+            border: none;
+            color: #4b5563;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .next-page-btn {
+            background-color: #3b82f6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .content-section {
+            margin-bottom: 30px;
+        }
+
+        .material-card {
+            background: #f9fafb;
+            border-left: 5px solid var(--accent-primary);
+            padding: 20px;
+            border-radius: 0 16px 16px 0;
+            margin-bottom: 20px;
+        }
+
+        .quiz-box {
+            background-color: #f0fdf4;
+            border: 2px dashed var(--accent-primary);
+            padding: 25px;
+            border-radius: 16px;
+            margin-top: 25px;
+        }
+
+        .quiz-option {
+            background: white;
+            border: 1px solid #cbd5e1;
+            padding: 12px 20px;
+            border-radius: 10px;
+            margin-top: 10px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+            display: block;
+            width: 100%;
+            text-align: left;
+        }
+
+        .quiz-option:hover {
+            background: #e2e8f0;
+        }
+
+        .score-board {
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-top: 15px;
+            color: #16a34a;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="nav-header">
+        <button class="back-btn" onclick="window.location.href='index.html'">⬅️ Kembali ke Kalkulator</button>
+        <h2 style="margin: 0; font-size: 1.5rem;">🌍 Modul Belajar IPAS</h2>
+        <button class="next-page-btn" onclick="window.location.href='page3.html'">Ke Page 3 ➡️</button>
+    </div>
+
+    <div class="content-section">
+        <h3 style="font-size: 1.4rem; color: #15803d; margin-bottom: 5px;">Materi 1: Hewan dan Lingkungannya</h3>
+        <p style="color: #475569; margin-top: 0;">Yuk pelajari bagaimana makhluk hidup beradaptasi dengan tempat tinggalnya!</p>
+
+        <div class="material-card">
+            <h4>1. Bagian Tubuh Hewan & Fungsinya (IPA)</h4>
+            <p>Setiap hewan memiliki struktur tubuh khusus untuk bertahan hidup. Contohnya burung elang memiliki paruh tajam untuk mencabik daging, sedangkan bebek memiliki kaki berselaput untuk berenang di air lumpur.</p>
+        </div>
+
+        <div class="material-card">
+            <h4>2. Hubungan Lingkungan & Geografis (IPS)</h4>
+            <p>Kondisi alam memengaruhi jenis hewan yang hidup di sana dan bagaimana manusia memanfaatkannya. Di daerah dataran tinggi/pegunungan, peternak sering memelihara sapi perah, sedangkan di daerah pesisir pantai banyak ditemukan ekosistem bakau tempat kepiting bakau tinggal.</p>
+        </div>
+    </div>
+
+    <div class="quiz-box">
+        <h3 style="margin-top: 0; color: #166534;">📝 Kuis Latihan IPAS</h3>
+        <div id="quiz-container">
+            <p id="quiz-question" style="font-weight: 600; font-size: 1.1rem;"></p>
+            <div id="quiz-options"></div>
+        </div>
+        <div class="score-board" id="quiz-score">Skor: 0</div>
+    </div>
+</div>
+
+<script>
+    // Bank Soal Integrasi IPA dan IPS (IPAS)
+    const ipasListSoal = [
+        {
+            q: "Burung kolibri memiliki paruh panjang dan runcing (IPA). Paruh ini membantunya mengambil nektar di lingkungan hutan hujan tropis yang lebat seperti di Sumatra (IPS). Apa fungsi paruh tersebut?",
+            options: [
+                "Mencabik mangsa yang besar",
+                "Menghisap madu/nektar di dalam bunga",
+                "Menyaring makanan dari dalam lumpur",
+                "Mematuk kayu pohon yang keras"
+            ],
+            correct: 1
+        },
+        {
+            q: "Masyarakat di daerah lereng Gunung Bromo memanfaatkan hewan kuda untuk transportasi wisata (IPS). Adaptasi apa yang dimiliki kuda agar kuat berjalan di lingkungan pegunungan yang terjal? (IPA)",
+            options: [
+                "Memiliki kuku kaki yang keras (teracak)",
+                "Memiliki punuk penyimpan air",
+                "Memiliki bulu yang sangat tipis",
+                "Memiliki kemampuan mengubah warna kulit"
+            ],
+            correct: 0
+        },
+        {
+            q: "Unta hidup di lingkungan gurun pasir yang gersang. Struktur tubuh unta yang berfungsi menyimpan cadangan lemak sebagai sumber energi di lingkungan miskin air adalah...",
+            options: [
+                "Bulu matanya yang panjang",
+                "Punuk di punggungnya",
+                "Bantalan kaki yang tebal",
+                "Ususnya yang sangat pendek"
+            ],
+            correct: 1
+        }
+    ];
+
+    let currentQuizIndex = 0;
+    let ipasScore = 0;
+
+    function loadQuestion() {
+        if(currentQuizIndex >= ipasListSoal.length) {
+            document.getElementById('quiz-container').innerHTML = `
+                <h4 style="text-align:center; color:#16a34a; font-size:1.4rem;">🎉 Selamat! Kamu Sudah Selesai.</h4>
+                <p style="text-align:center;">Kamu telah menyelesaikan seluruh kuis materi Hewan dan Lingkungan.</p>
+                <button onclick="resetQuiz()" style="display:block; margin: 20px auto; background:var(--accent-primary); color:white; border:none; padding:10px 20px; border-radius:8px; cursor:pointer; font-weight:bold;">Ulangi Kuis</button>
+            `;
+            return;
+        }
+
+        let currentData = ipasListSoal[currentQuizIndex];
+        document.getElementById('quiz-question').innerText = `Soal ${currentQuizIndex + 1}: ${currentData.q}`;
+        
+        let optionsDiv = document.getElementById('quiz-options');
+        optionsDiv.innerHTML = '';
+        
+        currentData.options.forEach((opt, idx) => {
+            let btn = document.createElement('button');
+            btn.className = 'quiz-option';
+            btn.innerText = opt;
+            btn.onclick = () => checkAnswer(idx);
+            optionsDiv.appendChild(btn);
+        });
+    }
+
+    function checkAnswer(userChoice) {
+        let currentData = ipasListSoal[currentQuizIndex];
+        if (userChoice === currentData.correct) {
+            ipasScore += 10;
+            alert("✨ Hebat! Jawaban kamu benar.");
+        } else {
+            alert(`❌ Kurang tepat! Jawaban yang benar adalah: ${currentData.options[currentData.correct]}`);
+        }
+        currentQuizIndex++;
+        document.getElementById('quiz-score').innerText = `Skor: ${ipasScore}`;
+        loadQuestion();
+    }
+
+    function resetQuiz() {
+        currentQuizIndex = 0;
+        ipasScore = 0;
+        document.getElementById('quiz-score').innerText = `Skor: ${ipasScore}`;
+        document.getElementById('quiz-container').innerHTML = `
+            <p id="quiz-question" style="font-weight: 600; font-size: 1.1rem;"></p>
+            <div id="quiz-options"></div>
+        `;
+        loadQuestion();
+    }
+
+    // Jalankan kuis pertama kali saat halaman dibuka
+    window.onload = function() {
+        loadQuestion();
+    };
+</script>
+</body>
+</html>
