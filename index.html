@@ -63,14 +63,20 @@
             margin-bottom: 15px;
         }
 
-        .theme-toggle {
+        .header-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .theme-toggle, .paste-btn {
             background: none;
             border: 2px solid var(--txt-main);
             color: var(--txt-main);
-            padding: 5px 10px;
+            padding: 6px 12px;
             border-radius: 15px;
             cursor: pointer;
             font-weight: bold;
+            font-size: 0.85rem;
         }
 
         .screen {
@@ -156,7 +162,10 @@
     <div class="calculator">
         <div class="header">
             <h3>Kalkulator Pro</h3>
-            <button class="theme-toggle" onclick="toggleTheme()">🌓 Tema</button>
+            <div class="header-buttons">
+                <button class="paste-btn" onclick="pasteFromClipboard()">📋 Paste</button>
+                <button class="theme-toggle" onclick="toggleTheme()">🌓 Tema</button>
+            </div>
         </div>
         <div class="screen">
             <div class="history" id="display-history"></div>
@@ -247,14 +256,12 @@
     function calculate() {
         try {
             let expression = currentInput;
-            // Evaluasi ekspresi matematika dengan aman
             let result = eval(expression);
             
             if (result !== undefined) {
                 document.getElementById('display-history').innerText = expression;
                 document.getElementById('display-result').innerText = result;
                 
-                // Tambah ke riwayat
                 addHistory(expression, result);
                 currentInput = result.toString();
             }
@@ -289,6 +296,55 @@
             body.setAttribute('data-theme', 'dark');
         }
     }
+
+    // --- FITUR BARU: PASTE & KEYBOARD ---
+
+    // Fungsi proses teks yang di-paste agar ramah mesin kalkulator
+    function handlePastedText(text) {
+        // Mengubah simbol umum x menjadi * dan ÷ menjadi / agar bisa dihitung
+        let cleanText = text.replace(/×/g, '*').replace(/÷/g, '/').replace(/,/g, '.');
+        if (currentInput === '0') {
+            currentInput = cleanText;
+        } else {
+            currentInput += cleanText;
+        }
+        updateScreen();
+    }
+
+    // 1. Paste via Tombol UI (Cocok untuk HP)
+    async function pasteFromClipboard() {
+        try {
+            const text = await navigator.clipboard.readText();
+            handlePastedText(text);
+        } catch (err) {
+            alert('Gagal membaca clipboard. Pastikan izin akses clipboard sudah aktif di browsermu.');
+        }
+    }
+
+    // 2. Paste via Shortcut Keyboard Biasa (Ctrl + V)
+    window.addEventListener('paste', (e) => {
+        e.preventDefault();
+        const text = (e.clipboardData || window.clipboardData).getData('text');
+        handlePastedText(text);
+    });
+
+    // 3. Mengetik langsung via Keyboard laptop/PC
+    window.addEventListener('keydown', (e) => {
+        const allowedKeys = '0123456789+-*/.()';
+        if (allowedKeys.includes(e.key)) {
+            e.preventDefault();
+            press(e.key);
+        } else if (e.key === 'Enter') {
+            e.preventDefault();
+            calculate();
+        } else if (e.key === 'Backspace') {
+            e.preventDefault();
+            backspace();
+        } else if (e.key === 'Escape') {
+            e.preventDefault();
+            clearScreen();
+        }
+    });
 </script>
 </body>
 </html>
