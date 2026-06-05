@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IPAS Hub Central - Fokus Ekonomi & Fisika</title>
+    <title>IPAS Hub Central v3.0 - Ekonomi & Fisika Modern</title>
     <style>
         :root {
             --bg-body: #0b0f19;
@@ -129,6 +129,8 @@
 
         .accent-p { color: var(--neon-purple); text-shadow: 0 0 15px rgba(168, 85, 247, 0.2); }
         .accent-b { color: var(--neon-blue); text-shadow: 0 0 15px rgba(56, 189, 248, 0.2); }
+        .accent-g { color: var(--neon-green); }
+        .accent-r { color: var(--neon-red); }
 
         .info-card-box {
             background-color: #090d16;
@@ -178,9 +180,18 @@
             color: #cbd5e1;
         }
 
-        .control-group input[type="range"] {
+        .control-group input[type="range"], .control-group select {
             width: 100%;
             cursor: pointer;
+        }
+
+        .control-group select {
+            background: #030712;
+            color: #fff;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #374151;
+            font-size: 1rem;
         }
 
         .display-screen {
@@ -193,26 +204,6 @@
             justify-content: center;
         }
 
-        /* STYLE TOGGLERS FOR Q&A */
-        .qa-card {
-            background: #1e293b;
-            border-radius: 16px;
-            padding: 25px;
-            margin-top: 25px;
-            border-left: 6px solid var(--neon-purple);
-        }
-        .qa-card.physics-card {
-            border-left-color: var(--neon-blue);
-        }
-        .btn-toggle-group { display: flex; gap: 8px; margin-bottom: 15px; }
-        .style-toggler {
-            padding: 8px 16px; border-radius: 20px; border: none; cursor: pointer;
-            font-weight: 700; font-size: 0.85rem; background: #475569; color: #fff;
-        }
-        .style-toggler.active-p { background: var(--neon-purple); color: #fff; }
-        .style-toggler.active-b { background: var(--neon-blue); color: #030712; }
-        .qa-answer { background: #070a12; padding: 22px; border-radius: 12px; line-height: 1.9; }
-
         .input-text-premium {
             background: #030712;
             border: 1px solid #374151;
@@ -222,134 +213,144 @@
             font-size: 1.1rem;
             width: 90%;
         }
+
+        .badge-danger {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--neon-red);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <!-- TOP NAVIGATION -->
     <div class="nav-header">
         <button class="btn-nav" onclick="window.location.href='index.html'">⬅️ Menu Utama</button>
-        <h1 style="margin:0; font-size:1.6rem; font-weight:900; color:var(--neon-amber);">🌀 perpustakaan CENTRAL   🌀</h1>
-        <button class="btn-nav" style="border-color: var(--neon-blue);" onclick="alert('Gas pol rem blong!')">Lanjut Belajar ➡️</button>
+        <h1 style="margin:0; font-size:1.6rem; font-weight:900; color:var(--neon-amber);">🌀 IPAS CENTRAL LAB v3.0 🌀</h1>
+        <button class="btn-nav" style="border-color: var(--neon-blue);" onclick="alert('Gas pol!')">Lanjut Belajar ➡️</button>
     </div>
 
-    <!-- MAIN DUAL TAB SWITCHER -->
     <div class="tab-box">
-        <button class="tab-trigger active-purple" id="t-economy" onclick="switchTab('economy')">💰 TAB 1: EKONOMI & MAKRO</button>
-        <button class="tab-trigger" id="t-physics" onclick="switchTab('physics')">⚡ TAB 2: FISIKA & ENERGI</button>
+        <button class="tab-trigger active-purple" id="t-economy" onclick="switchTab('economy')">💰 TAB 1: EKONOMI & KASUS BUDI</button>
+        <button class="tab-trigger" id="t-physics" onclick="switchTab('physics')">⚡ TAB 2: FISIKA, INERSIA & BOBOT</button>
     </div>
 
-    <!-- ==================== TAB 1: EKONOMI CONTENT (FOKUS UTAMA) ==================== -->
     <div id="content-economy" class="tab-content active">
-        <h2 class="accent-p" style="font-size:2rem; font-weight:850; margin-top:0;">💵 Sirkulasi Uang, Inflasi, & Teori Kuantitas</h2>
+        <h2 class="accent-p" style="font-size:2rem; font-weight:850; margin-top:0;">📉 Studi Kasus: Manajemen Risiko & Asimetri Matematika</h2>
         <div class="materi-body">
             <p>
-                Dalam ekonomi makro, uang bukan cuma sekadar kertas alat tukar, melainkan "darah" yang terus mengalir memutarkan roda peradaban. Jika aliran uang ini macet, ekonomi kolaps (Resesi). Sebaliknya, jika uang mengalir terlalu deras tanpa diimbangi jumlah barang yang cukup, nilainya akan hancur lebur. Fenomena mengerikan ini dinamakan <strong>Inflasi</strong>.
+                Banyak orang terjun ke pasar keuangan atau kripto cuma modal nafsu pengen cepat kaya tanpa belajar hukum matematika pasar. Mari kita bedah tragedi nyata yang dialami oleh teman kita, <strong>Budi</strong>, untuk mempelajari apa itu risiko sistemik dan jebakan psikologis perdagangan (FOMO).
             </p>
             
-            <h3 class="accent-p" style="font-size:1.4rem; margin-top:25px;">📉 1. Teori Kuantitas Uang (Irving Fisher)</h3>
-            <p>
-                Bagaimana cara mengukur hubungan antara jumlah uang beredar dengan harga barang di pasar? Ekonom legendaris Irving Fisher merumuskan persamaan absolut yang wajib dipahami:
-                <br>
-                <span style="font-family: 'Consolas', monospace; display:block; text-align:center; background:#0f172a; padding:15px; border-radius:12px; font-size:1.4rem; color: var(--neon-purple); margin: 15px 0;">
-                    M &times; V = P &times; T
-                </span>
-                * <strong>M (Money Supply):</strong> Jumlah uang yang beredar di masyarakat.<br>
-                * <strong>V (Velocity):</strong> Kecepatan perputaran uang (seberapa sering selembar uang berpindah tangan dalam setahun).<br>
-                * <strong>P (Price Level):</strong> Tingkat harga barang/jasa.<br>
-                * <strong>T (Total Transactions):</strong> Jumlah total transaksi barang/jasa di pasar.
-            </p>
-            <p>
-                Hukumnya sederhana: Jika pemerintah menaikkan jumlah uang beredar (<span class="accent-p">M</span>) secara ugal-ugalan sedangkan produktivitas barang (<span class="accent-p">T</span>) stagnan, maka otomatis harga barang (<span class="accent-p">P</span>) bakal melonjak drastis! Itulah kenapa negara tidak bisa langsung kaya hanya dengan mencetak uang kertas.
-            </p>
-
-            <div class="info-card-box" style="border-left: 6px solid var(--neon-purple);">
-                <h4>💥 Kasus Nyata: Tragedi Hiperinflasi Zimbabwe & Weimar Jerman</h4>
-                <p>
-                    Pada tahun 2008, Zimbabwe mencoba mencetak uang dalam jumlah masif untuk membayar utang. Hasilnya? Harga barang naik dua kali lipat setiap 24 jam! Uang kertas kehilangan harganya sampai-sampai masyarakat menggunakannya sebagai tisu toilet karena membeli tisu asli jauh lebih mahal daripada tumpukan uang tersebut.
-                </p>
+            <div class="info-card-box" style="border-left: 6px solid var(--neon-red); background: rgba(239, 68, 68, 0.02);">
+                <h4>kronologi Tragedi Crypto Budi:</h4>
+                <ol>
+                    <li><strong>Modal Awal:</strong> Budi menyisihkan uang sakunya sebesar <span class="accent-p">Rp 200.000</span> buat investasi di sebuah koin kripto alternatif.</li>
+                    <li><strong>The Rugpull (Terjun Bebas):</strong> Gak pakai riset, di akhir tahun proyek kripto itu hancur lebur. Nilai aset Budi ambles parah dari **Rp 200.000 menjadi sisa Rp 5 (5 perak)**!</li>
+                    <li><strong>Fase Pom-Pom Gila-gilaan:</strong> Pas Budi lagi tidur nyenyak, koin ampas itu tiba-tiba digoreng bandar. Harganya meroket terbang.</li>
+                    <li><strong>Panic Buying / FOMO:</strong> Begitu bangun tidur, Budi panik ngelihat grafik hijau. Dia langsung buru-buru membeli lagi (re-entry) di harga atas, lalu untungnya sempat langsung nge-jual asetnya tepat sebelum harga koin itu longsor jatuh ke bumi lagi. Kenaikan pas pasar digoreng itu terhitung sebesar **200%**!</li>
+                </ol>
             </div>
-
-            <h3 class="accent-p" style="font-size:1.4rem; margin-top:25px;">⏳ 2. Time Value of Money & Opportunity Cost</h3>
-            <p>
-                Uang memiliki dimensi waktu. Menyimpan uang tunai Rp10.000.000 di bawah kasur selama 5 tahun adalah kesalahan finansial fatal akibat <strong>Opportunity Cost</strong> (Biaya Peluang). Lu kehilangan kesempatan mendapatkan bunga/investasi sekaligus membiarkan daya beli uang tersebut digerus oleh inflasi secara diam-diam.
-            </p>
         </div>
 
-        <!-- SIMULATOR INTERAKTIF EKONOMI V2 -->
         <div class="simulator-container" style="border-color: var(--neon-purple);">
-            <h3 style="margin-top:0; color: var(--neon-purple); font-size:1.4rem;">🎮 Money Printing & Inflation Simulator</h3>
-            <p style="color: #9ca3af; margin-top:-5px; font-size:0.95rem;">Simulasikan efek jika Bank Sentral nekat menaikkan cetak uang beredar terhadap tabungan lu!</p>
+            <h3 style="margin-top:0; color: var(--neon-purple); font-size:1.4rem;">📊 Budi's Financial Rollercoaster Calculator</h3>
+            <p style="color: #9ca3af; margin-top:-5px; font-size:0.95rem;">Ubah jumlah uang baru yang disuntikkan Budi saat bangun tidur buat melihat hasil akhir portofolionya!</p>
             
             <div class="sim-grid">
                 <div class="control-group">
                     <div>
-                        <label>💵 Tabungan Riil Lu Saat Ini:</label>
-                        <input type="number" id="eco-cash" value="5000000" class="input-text-premium" oninput="hitungSimulasiEkonomi()">
+                        <label>💵 Modal Awal Budi:</label>
+                        <p style="margin:5px 0; font-size:1.2rem; font-weight:bold; color:var(--neon-blue);">Rp 200.000</p>
+                    </div>
+                    <div>
+                        <label>📉 Sisa Uang Pasca Dump Extrem:</label>
+                        <p style="margin:5px 0; font-size:1.2rem; font-weight:bold; color:var(--neon-red);">Rp 5 <span class="badge-danger">Rugi 99.99%</span></p>
                     </div>
                     <div style="margin-top:10px;">
-                        <label>🖨️ Kenaikan Cetak Uang Negara: <span id="val-print" style="color:var(--neon-red); font-weight:bold;">0</span>%</label>
-                        <input type="range" id="slide-print" min="0" max="100" value="0" oninput="hitungSimulasiEkonomi()">
+                        <label>💸 Uang Tambahan Yang Dimasukkan Budi Pas Bangun Tidur (Fresh Cash FOMO):</label><br><br>
+                        <input type="number" id="budi-fresh-cash" value="0" class="input-text-premium" oninput="hitungKasusBudi()">
                     </div>
                 </div>
                 <div class="display-screen" style="border-color: #3b0764;">
-                    <div style="font-size: 0.9rem; color:#6b7280; font-weight:bold; letter-spacing:1px;">DAYA BELI SISA TABUNGAN LU:</div>
-                    <div style="font-size: 2rem; font-weight:900; color: var(--neon-green);" id="box-money-color">Rp <span id="res-money">5.000.000</span></div>
-                    <div style="border-top:1px solid #1f2937; padding-top:10px; font-size:0.95rem; line-height:1.5;">
-                        <span style="color:#9ca3af;">Status Pasar:</span> <br>
-                        <span id="res-ekonomi-analisis" style="color: var(--neon-blue); font-weight:700;">Ekonomi Stabil. Daya beli uang lu utuh 100%.</span>
+                    <div style="font-size: 0.9rem; color:#6b7280; font-weight:bold; letter-spacing:1px;">REKAPITULASI KEUANGAN BUDI:</div>
+                    
+                    <div style="margin-top:10px; font-size:0.95rem;">
+                        💰 Total Uang Dikeluarkan Budi: <span id="res-budi-total-input" style="font-weight:bold; color:#fff;">Rp 200.000</span><br>
+                        📈 Nilai Aset Pasca Naik 200%: <span id="res-budi-final-asset" style="font-weight:bold; color:var(--neon-green);">Rp 15</span><br>
+                        ⚖️ Status Akhir (Untung/Rugi): <span id="res-budi-net" style="font-weight:bold;">Rugi Rp 199.985</span>
+                    </div>
+
+                    <div style="border-top:1px solid #1f2937; padding-top:10px; margin-top:15px; font-size:0.9rem; line-height:1.5;">
+                        <span style="color:#9ca3af; font-weight:bold;">💡 Pelajaran Berharga (The Lesson):</span> <br>
+                        <span id="res-budi-analisis" style="color: var(--neon-amber); font-weight:500;">...</span>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <!-- Q&A HUB EKONOMI -->
-        <div class="qa-card">
-            <div class="btn-toggle-group">
-                <button class="style-toggler active-p" id="e-btn-eco" onclick="toggleEkonomiStyle('formal')">📑 Jurnal Ilmiah</button>
-                <button class="style-toggler" id="g-btn-eco" onclick="toggleEkonomiStyle('gaul')">😎 Obrolan Warkop</button>
-            </div>
-            <div class="qa-question" id="q-ekonomi" style="font-size:1.25rem; font-weight:800; margin:10px 0;">Mengapa Bank Sentral menaikkan suku bunga ketika inflasi mulai tak terkendali?</div>
-            <div class="qa-answer" id="a-ekonomi">
-                <strong>Jawaban Akademik:</strong><br>
-                Ketika tingkat inflasi meningkat, Bank Sentral menerapkan kebijakan moneter kontraktif dengan menaikkan suku bunga acuan. Kebijakan ini bertujuan untuk menstimulus masyarakat agar meningkatkan tabungan dan menekan hasrat konsumsi, sekaligus meningkatkan biaya pinjaman (kredit). Akibatnya, jumlah uang beredar (Money Supply) di masyarakat berkurang, permintaan agregat menurun, dan laju inflasi dapat ditekan kembali ke titik keseimbangan baru.
             </div>
         </div>
     </div>
 
 
-    <!-- ==================== TAB 2: FISIKA CONTENT (COMPACT) ==================== -->
     <div id="content-physics" class="tab-content">
-        <h2 class="accent-b" style="font-size:2rem; font-weight:850; margin-top:0;">🚀 Mekanika Energi: Kinetik & Potensial</h2>
+        <h2 class="accent-b" style="font-size:2rem; font-weight:850; margin-top:0;">🚀 Hub Mekanika: Energi, Inersia & Bobot</h2>
         <div class="materi-body">
             <p>
-                Jika ekonomi mengukur pergerakan nilai abstrak (uang), Fisika mengukur pergerakan materi nyata di alam semesta. Di bab mekanika, kita mengenal dua pilar energi utama:
+                Setelah memahami Energi Kinetik yang menghantam objek, kita harus mempelajari sifat dasar materi lainnya yang gak kalah krusial di ujian: <strong>Inersia</strong> dan <strong>Bobot Benda</strong>.
             </p>
-            <ul>
-                <li><strong>Energi Kinetik ($Ek = \frac{1}{2}mv^2$):</strong> Energi yang dimiliki benda karena faktor kecepatan geraknya.</li>
-                <li><strong>Energi Potensial ($Ep = m \cdot g \cdot h$):</strong> Energi tersembunyi yang dimiliki benda karena faktor ketinggian kedudukannya dari permukaan bumi ($g = 9.8 \, m/s^2$).</li>
-            </ul>
+            
+            <div class="info-card-box" style="border-left: 6px solid var(--neon-blue);">
+                <h4>⚖️ 1. Inersia (Hukum I Newton / Kelembaman)</h4>
+                <p>
+                    <strong>Inersia</strong> adalah sifat alami benda yang cenderung **malas** atau menolak untuk dirubah kondisi geraknya. Benda diam pengen tetep diam, benda bergerak pengen tetep bergerak lurus beraturan dengan kecepatan konstan ($&Sigma;F = 0$).
+                </p>
+                <ul>
+                    <li>Ukuran inersia suatu benda ditentukan sepenuhnya oleh <strong>Massa (m)</strong>-nya. Makin gede massanya, makin malas benda itu dihentikan atau digerakkan.</li>
+                    <li><strong>Contoh Nyata:</strong> Pas lu naik mobil ngebut terus direm mendadak, badan lu otomatis mental ke depan. Itu karena badan lu punya *inersia* yang pengen mempertahankan gerakan maju ke depan!</li>
+                </ul>
+            </div>
+
+            <div class="info-card-box" style="border-left: 6px solid var(--neon-green);">
+                <h4>🌌 2. Bobot Benda vs Massa Benda ($W = m \cdot g$)</h4>
+                <p>
+                    Banyak orang salah kaprah mengira Massa dan Berat (Bobot) itu sama. Di dalam fisika, mereka beda kasta!
+                </p>
+                <ul>
+                    <li><strong>Massa ($m$):</strong> Jumlah materi dalam benda. Nilainya **selalu sama** mau lu ditaruh di Bumi, di Bulan, atau melayang di luar angkasa. Satuannya Kilogram (kg).</li>
+                    <li><strong>Bobot/Berat ($W$):</strong> Gaya tarik gravitasi planet terhadap massa benda tersebut. Nilainya **bisa berubah-ubah** tergantung kekuatan gravitasi tempat lu berdiri! Satuannya Newton (N).</li>
+                    <li><strong>Rumus Mutlak:</strong> <code style="font-size:1.2rem; color:var(--neon-green);">W = m * g</code> (Bobot = Massa dikali Percepatan Gravitasi).</li>
+                </ul>
+            </div>
         </div>
 
-        <!-- SIMULATOR INTERAKTIF FISIKA -->
         <div class="simulator-container" style="border-color: var(--neon-blue);">
-            <h3 style="margin-top:0; color: var(--neon-blue); font-size:1.4rem;">🎮 Physics Energy Calculator</h3>
+            <h3 style="margin-top:0; color: var(--neon-blue); font-size:1.4rem;">🎮 Interaktif: Simulator Bobot Benda di Jagat Raya</h3>
+            <p style="color: #9ca3af; margin-top:-5px; font-size:0.95rem;">Buktikan sendiri gimana bobot (W) lu berubah drastis di planet lain padahal massa (m) lu tetep konstan!</p>
+            
             <div class="sim-grid">
                 <div class="control-group">
                     <div>
-                        <label>🏋️ Massa Objek: <span id="val-mass" style="color:var(--neon-blue); font-weight:bold;">50</span> kg</label>
-                        <input type="range" id="slide-mass" min="1" max="200" value="50" oninput="hitungFisika()">
+                        <label>🏋️ Masukkan Massa Tubuh Lu (kg):</label><br><br>
+                        <input type="number" id="phys-mass" value="50" class="input-text-premium" oninput="hitungBobotBenda()">
                     </div>
                     <div style="margin-top:10px;">
-                        <label>🏃 Kecepatan Gerak: <span id="val-velo" style="color:var(--neon-amber); font-weight:bold;">10</span> m/s</label>
-                        <input type="range" id="slide-velo" min="0" max="60" value="10" oninput="hitungFisika()">
+                        <label>🪐 Pilih Lokasi Jagat Raya:</label>
+                        <select id="phys-gravity" onchange="hitungBobotBenda()">
+                            <option value="9.8">Bumi (g = 9.8 m/s²)</option>
+                            <option value="1.62">Bulan (g = 1.62 m/s²)</option>
+                            <option value="24.79">Yupiter (g = 24.79 m/s²)</option>
+                            <option value="0">Luar Angkasa Lepas (g = 0 m/s²)</option>
+                        </select>
                     </div>
                 </div>
-                <div class="display-screen">
-                    <div style="font-size: 0.9rem; color:#6b7280; font-weight:bold; letter-spacing:1px;">HASIL ENERGI KINETIK:</div>
-                    <div style="font-size: 2.2rem; font-weight:900; color: var(--neon-blue); margin:5px 0;"><span id="res-joule">2500</span> Joule</div>
-                    <p style="font-size:0.9rem; margin:5px 0 0 0; color:var(--txt-muted);" id="res-physics-desc">Efek benturan skala menengah.</p>
+                <div class="display-screen" style="border-color: #0c4a6e;">
+                    <div style="font-size: 0.9rem; color:#6b7280; font-weight:bold; letter-spacing:1px;">HASIL PERHITUNGAN FISIKA:</div>
+                    <div style="font-size: 2rem; font-weight:900; color: var(--neon-blue); margin:10px 0;">W = <span id="res-weight">490</span> Newton</div>
+                    <div style="border-top:1px solid #1f2937; padding-top:10px; font-size:0.95rem; line-height:1.5;">
+                        <span style="color:#9ca3af;">Analisis Inersia:</span> <br>
+                        <span id="res-inertia-desc" style="color: #fff;">Dengan massa 50 kg, tingkat kelembaman (inersia) lu normal. Gampang buat direm kalau lagi lari.</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -368,93 +369,80 @@
         if(target === 'physics') {
             document.getElementById('t-physics').classList.add('active-blue');
             document.getElementById('content-physics').classList.add('active');
-            hitungFisika();
+            hitungBobotBenda();
         } else {
             document.getElementById('t-economy').classList.add('active-purple');
             document.getElementById('content-economy').classList.add('active');
-            hitungSimulasiEkonomi();
+            hitungKasusBudi();
         }
     }
 
-    // LOGIK UTAMA: EKONOMI SIMULATOR V2
-    function hitungSimulasiEkonomi() {
-        let cash = parseFloat(document.getElementById('eco-cash').value) || 0;
-        let printPercent = parseFloat(document.getElementById('slide-print').value);
+    // CORE LOGIK ENGINE: TRAGEDI KRIPTO BUDI
+    function hitungKasusBudi() {
+        let freshCash = parseFloat(document.getElementById('budi-fresh-cash').value) || 0;
+        let initialCapital = 200000;
+        let sisaCrash = 5;
         
-        document.getElementById('val-print').innerText = printPercent;
-
-        // Formula sederhana dampak cetak uang langsung memicu inflasi proporsional
-        // Daya beli akhir = Cash / (1 + (printPercent / 100))
-        let dayaBeliAkhir = cash / (1 + (printPercent / 100));
+        // Menghitung total modal keluar
+        let totalInput = initialCapital + freshCash;
+        document.getElementById('res-budi-total-input').innerText = "Rp " + totalInput.toLocaleString('id-ID');
         
-        document.getElementById('res-money').innerText = Math.floor(dayaBeliAkhir).toLocaleString('id-ID');
-
-        let analisis = document.getElementById('res-ekonomi-analisis');
-        let colorBox = document.getElementById('box-money-color');
-
-        if (printPercent === 0) {
-            analisis.innerText = "Ekonomi Stabil. Daya beli uang lu utuh 100%.";
-            analisis.style.color = "var(--neon-blue)";
-            colorBox.style.color = "var(--neon-green)";
-        } else if (printPercent > 0 && printPercent <= 25) {
-            analisis.innerText = "Inflasi Ringan. Harga bensin dan sembako mulai merangkak naik pelan-pelan.";
-            analisis.style.color = "var(--neon-amber)";
-            colorBox.style.color = "#a3e635";
-        } else if (printPercent > 25 && printPercent <= 70) {
-            analisis.innerText = "Daya Beli Merosot! Uang lu berasa gak ada harganya pas dibawa ke supermarket.";
-            analisis.style.color = "var(--neon-red)";
-            colorBox.style.color = "var(--neon-amber)";
+        // Kenaikan 200% artinya nilai aset dikalikan 3 (asal 100% + kenaikan 200% = 300%)
+        // Aset yang ikut naik adalah sisa crash (Rp 5) ditambah fresh cash FOMO yang dimasukkan pas bangun tidur
+        let asetSebelumNaik = sisaCrash + freshCash;
+        let finalAsset = asetSebelumNaik * 3;
+        document.getElementById('res-budi-final-asset').innerText = "Rp " + finalAsset.toLocaleString('id-ID');
+        
+        // Hitung untung bersih / rugi bersih
+        let netResult = finalAsset - totalInput;
+        let netBox = document.getElementById('res-budi-net');
+        let analisisBox = document.getElementById('res-budi-analisis');
+        
+        if (netResult < 0) {
+            netBox.innerText = "Rugi Bersih Rp " + Math.abs(netResult).toLocaleString('id-ID');
+            netBox.style.color = "var(--neon-red)";
         } else {
-            analisis.innerText = "HIPERINFLASI Kritis! Pemerintah cetak uang gak ngotak, duit lu nilainya amblas jadi ampas kertas!";
-            analisis.style.color = "var(--neon-red)";
-            colorBox.style.color = "var(--neon-red)";
+            netBox.innerText = "Untung Bersih Rp " + netResult.toLocaleString('id-ID');
+            netBox.style.color = "var(--neon-green)";
         }
-    }
-
-    // DATABASE MULTI-STYLE Q&A EKONOMI
-    const dbEkonomi = {
-        formal: {
-            q: "Mengapa Bank Sentral menaikkan suku bunga ketika inflasi mulai tak terkendali?",
-            a: "<strong>Jawaban Akademik:</strong><br>Ketika tingkat inflasi meningkat, Bank Sentral menerapkan kebijakan moneter kontraktif dengan menaikkan suku bunga acuan. Kebijakan ini bertujuan untuk menstimulus masyarakat agar meningkatkan tabungan dan menekan hasrat konsumsi, sekaligus meningkatkan biaya pinjaman (kredit). Akibatnya, jumlah uang beredar (Money Supply) di masyarakat berkurang, permintaan agregat menurun, dan laju inflasi dapat ditekan kembali ke titik keseimbangan baru."
-        },
-        gaul: {
-            q: "Kenapa sih kalau harga barang pada naik, BI malah naikin suku bunga bank? Makin nyusahin gak sih?",
-            a: "<strong>Jawaban Obrolan Warkop:</strong><br>Bukan nyusahin cuy, justru itu rem darurat! Logikanya gini, pas inflasi kan duit yang beredar di pasar banyak banget, makanya harga barang naik gila-gilaan karena semua orang rebutan belanja. Nah, biar lu pada ngerem jajan, Bank Sentral naikin bunga bank. Efeknya? Lu bakal mikir 'Mending duitnya gua tabung di bank biar dapet bunga gede' daripada dipake foya-foya. Alhasil, duit yang beredar di pasar berkurang, toko-toko sepi, dan terpaksa nurunin harga barang lagi deh!"
-        }
-    };
-
-    function toggleEkonomiStyle(style) {
-        document.getElementById('q-ekonomi').innerHTML = dbEkonomi[style].q;
-        document.getElementById('a-ekonomi').innerHTML = dbEkonomi[style].a;
         
-        if (style === 'formal') {
-            document.getElementById('e-btn-eco').classList.add('active-p');
-            document.getElementById('g-btn-eco').classList.remove('active-p');
+        // Logika Analisis Pelajaran Keuangan
+        if (freshCash === 0) {
+            analisisBox.innerHTML = "Uang sisa Rp 5 naik 200% cuma jadi <strong>Rp 15</strong>. Budi tetep rugi bandar Rp 199.985! <br><strong>Pelajaran:</strong> Kenaikan persentase gede gak ada gunanya kalau modal lu udah amblas mendekati nol (Asimetri Matematika).";
+        } else if (freshCash > 0 && freshCash < 100000) {
+            analisisBox.innerHTML = "Budi nyoba nge-FOMO pas bangun tidur. Biarpun dapet momentum naik 200%, total portofolionya tetep boncos karena kerugian awal Rp 200.000 terlalu gede buat ditutup.";
+        } else if (netResult >= 0) {
+            analisisBox.innerHTML = "Secara angka Budi untung karena dia nyuntik modal raksasa pas di bawah, tapi ini <strong>MURNI JUDI / KEBERUNTUNGAN</strong>! Pas dia tidur, kalau harganya amblas ke nol, modal barunya bakal musnah total. Jangan ditiru, ini namanya bad risk management!";
         } else {
-            document.getElementById('g-btn-eco').classList.add('active-p');
-            document.getElementById('e-btn-eco').classList.remove('active-p');
+            analisisBox.innerHTML = "Suntikan modal FOMO Budi ngebantu ngurangin kerugian, tapi tetep gak bisa balikin modal awal seutuhnya. Cut loss di awal jauh lebih bijak daripada nangkep pisau jatuh!";
         }
     }
 
-    // LOGIK UTAMA: FISIKA CALCULATOR
-    function hitungFisika() {
-        let m = parseFloat(document.getElementById('slide-mass').value);
-        let v = parseFloat(document.getElementById('slide-velo').value);
+    // CORE LOGIK ENGINE: FISIKA (BOBOT & INERSIA)
+    function hitungBobotBenda() {
+        let m = parseFloat(document.getElementById('phys-mass').value) || 0;
+        let g = parseFloat(document.getElementById('phys-gravity').value);
         
-        document.getElementById('val-mass').innerText = m;
-        document.getElementById('val-velo').innerText = v;
-
-        let ek = 0.5 * m * (v * v);
-        document.getElementById('res-joule').innerText = ek.toFixed(0);
-
-        let desc = document.getElementById('res-physics-desc');
-        if (ek < 500) desc.innerText = "Dampak sepele, aman terkendali.";
-        else if (ek < 5000) desc.innerText = "Lumayan kerasa, setara hantaman sepeda laju.";
-        else desc.innerText = "Bahaya! Energi benturan destruktif.";
+        // Rumus W = m * g
+        let w = m * g;
+        document.getElementById('res-weight').innerText = w.toFixed(2);
+        
+        let inertiaDesc = document.getElementById('res-inertia-desc');
+        
+        // Analisis inersia berbasis massa (m)
+        if (m === 0) {
+            inertiaDesc.innerText = "Gak punya massa? Berarti lu hantu, gak punya inersia sama sekali.";
+        } else if (m < 40) {
+            inertiaDesc.innerHTML = "Massa lu ringan ("+m+" kg). Tingkat inersia lu **rendah**. Tubuh lu gampang banget digerakkan atau dihentikan secara mendadak tanpa tumpuan berat.";
+        } else if (m >= 40 && m <= 90) {
+            inertiaDesc.innerHTML = "Massa lu standar ("+m+" kg). Inersia lu **sedang**. Pas naik mobil direm mendadak, seatbelt standar udah cukup menahan dorongan kelembaman tubuh lu.";
+        } else {
+            inertiaDesc.innerHTML = "Massa lu gede banget ("+m+" kg!). Tingkat inersia (kelembaman) lu **tinggi**. Tubuh lu sangat malas buat dihentikan kalau udah kadung lari kencang. Butuh gaya pengereman ekstra besar!";
+        }
     }
 
-    // Run first calculation configuration
-    hitungSimulasiEkonomi();
+    // Inisialisasi awal saat load
+    hitungKasusBudi();
 </script>
 </body>
 </html>
