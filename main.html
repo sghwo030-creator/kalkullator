@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IPAS Zone - Hewan & Lingkungan Vibe Gaul</title>
+    <title>IPAS Zone - Krisis Hutan & Invasi Sawit</title>
     <style>
         :root {
-            --bg-body: #0f172a;
-            --bg-card: #1e293b;
-            --txt-main: #f8fafc;
-            --txt-muted: #94a3b8;
-            --accent-green: #4ade80;
-            --accent-blue: #38bdf8;
-            --accent-orange: #fb923c;
-            --border: #334155;
+            --bg-body: #090d16;
+            --bg-card: #111827;
+            --txt-main: #f9fafb;
+            --txt-muted: #9ca3af;
+            --accent-green: #22c55e;
+            --accent-red: #ef4444;
+            --accent-blue: #60a5fa;
+            --accent-yellow: #facc15;
+            --border: #1f2937;
         }
 
         body {
@@ -29,16 +30,15 @@
         }
 
         .container {
-            max-width: 900px;
+            max-width: 950px;
             width: 100%;
             background: var(--bg-card);
-            padding: 35px;
-            border-radius: 24px;
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+            padding: 40px;
+            border-radius: 28px;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
             border: 1px solid var(--border);
         }
 
-        /* HEADER NAVIGASI */
         .nav-header {
             display: flex;
             justify-content: space-between;
@@ -49,89 +49,109 @@
         }
 
         .btn-nav {
-            background-color: #334155;
+            background-color: #1f2937;
             border: 1px solid var(--border);
             color: var(--txt-main);
-            padding: 10px 20px;
+            padding: 12px 24px;
             border-radius: 30px;
             cursor: pointer;
             font-weight: 700;
             transition: all 0.2s;
         }
-        .btn-nav:hover { background-color: #475569; transform: translateY(-2px); }
-        .btn-next { background-color: var(--accent-blue); color: #000; }
-        .btn-next:hover { background-color: #7dd3fc; }
+        .btn-nav:hover { background-color: #374151; transform: translateY(-2px); }
+        .btn-next { background-color: var(--accent-yellow); color: #000; }
 
-        /* MATERI STYLING */
         .intro-box {
-            background: linear-gradient(135deg, #1e1b4b, #311042);
-            padding: 25px;
-            border-radius: 16px;
-            margin-bottom: 30px;
-            border: 1px solid #4c1d95;
+            background: linear-gradient(135deg, #1e1b4b, #451a03);
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 35px;
+            border: 1px solid #7c2d12;
         }
 
         h2.section-title {
-            color: var(--accent-green);
+            color: var(--accent-red);
             font-size: 1.8rem;
-            border-left: 5px solid var(--accent-green);
+            border-left: 6px solid var(--accent-red);
             padding-left: 15px;
-            margin-top: 40px;
+            margin-top: 45px;
         }
 
         .materi-panjang {
-            font-size: 1.05rem;
-            line-height: 1.8;
-            color: #cbd5e1;
+            font-size: 1.1rem;
+            line-height: 1.9;
+            color: #e5e7eb;
             text-align: justify;
         }
 
         .highlight-gaul {
-            background-color: rgba(251, 146, 60, 0.15);
-            color: var(--accent-orange);
-            padding: 2px 6px;
-            border-radius: 4px;
+            background-color: rgba(239, 68, 68, 0.15);
+            color: #f87171;
+            padding: 3px 8px;
+            border-radius: 6px;
             font-weight: bold;
         }
 
         .card-info {
-            background-color: #0f172a;
+            background-color: #030712;
             border: 1px solid var(--border);
-            padding: 20px;
-            border-radius: 14px;
-            margin: 20px 0;
-        }
-        .card-info h4 { margin-top: 0; color: var(--accent-blue); font-size: 1.2rem; }
-
-        /* MINI GAME AREA */
-        .game-box {
-            background: linear-gradient(135deg, #064e3b, #022c22);
-            border: 2px solid var(--accent-green);
             padding: 25px;
-            border-radius: 18px;
+            border-radius: 16px;
+            margin: 25px 0;
+        }
+        .card-info h4 { margin-top: 0; color: var(--accent-yellow); font-size: 1.3rem; }
+
+        /* Q&A STYLING WITH TOGGLE SYSTEM */
+        .qa-section {
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 20px;
+            padding: 30px;
             margin-top: 40px;
         }
 
-        .btn-game {
-            background-color: var(--accent-green);
-            color: #052e16;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 10px;
-            font-weight: 800;
-            cursor: pointer;
-            margin: 5px;
-            font-size: 1rem;
+        .qa-box {
+            background: #1e293b;
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 5px solid var(--accent-blue);
         }
-        .btn-game:hover { background-color: #86efac; transform: scale(1.05); }
 
-        .status-ekosistem {
-            background-color: rgba(0,0,0,0.4);
-            padding: 15px;
+        .toggle-btn-zone {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .style-btn {
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.85rem;
+            background: #475569;
+            color: white;
+        }
+        .style-btn.active {
+            background: var(--accent-blue);
+            color: #000;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin: 10px 0;
+        }
+
+        .answer-text {
+            background: #090d16;
+            padding: 20px;
             border-radius: 10px;
-            margin-top: 15px;
-            font-family: monospace;
-            font-size: 1.1rem;
+            line-height: 1.8;
+            border: 1px solid #1e293b;
+            color: #cbd5e1;
         }
     </style>
 </head>
@@ -141,158 +161,107 @@
     <!-- NAVIGASI ATAS -->
     <div class="nav-header">
         <button class="btn-nav" onclick="window.location.href='index.html'">⬅️ Back ke Kalkulator</button>
-        <h1 style="margin: 0; font-size: 1.6rem; font-weight: 800; color: var(--accent-blue);">⚡ IPAS HUB v2.0 ⚡</h1>
-        <!-- Link otomatis mengarah ke tengah.html seperti permintaanmu -->
+        <h1 style="margin: 0; font-size: 1.6rem; font-weight: 800; color: var(--accent-yellow);">🔥 IPAS HARDCORE EDITION 🔥</h1>
         <button class="btn-nav btn-next" onclick="window.location.href='tengah.html'">Ke tengah.html ➡️</button>
     </div>
 
     <!-- INTRO PENGANTAR -->
     <div class="intro-box">
-        <h3 style="margin-top:0; color: var(--accent-orange);">Yo! Selamat Datang di Area Belajar IPAS Ter-Gokil! 🚀</h3>
-        <p style="margin-bottom:0; line-height: 1.6;">
-            Siapa bilang materi IPAS itu ngebosenin? Di sini kita bakal bedah tuntas materi <span class="highlight-gaul">Hewan dan Lingkungannya</span> secara super mendalam, akurat 100% sesuai kurikulum, tapi dibawain pakai gaya santai biar otak lu gak nge-lag. Baca pelan-pelan sampai bawah, pahami polanya, terus cobain mini-simulasi ekosistemnya di akhir halaman. <span class="highlight-gaul">Gaskan, cuy!</span>
+        <h3 style="margin-top:0; color: var(--accent-yellow);">Waduh, Dunia Lagi Gak Baik-Baik Saja, Cuy! 🌍🚨</h3>
+        <p style="margin-bottom:0; line-height: 1.7;">
+            Kemarin kita udah bahas soal hewan pinter adaptasi. Nah sekarang, kita bakal bahas musuh paling nyata dari alam: <span class="highlight-gaul">Keserakahan Manusia</span>. Kita bakal bedah tuntas kenapa beton, penggusuran hutan, dan perkebunan sawit skala monster bisa bikin bumi kita mega-krisis. Ini materi panjang banget, sengaja dibuat detail biar lu paham sedalam-dalamnya. <span class="highlight-gaul">Gak usah banyak cincong, langsung gaskan disimak sampai kelar!</span>
         </p>
     </div>
 
-    <!-- MATERI BERAT BAGIAN 1: BIOTIK & ABIOTIK -->
-    <h2 class="section-title">1. Lingkungan Hidup: Tempat Nongkrong Makhluk Hidup</h2>
+    <!-- MATERI 1: TEMBOK & PENGGUSURAN HUTAN -->
+    <h2 class="section-title">1. Invasi Tembok Beton & Penggusuran Hutan (Deforestasi Radikal)</h2>
     <div class="materi-panjang">
         <p>
-            Oke pertama-tama, kita harus tahu dulu apa itu lingkungan hidup. Secara ilmiah dan akurat, lingkungan adalah kesatuan ruang dengan semua benda, daya, keadaan, dan makhluk hidup di dalamnya. Lingkungan ini dibagi jadi dua komponen utama yang wajib lu tahu, yaitu <strong>Komponen Biotik</strong> (segala hal yang bernyawa/hidup) dan <strong>Komponen Abiotik</strong> (benda mati tapi krusial banget buat kehidupan). Jangan sampai ketuker, ini basic banget, cuy!
+            Bayangin rumah lu tiba-tiba dihancurin pake buldoser raksasa terus diganti jadi kompleks ruko. Sedih kan? Nah, itulah yang dialami jutaan hewan di hutan kita saat ini, anjir! <strong style="color:var(--accent-red);">Deforestasi</strong> atau penggusuran hutan secara besar-besaran demi bangun "tembok-tembok" peradaban (kota, jalan tol, pabrik) itu dampaknya merusak segala lini kehidupan ekosistem. Saat pohon-pohon raksasa ditebang habis, otomatis tempat tinggal (habitat) dan sumber makanan hewan langsung lenyap seketika. 
         </p>
-        <div class="card-info">
-            <h4>🍀 Komponen Biotik vs Abiotik (Valid No Debat)</h4>
-            <ul>
-                <li><strong>Biotik:</strong> Manusia, hewan, tumbuhan, mikroorganisme (bakteri jamur). Mereka ini saling makan-memakan dan berinteraksi membentuk jaring-jaring makanan.</li>
-                <li><strong>Abiotik:</strong> Cahaya matahari (buat tumbuhan fotosintesis), air (biar gak dehidrasi), udara/oksigen (buat napas), tanah, dan suhu udara. Kalau abiotik ini kacau, komponen biotik bisa langsung <em>out</em> alias punah!</li>
-            </ul>
-        </div>
         <p>
-            Hubungan antara biotik dan abiotik ini memicu terbentuknya <span class="highlight-gaul">Ekosistem</span>. Di dalam ekosistem, hewan nggak bisa egois hidup sendirian. Mereka sangat bergantung sama kondisi geografis tempat tinggal mereka, yang nanti bakal kita bahas di bawah. Tetep fokus, jangan hilang konsentrasi dulu!
+            Dampak ilmiahnya gak main-main, cuy. Secara IPAS, hutan itu bertindak sebagai <span class="highlight-gaul">Spons Raksasa Alami</span> yang tugasnya menyerap air hujan melimpah masuk ke dalam tanah (proses infiltrasi dalam siklus air). Begitu pohon digusur habis dan tanahnya ditutup semen atau aspal jadi jalanan, air hujan gak punya akses lagi buat meresap ke dalam bumi. Akibatnya apa? Aliran air permukaan langsung meluap jadi banjir bandang pas musim hujan, dan pas musim kemarau kita langsung auto-kekeringan parah karena cadangan air tanahnya kosong melompong! Gak cuma itu, hewan yang frustrasi karena rumahnya digusur bakal mulai masuk ke pemukiman warga buat nyari makan, akhirnya memicu konflik berdarah antara manusia vs hewan. Ngeri banget!
         </p>
     </div>
 
-    <!-- MATERI BERAT BAGIAN 2: ADAPTASI HEWAN -->
-    <h2 class="section-title">2. Ragam Adaptasi Hewan (Cara Bertahan Hidup Biar Gak Modar)</h2>
+    <!-- MATERI 2: INVASI SAWIT VS POHON HUTAN ALAMI -->
+    <h2 class="section-title">2. Bahaya Monokultur: Bedanya Pohon Hutan Nyata vs Perkebunan Sawit</h2>
     <div class="materi-panjang">
         <p>
-            Nah, materi inti IPA-nya ada di sini: <strong>Adaptasi</strong>. Adaptasi itu adalah kemampuan makhluk hidup buat menyesuaikan diri sama lingkungan sekitarnya biar bisa bertahan hidup, dapet makanan, dan aman dari predator. Secara struktur kurikulum IPAS, adaptasi hewan dipotong jadi 3 jenis utama. Ini materi panjang, dengerin baik-baik:
+            Ada salah kaprah yang sering didebatin orang awam: <em>"Kan sawit juga pohon hijau, berarti sama aja dong kayak hutan?"</em> Lu kalau mikir gini fix otak lu lagi nge-lag, cuy! Secara ilmu lingkungan, bedanya sejauh bumi dan langit. Hutan alami itu sifatnya <strong>Heterogen / Biodiversitas Tinggi</strong>, artinya di dalam satu wilayah ada ribuan jenis pohon berbeda, ada semak, ada lumut, ada hewan macem-macem. Semuanya saling menyeimbangkan. Sedangkan kebun sawit itu namanya sistem <strong>Monokultur</strong> (cuma menanam satu jenis tanaman tunggal di lahan bermil-mil luasnya). 
         </p>
-
         <div class="card-info">
-            <h4>📐 A. Adaptasi Morfologi (Bentuk Tubuh Kelihatan Nyata)</h4>
-            <p>Adaptasi ini bentuknya fisik, bisa langsung lu lihat pakai mata telanjang. Contoh paling akurat:</p>
+            <h4>⚠️ Kenapa Sawit yang Terlalu Banyak Itu Bahaya Gila?</h4>
             <ul>
-                <li><strong>Bentuk Paruh Burung:</strong> Burung Elang punya paruh melengkung tajam buat mencabik daging mangsa. Burung Kolibri paruhnya panjang runcing buat nyedot nektar di pedalaman bunga. Bebek paruhnya berbentuk sudu/lebar buat nyari cacing di lumpur.</li>
-                <li><strong>Bentuk Kaki:</strong> Kaki bebek punya selaput biar jago berenang. Kaki ayam punya cakar tajam buat mengais tanah nyari biji-bijian. Kaki burung pelatuk punya jari kokoh buat mencengkeram batang pohon saat mematuk kayu.</li>
-                <li><strong>Gigi Hewan:</strong> Karnivora (singa, harimau) dibekali gigi taring yang tajam gila buat merobek daging. Herbivora (sapi, kambing) giginya dominan geraham lebar buat mengunyah rumput yang seratnya tebal.</li>
-            </ul>
-        </div>
-
-        <div class="card-info">
-            <h4>🧪 B. Adaptasi Fisiologi (Fungsi Organ Dalam / Kimiawi tubuh)</h4>
-            <p>Kalau morfologi kelihatan dari luar, adaptasi fisiologi ini mainnya di dalam tubuh, organ, atau zat kimia tubuh. Jadi gak kelihatan langsung kalau gak dibedah. Contohnya:</p>
-            <ul>
-                <li><strong>Unta di Gurun:</strong> Punya punuk yang isinya cadangan lemak khusus. Ketika di gurun gak ada air, lemak ini dipecah jadi energi dan air lewat proses kimia internal tubuh unta. Plus, ginjal unta kuat banget bikin urinnya pekat biar gak buang-buang air.</li>
-                <li><strong>Burung Hantu:</strong> Punya penglihatan super tajam di malam hari karena pupil matanya bisa melebar ekstrem buat menangkap cahaya sekecil apa pun di kegelapan malam.</li>
-                <li><strong>Sapi (Ruminansia):</strong> Punya enzim selulase di dalam lambungnya yang fungsinya khusus banget buat mencerna serat rumput yang keras. Manusia gak punya enzim ini, jadi jangan coba-coba makan rumput, cuy!</li>
-            </ul>
-        </div>
-
-        <div class="card-info">
-            <h4>🏃 C. Adaptasi Tingkah Laku (Aksi Nyata Saat Kepepet)</h4>
-            <p>Ini adalah respon berupa tindakan atau perilaku hewan saat merespon kondisi alam sekitar atau ancaman musuh:</p>
-            <ul>
-                <li><strong>Bunglon (Mimikri):</strong> Mengubah warna kulitnya sesuai tempat dia nempel biar musuh bingung. Nempel di daun jadi hijau, nempel di batang pohon jadi cokelat. Bunglon mah pro banget urusan menyamar!</li>
-                <li><strong>Cecak (Autotomi):</strong> Kalau ekornya dipegang musuh, cecak bakal langsung memutus ekornya sendiri. Ekornya goyang-goyang buat nipu musuh, sementara cecaknya kabur selamet.</li>
-                <li><strong>Paus & Lumba-lumba:</strong> Sesekali bakal muncul ke permukaan air buat membuang karbon dioksida dan menghirup oksigen segar lewat lubang pernapasannya, karena mereka bernapas pakai paru-paru meskipun tinggal di air.</li>
+                <li><strong>Sifat Serakah Air:</strong> Pohon kelapa sawit itu aslinya tanaman yang rakus air banget, anjir! Satu pohon sawit dewasa bisa menyedot puluhan liter air tanah per hari. Kalau sawit ditanam terlalu banyak berdampingan, struktur air tanah di sekitarnya bakal kesedot habis, bikin sumur-sumur warga kering dan tanah sekitarnya jadi gersang.</li>
+                <li><strong>Akar Dangkal (Gak Ramah Longsor):</strong> Pohon hutan hujan tropis punya akar tunggang yang menancap puluhan meter ke dalam bumi buat mengikat tanah biar gak longsor. Sementara kelapa sawit akarnya cenderung serabut dan dangkal. Jadi kalau ada hujan badai, kebun sawit gak bakal sekuat hutan asli buat nahan erosi tanah.</li>
+                <li><strong>Zonasi Hewan Mati Total:</strong> Hewan hutan kayak orangutan, harimau, dan burung-burung gak bisa hidup di pohon sawit. Pohon sawit gak menyediakan buah-buahan alami yang bervariasi dan gak aman buat sarang mereka. Jadi, perluasan kebun sawit sama saja dengan mengusir keanekaragaman hayati secara halus.</li>
             </ul>
         </div>
     </div>
 
-    <!-- MATERI BERAT BAGIAN 3: IPS GEOGRAFIS INDONESIA -->
-    <h2 class="section-title">3. Sudut Pandang IPS: Geografis Lingkungan vs Kehidupan Hewan</h2>
-    <div class="materi-panjang">
-        <p>
-            Sekarang kita geser ke bagian ilmu sosialnya (IPS). Kondisi alam wilayah Indonesia itu beda-beda banget karena faktor letak astronomis dan geografis. Perbedaan bentang alam ini bikin persebaran jenis hewan dan pemanfaatan oleh manusia jadi ikutan beda. <span class="highlight-gaul">Yuk kita bedah 3 zona utama:</span>
-        </p>
-        
-        <p>
-            <strong>1. Daerah Dataran Tinggi & Pegunungan:</strong> Daerah ini hawanya dingin, tanahnya subur akibat abu vulkanik. Karena suhu dingin, hewan yang cocok di sini adalah hewan berbulu tebal atau hewan ternak produktif seperti Sapi Perah (diambil susunya), Kambing Etawa, dan Kuda. Manusia di sini rata-rata kerja jadi petani kebun teh/sayur dan peternak.
-        </p>
-        <p>
-            <strong>2. Daerah Dataran Rendah:</strong> Suhunya normal cenderung hangat, wilayahnya rata dan luas. Biasanya jadi pusat pemukiman manusia. Hewan yang mendominasi di sini adalah hewan ternak konsumsi massal seperti ayam potong, bebek, sapi potong, dan kerbau (buat bajak sawah). Lingkungan ini dimanfaatkan manusia buat bertani padi, membangun industri, dan kota-kota besar.
-        </p>
-        <p>
-            <strong>3. Daerah Pesisir Pantai & Lautan:</strong> Berbatasan langsung sama laut lepas. Ekosistemnya unik banget, ada hutan bakau (mangrove). Hewan yang hidup di sini mulai dari kepiting bakau, ikan bandeng, udang, hingga beraneka macam kerang. Manusia yang tinggal di sini otomatis beradaptasi menjadi nelayan, petani garam, atau budidaya tambak udang.
-        </p>
-    </div>
+    <!-- AREA INTERAKTIF Q&A DUA VERSI (FORMAL & GAUL) -->
+    <div class="qa-section">
+        <h2 style="margin-top:0; color:var(--accent-blue); font-size:1.5rem;">🧠 Sesi Q&A Interaktif: Pemahaman Krisis Lingkungan</h2>
+        <p style="color:var(--txt-muted); font-size:0.95rem; margin-top:-5px;">Klik tombol buat ganti gaya bahasa pertanyaannya. Jawaban tetep gaul dan padat akurat!</p>
 
-    <!-- MAIN-MAIN SEDIKIT: INTERAKTIF SIMULASI EKOSISTEM -->
-    <div class="game-box">
-        <h3 style="margin-top:0; color: var(--accent-green); font-size:1.4rem;">🎮 Pojok Main-Main: Simulasi Keseimbangan Ekosistem</h3>
-        <p style="color: #a7f3d0; margin-top:0;">
-            Coba lu bayangkan lu jadi "Tuhan" di sebuah ekosistem hutan. Klik tombol di bawah buat nambah jumlah hewan, dan lihat apa yang terjadi sama status lingkungan hutan lu! Jangan sampai ekosistemnya runtuh, cuy!
-        </p>
-        
-        <div style="text-align: center; margin: 20px 0;">
-            <button class="btn-game" onclick="tambahHewan('rusa')">🦌 Tambah Rusa (Herbivora)</button>
-            <button class="btn-game" onclick="tambahHewan('serigala')">🐺 Tambah Serigala (Karnivora)</button>
-            <button class="btn-game" onclick="resetEkosistem()">🔄 Reset Hutan</button>
+        <!-- SOAL 1: SOAL MENYEIMBANGKAN -->
+        <div class="qa-box">
+            <div class="toggle-btn-zone">
+                <button class="style-btn active" id="btn-f1" onclick="switchQAStyle(1, 'formal')">📑 Versi Buku Paket (Formal)</button>
+                <button class="style-btn" id="btn-g1" onclick="switchQAStyle(1, 'gaul')">😎 Versi Tongkrongan (Gaul)</button>
+            </div>
+            <div class="question-text" id="q1">Bagaimanakah dampak pembukaan lahan secara monokultur terhadap stabilitas rantai makanan di ekosistem asli?</div>
+            <div class="answer-text">
+                <strong>Jawabannya, cuy:</strong><br>
+                Dampaknya langsung bikin rantai makanan lokal auto-kolaps alias hancur berantakan! Pas hutan heterogen diubah jadi satu jenis tanaman doang (misal sawit semua), produsen makanan alami buat hewan herbivora (kayak buah hutan, daun spesifik, umbi) otomatis punah. Karena herbivora gak punya makanan, mereka bakal mati kelaparan atau kabur dari area itu. Efek dominonya, hewan karnivora (predator) di atasnya juga bakal kehilangan mangsa. Ekosistem jadi gak seimbang sama sekali, dan struktur jaring-jaring makanan yang udah terbentuk ribuan tahun langsung rusak dalam hitungan bulan gara-gara keserakahan manusia.
+            </div>
         </div>
 
-        <div class="status-ekosistem">
-            <div>Jumlah Rusa: <span id="count-rusa" style="color:var(--accent-blue);">5</span></div>
-            <div>Jumlah Serigala: <span id="count-serigala" style="color:var(--accent-orange);">2</span></div>
-            <div>Kondisi Rumput/Hutan: <span id="status-rumput" style="color:var(--accent-green);">Subur & Seimbang</span></div>
-            <div id="analisis-game" style="margin-top: 15px; font-weight: bold; color: #facc15;">Analisis: Ekosistem stabil, rantai makanan berjalan mulus!</div>
+        <!-- SOAL 2: INDEKS UTAMA JAWABAN LU -->
+        <div class="qa-box" style="border-left-color: var(--accent-red);">
+            <div class="toggle-btn-zone">
+                <button class="style-btn active" id="btn-f2" onclick="switchQAStyle(2, 'formal')">📑 Versi Buku Paket (Formal)</button>
+                <button class="style-btn" id="btn-g2" onclick="switchQAStyle(2, 'gaul')">😎 Versi Tongkrongan (Gaul)</button>
+            </div>
+            <div class="question-text" id="q2">Analisislah konsekuensi ekologis jangka panjang apabila hutan dialihfungsikan menjadi komoditas ekonomi tanpa adanya tindakan rekonstruksi ekosistem.</div>
+            <div class="answer-text">
+                <strong>Jawaban Jujur & Akurat (No Kaku-Kaku):</strong><br>
+                Nah ini dia nih inti masalahnya! Kalau hutan dikuras habis diubah jadi duit (cuan instan dari kayu atau komoditas) tapi <strong>KAGAK DIREKONSTRUKSI ATAU DIPERBAIKI SAMA SEKALI</strong>, itu namanya kita lagi bunuh diri massal secara perlahan, anjir!<br><br>
+                Secara ilmiah jangka panjang, konsekuensinya ada 4 skenario apes yang bakal terjadi:<br>
+                1. <strong>Oksigen Seret, Karbon Meledak:</strong> Hutan itu paru-paru bumi yang menyedot gas beracun Karbon Dioksida ($CO_2$). Kalau pohonnya ilang dan gak ditanam ulang, gas karbon bakal numpuk di atmosfer, memicu Efek Rumah Kaca yang bikin suhu bumi makin panas ekstrem (Global Warming).<br>
+                2. <strong>Siklus Hidrologi Rusak Total:</strong> Gak ada lagi akar yang nahan air bawah tanah. Akibatnya daerah hilir bakal kena banjir bandang langganan tiap musim hujan karena air langsung meluncur bebas tanpa filter pohon, sementara pas kemarau langsung gersang tandus gak ada mata air tersisa.<br>
+                3. <strong>Kepunahan Massal Fauna:</strong> Hewan-hewan endemik asli Indonesia (kayak Harimau Sumatra, Gajah, Badak) bakal punah selamanya dari muka bumi karena mereka gak punya tempat rekonstruksi buat berkembang biak.<br>
+                4. <strong>Rugi Bandar Secara Ekonomi:</strong> Duit yang didapet dari hasil nebang hutan itu gak bakal cukup buat bayar kerugian akibat bencana yang dateng setelahnya. Biaya benerin fasilitas kota yang hancur kena banjir, longsor, dan krisis kesehatan akibat polusi udara jauh lebih mahal daripada nilai kayu yang dijual. Jadi kesimpulannya: Dapat cuan pendek, sengsara sampai anak cucu! Gak sebanding, cuy!
+            </div>
         </div>
     </div>
 </div>
 
 <script>
-    let rusa = 5;
-    let serigala = 2;
-
-    function tambahHewan(jenis) {
-        if(jenis === 'rusa') {
-            rusa += 3;
-        } else if(jenis === 'serigala') {
-            serigala += 1;
+    // Bank teks pertanyaan biar bisa diganti dinamis sesuai selera user
+    const qaData = {
+        1: {
+            formal: "Bagaimanakah dampak pembukaan lahan secara monokultur terhadap stabilitas rantai makanan di ekosistem asli?",
+            gaul: "Gimana ceritanya kalau hutan dibabat habis cuma buat ditanamin sawit doang terhadap nasib makanan para hewan di sana? Saling ngaruh gak?"
+        },
+        2: {
+            formal: "Analisislah konsekuensi ekologis jangka panjang apabila hutan dialihfungsikan menjadi komoditas ekonomi tanpa adanya tindakan rekonstruksi ekosistem.",
+            gaul: "Gimana jadinya kalau hutan diubah jadi duit (cuan) terus dibiarin rusak gitu aja tanpa diperbaiki atau direkonstruksi lagi biar tetep ada? Apa efek gilanya jangka panjang?"
         }
-        updateSimulasi();
-    }
+    };
 
-    function resetEkosistem() {
-        rusa = 5;
-        serigala = 2;
-        updateSimulasi();
-    }
+    function switchQAStyle(id, style) {
+        // Ganti teks pertanyaan berdasarkan id dan pilihan style
+        document.getElementById(`q${id}`).innerText = qaData[id][style];
 
-    function updateSimulasi() {
-        document.getElementById('count-rusa').innerText = rusa;
-        document.getElementById('count-serigala').innerText = serigala;
-
-        let statusRumput = document.getElementById('status-rumput');
-        let analisis = document.getElementById('analisis-game');
-
-        // Logika sederhana penentuan kondisi ekosistem
-        if (rusa > (serigala * 4)) {
-            statusRumput.innerText = "Gundul & Rusak Parah! 🍂";
-            statusRumput.style.color = "#ef4444";
-            analisis.innerText = "Peringatan! Rusa terlalu banyak karena kekurangan predator Serigala. Rumput habis dimakan, ekosistem terancam hancur, cuy!";
-        } else if (serigala >= rusa) {
-            statusRumput.innerText = "Liar Semak Belukar 🌿";
-            statusRumput.style.color = "#fbbf24";
-            analisis.innerText = "Waduh gawat! Serigala terlalu dominan dan memangsa habis semua Rusa. Serigala bakal mati kelaparan habis ini. Ngeri!";
-        } else if (rusa === 0 && serigala === 0) {
-            statusRumput.innerText = "Kosong Melompong 💀";
-            statusRumput.style.color = "#94a3b8";
-            analisis.innerText = "Hutan mati total. Gak ada tanda-tanda kehidupan.";
+        // Atur status aktif tombol
+        if(style === 'formal') {
+            document.getElementById(`btn-f${id}`).classList.add('active');
+            document.getElementById(`btn-g${id}`).classList.remove('active');
         } else {
-            statusRumput.innerText = "Subur, Hijau & Seimbang ✨";
-            statusRumput.style.color = "#4ade80";
-            analisis.innerText = "Mantap! Komposisi predator dan mangsa seimbang banget. Siklus rantai makanan aman terkendali!";
+            document.getElementById(`btn-g${id}`).classList.add('active');
+            document.getElementById(`btn-f${id}`).classList.remove('active');
         }
     }
 </script>
