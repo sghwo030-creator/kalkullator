@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IPAS Hub Central - Fisika & Ekonomi</title>
+    <title>IPAS Hub Central - Fokus Ekonomi & Fisika</title>
     <style>
         :root {
             --bg-body: #0b0f19;
@@ -65,7 +65,7 @@
         .btn-nav:hover { 
             background: #334155; 
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(56, 189, 248, 0.3);
+            box-shadow: 0 4px 12px rgba(168, 85, 247, 0.3);
         }
 
         /* TAB MANAGEMENT SYSTEM */
@@ -93,16 +93,16 @@
             transition: all 0.3s ease;
         }
 
-        .tab-trigger.active-blue {
-            background: linear-gradient(135deg, #0284c7, var(--neon-blue));
-            color: #030712;
-            box-shadow: 0 4px 20px rgba(56, 189, 248, 0.4);
-        }
-
         .tab-trigger.active-purple {
             background: linear-gradient(135deg, #7c3aed, var(--neon-purple));
             color: #fff;
             box-shadow: 0 4px 20px rgba(168, 85, 247, 0.4);
+        }
+
+        .tab-trigger.active-blue {
+            background: linear-gradient(135deg, #0284c7, var(--neon-blue));
+            color: #030712;
+            box-shadow: 0 4px 20px rgba(56, 189, 248, 0.4);
         }
 
         .tab-content {
@@ -127,8 +127,8 @@
             text-align: justify;
         }
 
-        .accent-b { color: var(--neon-blue); text-shadow: 0 0 15px rgba(56, 189, 248, 0.2); }
         .accent-p { color: var(--neon-purple); text-shadow: 0 0 15px rgba(168, 85, 247, 0.2); }
+        .accent-b { color: var(--neon-blue); text-shadow: 0 0 15px rgba(56, 189, 248, 0.2); }
 
         .info-card-box {
             background-color: #090d16;
@@ -199,14 +199,18 @@
             border-radius: 16px;
             padding: 25px;
             margin-top: 25px;
-            border-left: 6px solid var(--neon-blue);
+            border-left: 6px solid var(--neon-purple);
+        }
+        .qa-card.physics-card {
+            border-left-color: var(--neon-blue);
         }
         .btn-toggle-group { display: flex; gap: 8px; margin-bottom: 15px; }
         .style-toggler {
             padding: 8px 16px; border-radius: 20px; border: none; cursor: pointer;
             font-weight: 700; font-size: 0.85rem; background: #475569; color: #fff;
         }
-        .style-toggler.active { background: var(--neon-blue); color: #030712; }
+        .style-toggler.active-p { background: var(--neon-purple); color: #fff; }
+        .style-toggler.active-b { background: var(--neon-blue); color: #030712; }
         .qa-answer { background: #070a12; padding: 22px; border-radius: 12px; line-height: 1.9; }
 
         .input-text-premium {
@@ -223,113 +227,129 @@
 <body>
 
 <div class="container">
+    <!-- TOP NAVIGATION -->
     <div class="nav-header">
-        <button class="btn-nav" onclick="window.location.href='index.html'">⬅️ Kembali ke Menu Utama</button>
-        <h1 style="margin:0; font-size:1.6rem; font-weight:900; color:var(--neon-amber);">🌀 IPAS CENTRAL LAB v1.0 🌀</h1>
-        <button class="btn-nav" style="border-color: var(--neon-purple);" onclick="alert('Menu depan belum dibuat, santai dulu cuy!')">Menu Depan ➡️</button>
+        <button class="btn-nav" onclick="window.location.href='index.html'">⬅️ Menu Utama</button>
+        <h1 style="margin:0; font-size:1.6rem; font-weight:900; color:var(--neon-amber);">🌀 IPAS CENTRAL LAB v2.0 🌀</h1>
+        <button class="btn-nav" style="border-color: var(--neon-blue);" onclick="alert('Gas pol rem blong!')">Lanjut Belajar ➡️</button>
     </div>
 
+    <!-- MAIN DUAL TAB SWITCHER -->
     <div class="tab-box">
-        <button class="tab-trigger active-blue" id="t-physics" onclick="switchTab('physics')">⚡ TAB 1: FISIKA UTAMA</button>
-        <button class="tab-trigger" id="t-economy" onclick="switchTab('economy')">💰 TAB 2: EKONOMI & UANG</button>
+        <button class="tab-trigger active-purple" id="t-economy" onclick="switchTab('economy')">💰 TAB 1: EKONOMI & MAKRO</button>
+        <button class="tab-trigger" id="t-physics" onclick="switchTab('physics')">⚡ TAB 2: FISIKA & ENERGI</button>
     </div>
 
-    <div id="content-physics" class="tab-content active">
-        <h2 class="accent-b" style="font-size:2rem; font-weight:850; margin-top:0;">🚀 Energi Kinetik & Dinamika Gerak Benda</h2>
+    <!-- ==================== TAB 1: EKONOMI CONTENT (FOKUS UTAMA) ==================== -->
+    <div id="content-economy" class="tab-content active">
+        <h2 class="accent-p" style="font-size:2rem; font-weight:850; margin-top:0;">💵 Sirkulasi Uang, Inflasi, & Teori Kuantitas</h2>
         <div class="materi-body">
             <p>
-                Dalam dunia fisika mekanika, setiap benda yang bergerak pasti memiliki kekuatan tersembunyi yang siap dihantamkan ke benda lain. Kekuatan ini disebut <strong>Energi Kinetik</strong>. Energi kinetik sangat bergantung pada dua variabel mutlak: **Massa benda (m)** dan **Kecepatan gerak (v)**. 
+                Dalam ekonomi makro, uang bukan cuma sekadar kertas alat tukar, melainkan "darah" yang terus mengalir memutarkan roda peradaban. Jika aliran uang ini macet, ekonomi kolaps (Resesi). Sebaliknya, jika uang mengalir terlalu deras tanpa diimbangi jumlah barang yang cukup, nilainya akan hancur lebur. Fenomena mengerikan ini dinamakan <strong>Inflasi</strong>.
+            </p>
+            
+            <h3 class="accent-p" style="font-size:1.4rem; margin-top:25px;">📉 1. Teori Kuantitas Uang (Irving Fisher)</h3>
+            <p>
+                Bagaimana cara mengukur hubungan antara jumlah uang beredar dengan harga barang di pasar? Ekonom legendaris Irving Fisher merumuskan persamaan absolut yang wajib dipahami:
+                <br>
+                <span style="font-family: 'Consolas', monospace; display:block; text-align:center; background:#0f172a; padding:15px; border-radius:12px; font-size:1.4rem; color: var(--neon-purple); margin: 15px 0;">
+                    M &times; V = P &times; T
+                </span>
+                * <strong>M (Money Supply):</strong> Jumlah uang yang beredar di masyarakat.<br>
+                * <strong>V (Velocity):</strong> Kecepatan perputaran uang (seberapa sering selembar uang berpindah tangan dalam setahun).<br>
+                * <strong>P (Price Level):</strong> Tingkat harga barang/jasa.<br>
+                * <strong>T (Total Transactions):</strong> Jumlah total transaksi barang/jasa di pasar.
             </p>
             <p>
-                Rumus legendaris untuk menghitung energi kinetik adalah:
-                <br>
-                <span style="font-family: 'Consolas', monospace; display:block; text-align:center; background:#0f172a; padding:15px; border-radius:12px; font-size:1.4rem; color: var(--neon-blue); margin: 15px 0;">
-                    Ek = 1/2 * m * v&sup2;
-                </span>
-                Di mana <strong>Ek</strong> adalah Energi Kinetik (Joule), <strong>m</strong> adalah massa benda (kilogram), dan <strong>v</strong> adalah kecepatan benda (meter/detik). Perlu lu catat, karena variabel kecepatan itu **dikuadratkan**, kenaikan sedikit saja pada kecepatan bakal melipatgandakan energi hantamannya secara radikal!
+                Hukumnya sederhana: Jika pemerintah menaikkan jumlah uang beredar (<span class="accent-p">M</span>) secara ugal-ugalan sedangkan produktivitas barang (<span class="accent-p">T</span>) stagnan, maka otomatis harga barang (<span class="accent-p">P</span>) bakal melonjak drastis! Itulah kenapa negara tidak bisa langsung kaya hanya dengan mencetak uang kertas.
             </p>
 
-            <div class="info-card-box" style="border-left: 6px solid var(--neon-blue);">
-                <h4>💡 Hukum Riil Di Jalan Raya: Kenapa Truk Lebih Mematikan?</h4>
+            <div class="info-card-box" style="border-left: 6px solid var(--neon-purple);">
+                <h4>💥 Kasus Nyata: Tragedi Hiperinflasi Zimbabwe & Weimar Jerman</h4>
                 <p>
-                    Lu pernah mikir gak kenapa ditabrak motor kecepatan 40 km/jam cuma bikin lecet, tapi kalau ditabrak Truk Kontainer dengan kecepatan yang sama bisa bikin pindah alam? Jawabannya ada di hukum massa fisika. Massa truk yang beribu-ribu kali lipat motor menghasilkan energi kinetik raksasa yang langsung ditransfer penuh ke badan lu saat tabrakan (Hukum Momentum & Impuls).
+                    Pada tahun 2008, Zimbabwe mencoba mencetak uang dalam jumlah masif untuk membayar utang. Hasilnya? Harga barang naik dua kali lipat setiap 24 jam! Uang kertas kehilangan harganya sampai-sampai masyarakat menggunakannya sebagai tisu toilet karena membeli tisu asli jauh lebih mahal daripada tumpukan uang tersebut.
                 </p>
             </div>
-        </div>
 
-        <div class="simulator-container" style="border-color: var(--neon-blue);">
-            <h3 style="margin-top:0; color: var(--neon-blue); font-size:1.4rem;">🎮 Physics Kinetic Simulator v1.0</h3>
-            <p style="color: #9ca3af; margin-top:-5px; font-size:0.95rem;">Geser slider di bawah untuk melihat bagaimana perubahan massa dan kecepatan mengubah energi secara instan!</p>
-            
-            <div class="sim-grid">
-                <div class="control-group">
-                    <div>
-                        <label>🏋️ Massa Benda: <span id="val-mass" style="color:var(--neon-blue); font-weight:bold;">50</span> kg</label>
-                        <input type="range" id="slide-mass" min="1" max="500" value="50" oninput="hitungKinetik()">
-                    </div>
-                    <div style="margin-top:15px;">
-                        <label>🏃 Kecepatan Benda: <span id="val-velo" style="color:var(--neon-amber); font-weight:bold;">10</span> m/s</label>
-                        <input type="range" id="slide-velo" min="0" max="100" value="10" oninput="hitungKinetik()">
-                    </div>
-                </div>
-                <div class="display-screen">
-                    <div style="font-size: 0.9rem; color:#6b7280; font-weight:bold; letter-spacing:1px;">OUTPUT ENERGI:</div>
-                    <div style="font-size: 2.5rem; font-weight:900; color: var(--neon-green); margin:10px 0;"><span id="res-joule">2500</span> <span style="font-size:1.2rem; color:#fff;">Joule</span></div>
-                    <div style="border-top:1px solid #1f2937; padding-top:10px; font-size:0.95rem; line-height:1.5;">
-                        <span style="color:#9ca3af;">Analisis Dampak:</span> <br>
-                        <span id="res-analisis" style="color: #fff; font-weight:700;">Efek hantaman setara dilempar karung beras penuh. Masih aman!</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="qa-card">
-            <div class="btn-toggle-group">
-                <button class="style-toggler active" id="f-btn-fsk" onclick="toggleFisikaStyle('formal')">📑 Buku Paket</button>
-                <button class="style-toggler" id="g-btn-fsk" onclick="toggleFisikaStyle('gaul')">😎 Tongkrongan</button>
-            </div>
-            <div class="qa-question" id="q-fisika" style="font-size:1.25rem; font-weight:800; margin:10px 0;">Mengapa rem kendaraan dirancang untuk mengubah energi kinetik menjadi energi panas? Jelaskan mekanismenya.</div>
-            <div class="qa-answer" id="a-fisika">
-                <strong>Jawaban Sistematis:</strong><br>
-                Berdasarkan Hukum Kekekalan Energi, energi tidak dapat dimusnahkan melainkan hanya dapat diubah ke bentuk lain. Ketika kendaraan melaju kencang, ia memiliki Energi Kinetik yang besar. Untuk menghentikannya, sistem pengereman memanfaatkan gaya gesek (Friction) antara kampas rem dan piringan cakram. Gesekan masif ini mengubah seluruh energi kinetik kendaraan secara paksa menjadi Energi Panas (Termal), sehingga laju kendaraan melambat hingga berhenti total.
-            </div>
-        </div>
-    </div>
-
-
-    <div id="content-economy" class="tab-content">
-        <h2 class="accent-p" style="font-size:2rem; font-weight:850; margin-top:0;">💰 Teaser Ekonomi Makro: Nilai Waktu dari Uang & Sirkulasi</h2>
-        <div class="materi-body">
+            <h3 class="accent-p" style="font-size:1.4rem; margin-top:25px;">⏳ 2. Time Value of Money & Opportunity Cost</h3>
             <p>
-                Kalau di Fisika kita bicara soal energi yang bergerak, di Ekonomi kita bicara soal **Uang yang bersirkulasi**. Salah satu konsep paling kejam tapi nyata dalam ilmu ekonomi uang adalah *Time Value of Money* (Nilai Waktu dari Uang) dan musuh utamanya yang bernama **Inflasi**.
-            </p>
-            <p>
-                Uang tunai Rp 100.000 yang lu pegang hari ini nilainya gak bakal sama dengan Rp 100.000 di sepuluh tahun yang akan datang. Fisika punya gaya gesek yang memperlambat benda, Ekonomi punya inflasi yang menggerogoti daya beli uang lu secara diam-diam!
+                Uang memiliki dimensi waktu. Menyimpan uang tunai Rp10.000.000 di bawah kasur selama 5 tahun adalah kesalahan finansial fatal akibat <strong>Opportunity Cost</strong> (Biaya Peluang). Lu kehilangan kesempatan mendapatkan bunga/investasi sekaligus membiarkan daya beli uang tersebut digerus oleh inflasi secara diam-diam.
             </p>
         </div>
 
+        <!-- SIMULATOR INTERAKTIF EKONOMI V2 -->
         <div class="simulator-container" style="border-color: var(--neon-purple);">
-            <h3 style="margin-top:0; color: var(--neon-purple); font-size:1.4rem;">📉 Money Inflation Simulator v1.0</h3>
-            <p style="color: #9ca3af; margin-top:-5px; font-size:0.95rem;">Mari tes seberapa cepat uang lu "menyusut" nilainya akibat inflasi tahunan.</p>
+            <h3 style="margin-top:0; color: var(--neon-purple); font-size:1.4rem;">🎮 Money Printing & Inflation Simulator</h3>
+            <p style="color: #9ca3af; margin-top:-5px; font-size:0.95rem;">Simulasikan efek jika Bank Sentral nekat menaikkan cetak uang beredar terhadap tabungan lu!</p>
             
             <div class="sim-grid">
                 <div class="control-group">
                     <div>
-                        <label>💵 Jumlah Uang Cash Saat Ini (Rupiah):</label><br><br>
-                        <input type="number" id="eco-cash" value="1000000" class="input-text-premium" oninput="hitungInflasi()">
+                        <label>💵 Tabungan Riil Lu Saat Ini:</label>
+                        <input type="number" id="eco-cash" value="5000000" class="input-text-premium" oninput="hitungSimulasiEkonomi()">
                     </div>
                     <div style="margin-top:10px;">
-                        <label>⏱️ Durasi Disimpan (Tahun): <span id="val-years" style="color:var(--neon-purple); font-weight:bold;">5</span> Tahun</label>
-                        <input type="range" id="slide-years" min="1" max="30" value="5" oninput="hitungInflasi()">
+                        <label>🖨️ Kenaikan Cetak Uang Negara: <span id="val-print" style="color:var(--neon-red); font-weight:bold;">0</span>%</label>
+                        <input type="range" id="slide-print" min="0" max="100" value="0" oninput="hitungSimulasiEkonomi()">
                     </div>
                 </div>
                 <div class="display-screen" style="border-color: #3b0764;">
-                    <div style="font-size: 0.9rem; color:#6b7280; font-weight:bold; letter-spacing:1px;">DAYA BELI RIIL DI MASA DEPAN:</div>
-                    <div style="font-size: 2rem; font-weight:900; color: var(--neon-red); margin:10px 0;">Rp <span id="res-money">783526</span></div>
+                    <div style="font-size: 0.9rem; color:#6b7280; font-weight:bold; letter-spacing:1px;">DAYA BELI SISA TABUNGAN LU:</div>
+                    <div style="font-size: 2rem; font-weight:900; color: var(--neon-green);" id="box-money-color">Rp <span id="res-money">5.000.000</span></div>
                     <div style="border-top:1px solid #1f2937; padding-top:10px; font-size:0.95rem; line-height:1.5;">
-                        <span style="color:#9ca3af;">Catatan Makro (Asumsi Inflasi 5%/Tahun):</span> <br>
-                        <span style="color: var(--neon-amber); font-weight:700;">Uang lu utuh secara nominal, tapi barang yang bisa lu beli makin sedikit karena harga-harga pasar udah meroket naik!</span>
+                        <span style="color:#9ca3af;">Status Pasar:</span> <br>
+                        <span id="res-ekonomi-analisis" style="color: var(--neon-blue); font-weight:700;">Ekonomi Stabil. Daya beli uang lu utuh 100%.</span>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Q&A HUB EKONOMI -->
+        <div class="qa-card">
+            <div class="btn-toggle-group">
+                <button class="style-toggler active-p" id="e-btn-eco" onclick="toggleEkonomiStyle('formal')">📑 Jurnal Ilmiah</button>
+                <button class="style-toggler" id="g-btn-eco" onclick="toggleEkonomiStyle('gaul')">😎 Obrolan Warkop</button>
+            </div>
+            <div class="qa-question" id="q-ekonomi" style="font-size:1.25rem; font-weight:800; margin:10px 0;">Mengapa Bank Sentral menaikkan suku bunga ketika inflasi mulai tak terkendali?</div>
+            <div class="qa-answer" id="a-ekonomi">
+                <strong>Jawaban Akademik:</strong><br>
+                Ketika tingkat inflasi meningkat, Bank Sentral menerapkan kebijakan moneter kontraktif dengan menaikkan suku bunga acuan. Kebijakan ini bertujuan untuk menstimulus masyarakat agar meningkatkan tabungan dan menekan hasrat konsumsi, sekaligus meningkatkan biaya pinjaman (kredit). Akibatnya, jumlah uang beredar (Money Supply) di masyarakat berkurang, permintaan agregat menurun, dan laju inflasi dapat ditekan kembali ke titik keseimbangan baru.
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ==================== TAB 2: FISIKA CONTENT (COMPACT) ==================== -->
+    <div id="content-physics" class="tab-content">
+        <h2 class="accent-b" style="font-size:2rem; font-weight:850; margin-top:0;">🚀 Mekanika Energi: Kinetik & Potensial</h2>
+        <div class="materi-body">
+            <p>
+                Jika ekonomi mengukur pergerakan nilai abstrak (uang), Fisika mengukur pergerakan materi nyata di alam semesta. Di bab mekanika, kita mengenal dua pilar energi utama:
+            </p>
+            <ul>
+                <li><strong>Energi Kinetik ($Ek = \frac{1}{2}mv^2$):</strong> Energi yang dimiliki benda karena faktor kecepatan geraknya.</li>
+                <li><strong>Energi Potensial ($Ep = m \cdot g \cdot h$):</strong> Energi tersembunyi yang dimiliki benda karena faktor ketinggian kedudukannya dari permukaan bumi ($g = 9.8 \, m/s^2$).</li>
+            </ul>
+        </div>
+
+        <!-- SIMULATOR INTERAKTIF FISIKA -->
+        <div class="simulator-container" style="border-color: var(--neon-blue);">
+            <h3 style="margin-top:0; color: var(--neon-blue); font-size:1.4rem;">🎮 Physics Energy Calculator</h3>
+            <div class="sim-grid">
+                <div class="control-group">
+                    <div>
+                        <label>🏋️ Massa Objek: <span id="val-mass" style="color:var(--neon-blue); font-weight:bold;">50</span> kg</label>
+                        <input type="range" id="slide-mass" min="1" max="200" value="50" oninput="hitungFisika()">
+                    </div>
+                    <div style="margin-top:10px;">
+                        <label>🏃 Kecepatan Gerak: <span id="val-velo" style="color:var(--neon-amber); font-weight:bold;">10</span> m/s</label>
+                        <input type="range" id="slide-velo" min="0" max="60" value="10" oninput="hitungFisika()">
+                    </div>
+                </div>
+                <div class="display-screen">
+                    <div style="font-size: 0.9rem; color:#6b7280; font-weight:bold; letter-spacing:1px;">HASIL ENERGI KINETIK:</div>
+                    <div style="font-size: 2.2rem; font-weight:900; color: var(--neon-blue); margin:5px 0;"><span id="res-joule">2500</span> Joule</div>
+                    <p style="font-size:0.9rem; margin:5px 0 0 0; color:var(--txt-muted);" id="res-physics-desc">Efek benturan skala menengah.</p>
                 </div>
             </div>
         </div>
@@ -340,89 +360,101 @@
 <script>
     // TAB NAVIGATION SCRIPT
     function switchTab(target) {
-        // Reset classes
         document.getElementById('t-physics').classList.remove('active-blue');
         document.getElementById('t-economy').classList.remove('active-purple');
         document.getElementById('content-physics').classList.remove('active');
         document.getElementById('content-economy').classList.remove('active');
 
-        // Activate targets
         if(target === 'physics') {
             document.getElementById('t-physics').classList.add('active-blue');
             document.getElementById('content-physics').classList.add('active');
+            hitungFisika();
         } else {
             document.getElementById('t-economy').classList.add('active-purple');
             document.getElementById('content-economy').classList.add('active');
-            hitungInflasi(); // trigger calculation on show
+            hitungSimulasiEkonomi();
         }
     }
 
-    // CORE LOGIK: PHYSICS KINETIC SIMULATOR
-    function hitungKinetik() {
+    // LOGIK UTAMA: EKONOMI SIMULATOR V2
+    function hitungSimulasiEkonomi() {
+        let cash = parseFloat(document.getElementById('eco-cash').value) || 0;
+        let printPercent = parseFloat(document.getElementById('slide-print').value);
+        
+        document.getElementById('val-print').innerText = printPercent;
+
+        // Formula sederhana dampak cetak uang langsung memicu inflasi proporsional
+        // Daya beli akhir = Cash / (1 + (printPercent / 100))
+        let dayaBeliAkhir = cash / (1 + (printPercent / 100));
+        
+        document.getElementById('res-money').innerText = Math.floor(dayaBeliAkhir).toLocaleString('id-ID');
+
+        let analisis = document.getElementById('res-ekonomi-analisis');
+        let colorBox = document.getElementById('box-money-color');
+
+        if (printPercent === 0) {
+            analisis.innerText = "Ekonomi Stabil. Daya beli uang lu utuh 100%.";
+            analisis.style.color = "var(--neon-blue)";
+            colorBox.style.color = "var(--neon-green)";
+        } else if (printPercent > 0 && printPercent <= 25) {
+            analisis.innerText = "Inflasi Ringan. Harga bensin dan sembako mulai merangkak naik pelan-pelan.";
+            analisis.style.color = "var(--neon-amber)";
+            colorBox.style.color = "#a3e635";
+        } else if (printPercent > 25 && printPercent <= 70) {
+            analisis.innerText = "Daya Beli Merosot! Uang lu berasa gak ada harganya pas dibawa ke supermarket.";
+            analisis.style.color = "var(--neon-red)";
+            colorBox.style.color = "var(--neon-amber)";
+        } else {
+            analisis.innerText = "HIPERINFLASI Kritis! Pemerintah cetak uang gak ngotak, duit lu nilainya amblas jadi ampas kertas!";
+            analisis.style.color = "var(--neon-red)";
+            colorBox.style.color = "var(--neon-red)";
+        }
+    }
+
+    // DATABASE MULTI-STYLE Q&A EKONOMI
+    const dbEkonomi = {
+        formal: {
+            q: "Mengapa Bank Sentral menaikkan suku bunga ketika inflasi mulai tak terkendali?",
+            a: "<strong>Jawaban Akademik:</strong><br>Ketika tingkat inflasi meningkat, Bank Sentral menerapkan kebijakan moneter kontraktif dengan menaikkan suku bunga acuan. Kebijakan ini bertujuan untuk menstimulus masyarakat agar meningkatkan tabungan dan menekan hasrat konsumsi, sekaligus meningkatkan biaya pinjaman (kredit). Akibatnya, jumlah uang beredar (Money Supply) di masyarakat berkurang, permintaan agregat menurun, dan laju inflasi dapat ditekan kembali ke titik keseimbangan baru."
+        },
+        gaul: {
+            q: "Kenapa sih kalau harga barang pada naik, BI malah naikin suku bunga bank? Makin nyusahin gak sih?",
+            a: "<strong>Jawaban Obrolan Warkop:</strong><br>Bukan nyusahin cuy, justru itu rem darurat! Logikanya gini, pas inflasi kan duit yang beredar di pasar banyak banget, makanya harga barang naik gila-gilaan karena semua orang rebutan belanja. Nah, biar lu pada ngerem jajan, Bank Sentral naikin bunga bank. Efeknya? Lu bakal mikir 'Mending duitnya gua tabung di bank biar dapet bunga gede' daripada dipake foya-foya. Alhasil, duit yang beredar di pasar berkurang, toko-toko sepi, dan terpaksa nurunin harga barang lagi deh!"
+        }
+    };
+
+    function toggleEkonomiStyle(style) {
+        document.getElementById('q-ekonomi').innerHTML = dbEkonomi[style].q;
+        document.getElementById('a-ekonomi').innerHTML = dbEkonomi[style].a;
+        
+        if (style === 'formal') {
+            document.getElementById('e-btn-eco').classList.add('active-p');
+            document.getElementById('g-btn-eco').classList.remove('active-p');
+        } else {
+            document.getElementById('g-btn-eco').classList.add('active-p');
+            document.getElementById('e-btn-eco').classList.remove('active-p');
+        }
+    }
+
+    // LOGIK UTAMA: FISIKA CALCULATOR
+    function hitungFisika() {
         let m = parseFloat(document.getElementById('slide-mass').value);
         let v = parseFloat(document.getElementById('slide-velo').value);
         
         document.getElementById('val-mass').innerText = m;
         document.getElementById('val-velo').innerText = v;
 
-        // Rumus Ek = 0.5 * m * v^2
         let ek = 0.5 * m * (v * v);
         document.getElementById('res-joule').innerText = ek.toFixed(0);
 
-        let analisis = document.getElementById('res-analisis');
-        if (ek === 0) {
-            analisis.innerText = "Benda diam total. Kagak ada energi kinetiknya sama sekali, aman tentram!";
-            analisis.style.color = "#9ca3af";
-        } else if (ek < 1000) {
-            analisis.innerText = "Efek hantaman ringan. Setara kena sentilan atau kejatuhan bantal tidur.";
-            analisis.style.color = "#10b981";
-        } else if (ek >= 1000 && ek < 20000) {
-            analisis.innerText = "Dampak lumayan! Setara ketabrak motor matic pelan. Siap-siap lebam badan lu.";
-            analisis.style.color = "#f59e0b";
-        } else {
-            analisis.innerText = "CRITICAL DAMAGE! Daya hantam setara ditubruk badak sirkus kecepatan penuh. Langsung otw rumah sakit, cuy!";
-            analisis.style.color = "#ef4444";
-        }
+        let desc = document.getElementById('res-physics-desc');
+        if (ek < 500) desc.innerText = "Dampak sepele, aman terkendali.";
+        else if (ek < 5000) desc.innerText = "Lumayan kerasa, setara hantaman sepeda laju.";
+        else desc.innerText = "Bahaya! Energi benturan destruktif.";
     }
 
-    // DUAL STYLE Q&A LOGIC FOR PHYSICS
-    const dbFisika = {
-        formal: {
-            q: "Mengapa rem kendaraan dirancang untuk mengubah energi kinetik menjadi energi panas? Jelaskan mekanismenya.",
-            a: "<strong>Jawaban Sistematis:</strong><br>Berdasarkan Hukum Kekekalan Energi, energi tidak dapat dimusnahkan melainkan hanya dapat diubah ke bentuk lain. Ketika kendaraan melaju kencang, ia memiliki Energi Kinetik yang besar. Untuk menghentikannya, sistem pengereman memanfaatkan gaya gesek (Friction) antara kampas rem dan piringan cakram. Gesekan masif ini mengubah seluruh energi kinetik kendaraan secara paksa menjadi Energi Panas (Termal), sehingga laju kendaraan melambat hingga berhenti total."
-        },
-        gaul: {
-            q: "Kenapa sih kalau ngerem kendaraan motor atau mobil, piringan cakramnya langsung panas bgt? Gak bisa apa diubah jadi es batu?",
-            a: "<strong>Jawaban Tongkrongan:</strong><br>Ya kagak bisa lah, anjir! Lu harus inget hukum alam kalau energi itu gak bisa dibakar sampai hilang, tapi cuma bisa ganti wujud. Pas motor lu lagi ngebut, itu lagi full energi kinetik (energi gerak). Nah, pas lu pencet tuas rem, kampas rem bakal ngejepit cakram roda lu setengah mati. Gesekan brutal itu yang maksa energi gerak lu berubah wujud jadi energi panas. Makanya jangan iseng lu pegang cakram abis ngerem mendadak, bisa melepuh tangan lu, cuy!"
-        }
-    };
-
-    function toggleFisikaStyle(style) {
-        document.getElementById('q-fisika').innerHTML = dbFisika[style].q;
-        document.getElementById('a-fisika').innerHTML = dbFisika[style].a;
-        
-        if (style === 'formal') {
-            document.getElementById('f-btn-fsk').classList.add('active');
-            document.getElementById('g-btn-fsk').classList.remove('active');
-        } else {
-            document.getElementById('g-btn-fsk').classList.add('active');
-            document.getElementById('f-btn-fsk').classList.remove('active');
-        }
-    }
-
-    // CORE LOGIK: ECONOMY INFLATION SIMULATOR
-    function hitungInflasi() {
-        let cash = parseFloat(document.getElementById('eco-cash').value) || 0;
-        let years = parseInt(document.getElementById('slide-years').value);
-        
-        document.getElementById('val-years').innerText = years;
-
-        // Asumsi inflasi stabil 5% per tahun -> Rumus: Cash / (1 + 0.05)^years
-        let futureValue = cash / Math.pow(1.05, years);
-        
-        // Format Rupiah rapi
-        document.getElementById('res-money').innerText = Math.floor(futureValue).toLocaleString('id-ID');
-    }
+    // Run first calculation configuration
+    hitungSimulasiEkonomi();
 </script>
 </body>
 </html>
