@@ -377,11 +377,22 @@
 
     // BOOT UP AWAL
     initWords();
-</script><!-- Tombol Shortcut di bawah file -->
+</script>// TAMBAHKAN KODE INI KE DALAM TAG <script> DI hampirselesai.html
+const inputField = document.getElementById('typing-input-field');
+
+inputField.addEventListener('keydown', function(event) {
+    // Cek kalau user tekan ENTER
+    if (event.key === 'Enter') {
+        // Cek apakah isi input adalah 'secret.html'
+        if (inputField.value.trim().toLowerCase() === 'secret.html') {
+            window.location.href = 'secret.html';
+        }
+    }
+});
+</body><!-- Tombol Shortcut di bawah file -->
 <div style="text-align: center; margin-top: 30px; padding: 20px;">
     <button onclick="window.location.href='hampirselesai.html'" style="background:transparent; border:1px solid #00ff66; color:#00ff66; padding:10px 20px; cursor:pointer; font-family:monospace; font-weight:bold;">
         [>>] NEXT: PROCEED TO KEYBOARD_WARRIOR_STAGE [>>]
     </button>
 </div>
-</body>
 </html>
