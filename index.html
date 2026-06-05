@@ -142,7 +142,7 @@
             border-color: var(--accent);
         }
 
-        /* DISPLAY SCREEN */
+        /* DISPLAY SCREEN - PERBAIKAN WRAPPING */
         .screen {
             background-color: var(--screen-bg);
             padding: 25px;
@@ -171,14 +171,16 @@
             color: var(--txt-muted);
             min-height: 24px;
             font-family: monospace;
+            white-space: normal;
+            word-break: break-all;
         }
 
         .screen .result {
             font-size: 2.6rem;
             font-weight: 700;
-            overflow-x: auto;
-            white-space: nowrap;
             margin-top: 5px;
+            white-space: normal; /* Membuat teks bisa turun ke bawah */
+            word-break: break-all; /* Memotong teks tepat di batas digit terakhir */
         }
 
         /* GRID BUTTONS */
@@ -247,6 +249,8 @@
             color: var(--accent);
             margin-top: 10px;
             text-align: center;
+            white-space: normal;
+            word-break: break-all;
         }
 
         /* RIWAYAT PANEL */
@@ -285,6 +289,8 @@
             cursor: pointer;
             text-align: right;
             border-radius: 8px;
+            white-space: normal;
+            word-break: break-all;
         }
         .history-item:hover { background-color: var(--screen-bg); }
 
@@ -306,7 +312,6 @@
 <body>
 
 <div class="container">
-    <!-- PANEL UTAMA -->
     <div class="main-panel">
         <div class="tabs">
             <button class="tab-btn active" onclick="switchTab('calc-tab')">🧮 Kalkulator</button>
@@ -315,7 +320,6 @@
             <button class="tab-btn" onclick="switchTab('game-tab')">🎮 Game Hitung</button>
         </div>
 
-        <!-- TAB 1: KALKULATOR -->
         <div id="calc-tab" class="tab-content active">
             <div class="header">
                 <h3>Standard & Science</h3>
@@ -373,7 +377,6 @@
             </div>
         </div>
 
-        <!-- TAB 2: KONVERTER SATUAN -->
         <div id="conv-tab" class="tab-content">
             <div class="header"><h3>Konverter Satuan</h3></div>
             <div class="form-box">
@@ -397,11 +400,9 @@
             </div>
         </div>
 
-        <!-- TAB 3: FINANSIAL (NEW!) -->
         <div id="finance-tab" class="tab-content">
             <div class="header"><h3>Kalkulator Finansial</h3></div>
             <div class="split-row" style="grid-template-columns: 1fr; gap: 20px;">
-                <!-- Hitung Diskon -->
                 <div class="form-box">
                     <h4 style="margin:0 0 10px 0;">🏷️ Hitung Diskon Belanja</h4>
                     <div class="split-row">
@@ -410,7 +411,6 @@
                     </div>
                     <div class="big-result" id="discount-result" style="font-size:1.3rem;">Harga Akhir: Rp 90.000</div>
                 </div>
-                <!-- Hitung Bunga -->
                 <div class="form-box">
                     <h4 style="margin:0 0 10px 0;">🏦 Hitung Bunga Simpanan/Pinjaman</h4>
                     <div class="split-row">
@@ -423,7 +423,6 @@
             </div>
         </div>
 
-        <!-- TAB 4: MINI GAME MATH (NEW!) -->
         <div id="game-tab" class="tab-content">
             <div class="header"><h3>Game Asah Otak Matematika</h3></div>
             <div class="form-box game-container">
@@ -437,7 +436,6 @@
         </div>
     </div>
 
-    <!-- PANEL RIWAYAT -->
     <div class="history-panel">
         <div class="history-header">
             <h4>Daftar Riwayat</h4>
@@ -456,12 +454,10 @@
     let calculatorMemory = 0;
     let isVoiceEnabled = false;
 
-    // State Game Matematika
     let gameAnswer = 0;
     let gameScore = 0;
     let gameStreak = 0;
 
-    // Fungsi matematika kustom
     const log = (x) => Math.log10(x);
     const ln = (x) => Math.log(x);
     const sin = (x) => Math.sin(x * Math.PI / 180);
@@ -476,7 +472,34 @@
         return result;
     };
 
-    // LOCAL STORAGE DAN LOAD INITIAL STATE
+    // PERBAIKAN UTAMA: Mengurai format e (eksponensial) menjadi deretan digit utuh
+    function formatExactNumber(num) {
+        let numStr = String(num);
+        if (!numStr.includes('e')) return numStr;
+        
+        let isNegative = numStr.startsWith('-');
+        if (isNegative) numStr = numStr.slice(1);
+
+        let [base, exp] = numStr.split('e');
+        exp = parseInt(exp);
+        let [integer, decimal] = base.split('.');
+        decimal = decimal || '';
+        
+        let resultStr = '';
+        if (exp > 0) {
+            if (exp >= decimal.length) {
+                resultStr = integer + decimal + '0'.repeat(exp - decimal.length);
+            } else {
+                resultStr = integer + decimal.slice(0, exp) + '.' + decimal.slice(exp);
+            }
+        } else {
+            let absExp = Math.abs(exp);
+            resultStr = '0.' + '0'.repeat(absExp - 1) + integer + decimal;
+        }
+        
+        return isNegative ? '-' + resultStr : resultStr;
+    }
+
     window.onload = function() {
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme === 'dark') document.body.setAttribute('data-theme', 'dark');
@@ -491,7 +514,6 @@
         generateGameQuestion();
     };
 
-    // NAVIGASI TAB
     function switchTab(tabId) {
         document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
         document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
@@ -541,11 +563,16 @@
             
             if (result !== undefined) {
                 if(result % 1 !== 0) result = parseFloat(result.toFixed(8));
+                
+                let exactResultStr = formatExactNumber(result);
+
                 document.getElementById('display-history').innerText = expression;
-                document.getElementById('display-result').innerText = result;
-                addHistory(expression, result);
-                currentInput = result.toString();
-                if (isVoiceEnabled) speakAI(`Jumlahnya adalah ${result}`);
+                document.getElementById('display-result').innerText = exactResultStr;
+                
+                addHistory(expression, exactResultStr);
+                currentInput = exactResultStr;
+                
+                if (isVoiceEnabled) speakAI(`Jumlahnya adalah ${exactResultStr}`);
             }
         } catch (error) {
             document.getElementById('display-result').innerText = 'Error';
@@ -554,7 +581,6 @@
         }
     }
 
-    // MEMORI (MC, MR, M+)
     function handleMemory(action) {
         let currentVal = parseFloat(document.getElementById('display-result').innerText) || 0;
         if (action === 'M+') {
@@ -562,7 +588,7 @@
             document.getElementById('mem-indicator').style.display = 'block';
             if (isVoiceEnabled) speakAI("Disimpan");
         } else if (action === 'MR') {
-            currentInput = calculatorMemory.toString();
+            currentInput = formatExactNumber(calculatorMemory);
             updateScreen();
         } else if (action === 'MC') {
             calculatorMemory = 0;
@@ -571,7 +597,6 @@
         }
     }
 
-    // PERSISTENSI RIWAYAT HITUNGAN
     function addHistory(expr, res) {
         memoryHistory.unshift({ expr, res });
         localStorage.setItem('calc-history', JSON.stringify(memoryHistory));
@@ -615,7 +640,6 @@
         a.click();
     }
 
-    // DATA DAN LOGIK KONVERTER
     const unitsData = {
         panjang: { km: 1000, m: 1, cm: 0.01, mm: 0.001, mil: 1609.34, inci: 0.0254 },
         berat: { kg: 1, g: 0.001, mg: 0.000001, pon: 0.453592, ons: 0.0283495 },
@@ -656,17 +680,17 @@
             result = baseValue / unitsData[cat][toUnit];
         }
         result = parseFloat(result.toFixed(6));
-        document.getElementById('conv-result').innerText = `${result} ${toUnit}`;
-        if (isVoiceEnabled && inputVal !== 0) speakAI(`Hasilnya ${result} ${toUnit}`);
+        let exactResultStr = formatExactNumber(result);
+        document.getElementById('conv-result').innerText = `${exactResultStr} ${toUnit}`;
+        if (isVoiceEnabled && inputVal !== 0) speakAI(`Hasilnya ${exactResultStr} ${toUnit}`);
     }
 
-    // LOGIK FINANSIAL
     function calcDiscount() {
         let price = parseFloat(document.getElementById('fin-price').value) || 0;
         let disc = parseFloat(document.getElementById('fin-disc').value) || 0;
         let savings = price * (disc / 100);
         let finalPrice = price - savings;
-        document.getElementById('discount-result').innerText = `Harga Akhir: Rp ${finalPrice.toLocaleString('id-ID')} (Hemat Rp ${savings.toLocaleString('id-ID')})`;
+        document.getElementById('discount-result').innerText = `Harga Akhir: Rp ${formatExactNumber(finalPrice.toLocaleString('id-ID'))} (Hemat Rp ${formatExactNumber(savings.toLocaleString('id-ID'))})`;
     }
 
     function calcInterest() {
@@ -675,17 +699,14 @@
         let months = parseFloat(document.getElementById('fin-months').value) || 0;
         let interest = capital * (rate / 100) * (months / 12);
         let total = capital + interest;
-        document.getElementById('interest-result').innerText = `Total Akhir: Rp ${total.toLocaleString('id-ID')} (Bunga: Rp ${interest.toLocaleString('id-ID')})`;
+        document.getElementById('interest-result').innerText = `Total Akhir: Rp ${formatExactNumber(total.toLocaleString('id-ID'))} (Bunga: Rp ${formatExactNumber(interest.toLocaleString('id-ID'))})`;
     }
 
-    // LOGIK MINI GAME HITUNG
     function generateGameQuestion() {
         const operators = ['+', '-', '*'];
         let num1 = Math.floor(Math.random() * 20) + 1;
         let num2 = Math.floor(Math.random() * 20) + 1;
         let op = operators[Math.floor(Math.random() * operators.length)];
-        
-        // Atur visual tanda kali agar ramah anak-anak
         let opDisplay = op === '*' ? '×' : op;
         
         document.getElementById('game-q').innerText = `${num1} ${opDisplay} ${num2} = ?`;
@@ -711,7 +732,6 @@
         generateGameQuestion();
     }
 
-    // ASISTEN SUARA AI
     function toggleVoice() {
         isVoiceEnabled = !isVoiceEnabled;
         const btn = document.getElementById('ai-voice-btn');
@@ -736,7 +756,6 @@
         }
     }
 
-    // PREFERENSI TEMA (PERSISTEN)
     function toggleTheme() {
         const body = document.body;
         if (body.getAttribute('data-theme') === 'dark') {
@@ -748,7 +767,6 @@
         }
     }
 
-    // KEYBOARD SHORTCUT & CLIPBOARD
     function handlePastedText(text) {
         let cleanText = text.replace(/×/g, '*').replace(/÷/g, '/').replace(/,/g, '.');
         if (currentInput === '0') currentInput = cleanText;
@@ -772,7 +790,6 @@
     });
 
     window.addEventListener('keydown', (e) => {
-        // Jangan jalankan shortcut kalkulator jika sedang mengetik di input form tab lain
         if(['conv-input', 'fin-price', 'fin-disc', 'fin-capital', 'fin-rate', 'fin-months', 'game-ans'].includes(document.activeElement.id)) return;
         
         const allowedKeys = '0123456789+-*/.()%';
